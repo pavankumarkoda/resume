@@ -1,0 +1,337 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pavan Kumar Koda - Resume</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js" integrity="sha512-GsLlZN/3F2ErC5ifS5QtgpiJtWd43JWSuIgh7mbzZ8zBps+dvLusV+eNQATqgA/HdeKFVgA5v3S/cIrLF7QnIg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <style>
+        :root {
+            --primary-color: #297fb8;
+            --primary-text: #2c3e50;
+            --secondary-text: #555;
+            --focus-bg-color: #e6f3ff;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f7f6;
+            color: var(--primary-text);
+            margin: 0;
+            padding: 0;
+            font-size: 9.5pt;
+            line-height: 1.25;
+        }
+        .container {
+            max-width: 8.5in;
+            margin: 20px auto;
+            background-color: #ffffff;
+            padding: 0.3in 0.4in;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            min-height: 11in;
+        }
+        #resume-content {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        main {
+            flex-grow: 1; /* Pushes footer down */
+        }
+        .download-container { text-align: right; margin-bottom: 10px; }
+        #download-btn {
+            background-color: var(--primary-color); color: white; border: none; padding: 8px 16px;
+            font-size: 1em; font-weight: 600; border-radius: 5px; cursor: pointer;
+        }
+        [contenteditable="true"]:focus {
+            background-color: var(--focus-bg-color);
+            outline: 1px solid var(--primary-color);
+        }
+        .is-printing [contenteditable="true"] { all: unset !important; }
+        @media print { .no-print { display: none; } }
+
+        header { text-align: center; margin-bottom: 8px; }
+        header h1 {
+            font-size: 2.4em; color: var(--primary-color); margin: 0; font-weight: bold;
+            letter-spacing: 2px; text-transform: uppercase;
+        }
+        .contact-info { margin-top: 4px; display: flex; flex-wrap: wrap; justify-content: center; gap: 4px 8px; }
+        .contact-info a { color: var(--primary-color); text-decoration: none; }
+
+        /* --- REDUCED VERTICAL SPACING --- */
+        section { margin-bottom: 5px; }
+        h2 {
+            font-size: 1.1em; color: var(--primary-color); text-transform: uppercase;
+            border-bottom: 2px solid var(--primary-color);
+            padding-bottom: 2px; margin-bottom: 4px;
+            letter-spacing: 1.5px; font-weight: bold;
+        }
+        .entry { margin-bottom: 5px; }
+        .entry h4 { margin: 1px 0 2px 0; font-weight: normal; color: var(--secondary-text); font-size: 1em; }
+
+        .job-header {
+            width: 100%;
+            table-layout: fixed;
+            border-collapse: collapse;
+        }
+        .job-header td { padding: 0; vertical-align: top; overflow: hidden; }
+        .job-header .job-title { text-align: left; font-size: 1em; font-weight: bold; }
+        .job-header .job-date {
+            text-align: right;
+            white-space: nowrap;
+            color: var(--secondary-text);
+            font-size: 0.95em;
+            padding-left: 15px;
+            font-weight: bold; /* BOLD DATES */
+        }
+        .right-buffer { width: 0.2in; }
+        .section-wrapper { width: 100%; table-layout: fixed; }
+
+        ul {
+            list-style-type: none;
+            padding-left: 0;
+            margin: 3px 0 0 0;
+        }
+        li {
+            padding-left: 1.4em;
+            position: relative;
+            margin-bottom: 2px;
+        }
+        li::before {
+            content: '•';
+            position: absolute;
+            left: 0.5em;
+            top: 0;
+            font-weight: bold;
+            color: var(--primary-text);
+        }
+        
+        .two-column-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1px 20px;
+        }
+        .grid-item { display: flex; padding: 1px 0; }
+        .grid-item strong { flex-basis: 110px; flex-shrink: 0; font-weight: bold; }
+        .grid-item span { flex-grow: 1; }
+        
+        /* --- REDUCED PROJECT SPACING --- */
+        .project { margin-bottom: 4px; }
+        .project-header { width: 100%; table-layout: fixed; }
+        .project-header .project-title h3 {
+            font-size: 1em;
+            font-weight: bold;
+            margin: 0 0 2px 0; /* No top margin, small bottom margin */
+        }
+
+        footer { margin-top: auto; padding-top: 10px; }
+        .footer-table { width: 100%; table-layout: fixed; }
+        .footer-table .footer-name {
+            text-align: right;
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="container">
+    
+        <div class="download-container no-print">
+            <button id="download-btn">Download as PDF</button>
+        </div>
+
+        <div id="resume-content">
+            <header>
+                <h1 contenteditable="true">PAVAN KUMAR KODA</h1>
+                <div class="contact-info">
+                    <span contenteditable="true">Hyderabad, India.</span> |
+                    <span contenteditable="true">9704147418</span> |
+                    <span contenteditable="true">Pavankumarkoda007@gmail.com</span> |
+                    <a href="#">Webpage</a> |
+                    <a href="https://www.linkedin.com/in/pavan-kumar-koda/">LinkedIn</a> |
+                    <a href="https://github.com/PavanKumarKoda">GitHub</a>
+                </div>
+            </header>
+
+            <main>
+                <section id="work-experience">
+                    <h2>WORK EXPERIENCE</h2>
+                    <div class="entry">
+                        <table class="job-header">
+                            <tr>
+                                <td class="job-title" contenteditable="true">Associate Software Developer</td>
+                                <td class="job-date" contenteditable="true">July 2024 – Present</td>
+                                <td class="right-buffer"></td>
+                            </tr>
+                        </table>
+                        <h4 contenteditable="true">Adroitec Engineering Solutions Pvt. Ltd. – Hyderabad</h4>
+                        <ul>
+                            <li contenteditable="true">Developed a WPF desktop application integrating Creo using VB.NET and SQL.</li>
+                            <li contenteditable="true">Applied MVVM architecture to improve code maintainability.</li>
+                            <li contenteditable="true">Deployed a pre-trained AI model for offline execution, enabling on-device analysis without an internet connection.</li>
+                        </ul>
+                    </div>
+                    <div class="entry">
+                        <table class="job-header">
+                            <tr>
+                                <td class="job-title" contenteditable="true">Web Developer</td>
+                                <td class="job-date" contenteditable="true">September 2023 – June 2024</td>
+                                <td class="right-buffer"></td>
+                            </tr>
+                        </table>
+                        <h4 contenteditable="true">Webzyte. – Hyderabad</h4>
+                        <ul>
+                            <li contenteditable="true">Developed responsive web applications using PHP, MySQL, HTML, and CSS.</li>
+                            <li contenteditable="true">Integrated secure authentication via Google OAuth and Microsoft OAuth.</li>
+                            <li contenteditable="true">Enhanced backend performance and ensured user-friendly interfaces.</li>
+                        </ul>
+                    </div>
+                    <div class="entry">
+                        <table class="job-header">
+                            <tr>
+                                <td class="job-title" contenteditable="true">Freelancer – Remote</td>
+                                <td class="job-date" contenteditable="true">June 2024 – July 2024</td>
+                                <td class="right-buffer"></td>
+                            </tr>
+                        </table>
+                        <ul>
+                            <li contenteditable="true">Developed an automated Gmail email retrieval system using the Gmail API.</li>
+                            <li contenteditable="true">Stored emails in an OpenAI vector store for advanced search and processing.</li>
+                            <li contenteditable="true">Utilized AWS Lambda, S3, and cron jobs to ensure secure and automated data handling.</li>
+                        </ul>
+                    </div>
+                </section>
+                
+                <section id="technical-skills">
+                    <h2>TECHNICAL SKILLS</h2>
+                    <table class="section-wrapper">
+                        <tr>
+                            <td>
+                                <div class="two-column-grid">
+                                    <div class="grid-item"><strong>Languages:</strong> <span contenteditable="true">Java, JavaScript, PHP, .NET, Python</span></div>
+                                    <div class="grid-item"><strong>Web Technologies:</strong> <span contenteditable="true">HTML, CSS, API Integration</span></div>
+                                    <div class="grid-item"><strong>Frameworks:</strong> <span contenteditable="true">ReactJS, Spring Boot, Bootstrap, .NET Framework</span></div>
+                                    <div class="grid-item"><strong>Databases:</strong> <span contenteditable="true">MySQL, Oracle SQL, SQL Server Management Studio</span></div>
+                                    <div class="grid-item"><strong>Cloud & DevOps:</strong> <span contenteditable="true">AWS, Cron Jobs, Maven</span></div>
+                                    <div class="grid-item"><strong>UI/UX & Others:</strong> <span contenteditable="true">Figma, OAuth (Google & Microsoft)</span></div>
+                                    <div class="grid-item" style="grid-column: 1 / -1;"><strong>Tools & IDEs:</strong> <span contenteditable="true">VS Code, IntelliJ IDEA, Eclipse, Apache Tomcat, Visual Studio, XAMPP, Git, cPanel</span></div>
+                                </div>
+                            </td>
+                            <td class="right-buffer"></td>
+                        </tr>
+                    </table>
+                </section>
+
+                <section id="certifications">
+                    <h2>CERTIFICATIONS</h2>
+                    <table class="section-wrapper">
+                        <tr>
+                            <td>
+                                <div class="two-column-grid">
+                                    <ul>
+                                        <li contenteditable="true">NPTEL – IIT Kharagpur – Programming in Java</li>
+                                        <li contenteditable="true">Certification: Elite | Score: 70%</li>
+                                        <li contenteditable="true">TCS National Qualifier Test (TCS NQT) – Score: 80.95%</li>
+                                    </ul>
+                                    <ul>
+                                        <li contenteditable="true">Full-Stack Java Development – Bharat Intern</li>
+                                        <li contenteditable="true">Cloud Foundations – Great Learning</li>
+                                        <li contenteditable="true">Solved 500+ coding problems on LeetCode and Coding Ninjas</li>
+                                    </ul>
+                                </div>
+                            </td>
+                            <td class="right-buffer"></td>
+                        </tr>
+                    </table>
+                </section>
+
+                <section id="education">
+                    <h2>EDUCATION</h2>
+                    <div class="entry">
+                        <table class="job-header">
+                            <tr>
+                                <td class="job-title" contenteditable="true">Bachelor of Technology (B.Tech) – Mechanical Engineering</td>
+                                <td class="job-date" contenteditable="true">2020 – 2023</td>
+                                <td class="right-buffer"></td>
+                            </tr>
+                        </table>
+                        <h4 contenteditable="true">Malla Reddy Engineering College and Management Sciences with CGPA: 6.5</h4>
+                    </div>
+                    <div class="entry">
+                        <table class="job-header">
+                            <tr>
+                                <td class="job-title" contenteditable="true">Full Stack Java Development Course</td>
+                                <td class="job-date" contenteditable="true">Sep 2023 – Mar 2024</td>
+                                <td class="right-buffer"></td>
+                            </tr>
+                        </table>
+                        <h4 contenteditable="true">QEdge Technologies</h4>
+                    </div>
+                </section>
+                
+                <section id="projects">
+                    <h2>PROJECTS</h2>
+                    <div class="project">
+                        <table class="project-header"><tr><td class="project-title"><h3 contenteditable="true">WPF Desktop Application for Creo Automation</h3></td><td class="right-buffer"></td></tr></table>
+                        <ul>
+                            <li contenteditable="true">Integrated with Creo APIs to automate complex design tasks, including launching Creo, updating model parameters dynamically, deleting unwanted features, assembling components using User Coordinate Systems (UCS), renaming parts based on predefined rules, and exporting .DRW files directly to PDF format.</li>
+                        </ul>
+                    </div>
+                    <div class="project">
+                        <table class="project-header"><tr><td class="project-title"><h3 contenteditable="true">Grab and Share Using Hand</h3></td><td class="right-buffer"></td></tr></table>
+                        <ul>
+                            <li contenteditable="true"><span class="project-tech">Tech:</span> Python, OpenCV, Socket Programming</li>
+                            <li contenteditable="true">Developed a real-time hand gesture application to transfer content between two laptops.</li>
+                        </ul>
+                    </div>
+                     <div class="project">
+                        <table class="project-header"><tr><td class="project-title"><h3 contenteditable="true">Additional Projects</h3></td><td class="right-buffer"></td></tr></table>
+                         <ul>
+                            <li contenteditable="true">Mini Chatbot, Weather App, Stopwatch, TUFTask, Temperature Converter, and more. (All on GitHub)</li>
+                        </ul>
+                    </div>
+                </section>
+            </main>
+            <footer>
+                <table class="footer-table">
+                    <tr>
+                        <td></td>
+                        <td class="footer-name" contenteditable="true">PAVAN KUMAR KODA</td>
+                        <td class="right-buffer"></td>
+                    </tr>
+                </table>
+            </footer>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('download-btn').addEventListener('click', function () {
+            const resumeContent = document.getElementById('resume-content');
+            
+            const opt = {
+                margin:       0.3,
+                filename:     'Pavan_Kumar_Koda_Resume.pdf',
+                image:        { type: 'jpeg', quality: 0.98 },
+                html2canvas:  { scale: 2, useCORS: true },
+                jsPDF:        { unit: 'in', format: 'letter', orientation: 'portrait' }
+            };
+
+            const editableElements = document.querySelectorAll('[contenteditable="true"]');
+            editableElements.forEach((el) => {
+                el.removeAttribute('contenteditable');
+            });
+
+            html2pdf().from(resumeContent).set(opt).save().then(() => {
+                editableElements.forEach((el) => {
+                    el.setAttribute('contenteditable', 'true');
+                });
+            });
+        });
+    </script>
+</body>
+</html>
