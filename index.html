@@ -57,10 +57,13 @@
             font-size: 2.4em; color: var(--primary-color); margin: 0; font-weight: bold;
             letter-spacing: 2px; text-transform: uppercase;
         }
-        .contact-info { margin-top: 4px; display: flex; flex-wrap: wrap; justify-content: center; gap: 4px 8px; }
-        .contact-info a { color: var(--primary-color); text-decoration: none; }
+        .contact-info { margin-top: 4px; display: flex; flex-wrap: wrap; justify-content: center; gap: 4px 8px; font-size: 0.9em; }
+        .contact-info span { color: var(--secondary-text); }
+        a {
+            color: var(--primary-color);
+            text-decoration: none;
+        }
 
-        /* --- REDUCED VERTICAL SPACING --- */
         section { margin-bottom: 5px; }
         h2 {
             font-size: 1.1em; color: var(--primary-color); text-transform: uppercase;
@@ -84,7 +87,7 @@
             color: var(--secondary-text);
             font-size: 0.95em;
             padding-left: 15px;
-            font-weight: bold; /* BOLD DATES */
+            font-weight: bold;
         }
         .right-buffer { width: 0.2in; }
         .section-wrapper { width: 100%; table-layout: fixed; }
@@ -117,13 +120,12 @@
         .grid-item strong { flex-basis: 110px; flex-shrink: 0; font-weight: bold; }
         .grid-item span { flex-grow: 1; }
         
-        /* --- REDUCED PROJECT SPACING --- */
         .project { margin-bottom: 4px; }
         .project-header { width: 100%; table-layout: fixed; }
         .project-header .project-title h3 {
             font-size: 1em;
             font-weight: bold;
-            margin: 0 0 2px 0; /* No top margin, small bottom margin */
+            margin: 0 0 2px 0;
         }
 
         footer { margin-top: auto; padding-top: 10px; }
@@ -148,12 +150,12 @@
             <header>
                 <h1 contenteditable="true">PAVAN KUMAR KODA</h1>
                 <div class="contact-info">
-                    <span contenteditable="true">Hyderabad, India.</span> |
-                    <span contenteditable="true">9704147418</span> |
-                    <span contenteditable="true">Pavankumarkoda007@gmail.com</span> |
-                    <a href="#">Webpage</a> |
-                    <a href="https://www.linkedin.com/in/pavan-kumar-koda/">LinkedIn</a> |
-                    <a href="https://github.com/PavanKumarKoda">GitHub</a>
+                    <span contenteditable="true">Hyderabad, India</span> |
+                    <a href="tel:9704147418" target="_blank" contenteditable="true">9704147418</a> |
+                    <a href="mailto:Pavankumarkoda007@gmail.com" target="_blank" contenteditable="true">Pavankumarkoda007@gmail.com</a> |
+                    <a href="https://pavankumarkoda.github.io/portfolio/" target="_blank">Portfolio</a> |
+                    <a href="https://www.linkedin.com/in/pavankoda/" target="_blank">LinkedIn</a> |
+                    <a href="https://github.com/pavankumarkoda" target="_blank">GitHub</a>
                 </div>
             </header>
 
@@ -240,7 +242,7 @@
                                     <ul>
                                         <li contenteditable="true">Full-Stack Java Development – Bharat Intern</li>
                                         <li contenteditable="true">Cloud Foundations – Great Learning</li>
-                                        <li contenteditable="true">Solved 500+ coding problems on LeetCode and Coding Ninjas</li>
+                                        <li contenteditable="true">Solved 500+ coding problems on <a href="https://leetcode.com/u/pavankoda/" target="_blank">LeetCode</a> and <a href="https://www.naukri.com/code360/profile/pavankoda" target="_blank">Coding Ninjas</a></li>
                                     </ul>
                                 </div>
                             </td>
