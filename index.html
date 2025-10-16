@@ -396,32 +396,41 @@
         </div>
     </div>
 
-   <script>
+  <script>
     document.addEventListener('DOMContentLoaded', function() {
         const resumeContent = document.getElementById('resume-content');
 
-        // --- CLICK-TO-SELECT-ALL FOR RESUME CONTENT (No changes) ---
-        resumeContent.addEventListener('click', function(e) {
+        // --- FINAL, CORRECTED SELECTION LOGIC (ON FOCUS) ---
+        // This now listens for 'focusin', which happens only when you enter an element.
+        resumeContent.addEventListener('focusin', function(e) {
             const element = e.target;
+            // Check if the focused element is editable
             if (element.getAttribute('contenteditable') === 'true') {
-                e.preventDefault(); 
                 const selection = window.getSelection();
                 const range = document.createRange();
-                range.selectNodeContents(element);
-                selection.removeAllRanges();
-                selection.addRange(range);
+                range.selectNodeContents(element); // Select all content
+                selection.removeAllRanges();       // Clear previous selections
+                selection.addRange(range);         // Apply the new selection
+            }
+        });
+        
+        // This stops links from being followed when you click to edit them.
+        resumeContent.addEventListener('click', function(e) {
+            if (e.target.getAttribute('contenteditable') === 'true') {
+                e.preventDefault();
             }
         });
 
-        // --- LINK EDITOR LOGIC (FIXED) --- ✨
+        // --- LINK EDITOR LOGIC (CHANGED TO FOCUS) ---
         const inputs = document.querySelectorAll('.link-input');
         inputs.forEach(input => {
             const targetElement = document.getElementById(input.dataset.target);
             if (!targetElement) return;
 
-            // THIS IS THE FIX: Adds back the click-to-select for input boxes.
-            input.addEventListener('click', function() { this.select(); });
+            // This now selects text only when you first focus on the input box.
+            input.addEventListener('focus', function() { this.select(); });
 
+            // Highlight/update logic remains the same
             input.addEventListener('focus', () => targetElement.classList.add('highlight-link'));
             input.addEventListener('blur', () => targetElement.classList.remove('highlight-link'));
             input.addEventListener('input', function() {
