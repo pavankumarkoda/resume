@@ -468,57 +468,114 @@ ul.r-bullets li::before{
   .r-contact-pill{ justify-content:center; }
 }
 
-/* ─── PERFECT SINGLE PAGE PDF ─────────────────── */
-html, body{
-  width:8.5in;
-  min-height:11in;
-}
-.resume-card{
-  width:8.5in;
-  min-height:11in;
-  overflow:hidden;
-}
-.r-section{ padding:10px 12px; }
-.r-main{ gap:7px; }
-.r-sidebar{ padding:14px 12px 14px 14px; }
-.r-header{ padding:14px 24px 10px; }
-.r-name{ font-size:2.3em; }
-.r-summary{ line-height:1.5; }
-ul.r-bullets li{ margin-bottom:0px; line-height:1.25; }
-.r-entry{ margin-bottom:5px; }
-.entry-divider{ margin:5px 0; }
-.resume-card,.r-body,.r-section,.r-entry{
-  page-break-inside:avoid !important;
-  break-inside:avoid !important;
-}
-
 @page{
   size:letter portrait;
   margin:0;
 }
 
 @media print{
+  /* ── Reset page chrome ── */
   html,body{
-    width:8.5in;
-    height:11in;
-    overflow:hidden;
+    margin:0 !important; padding:0 !important;
     background:white !important;
+    -webkit-print-color-adjust:exact !important;
+    print-color-adjust:exact !important;
   }
-  body{ padding:0 !important; margin:0 !important; }
   .toolbar,.link-panel{ display:none !important; }
+  [contenteditable]{ outline:none !important; background:transparent !important; }
+
+  /* ── Card: full page, no decorations ── */
   .resume-card{
-    margin:0 !important;
+    margin:0 !important; padding:0 !important;
+    width:100% !important; max-width:100% !important;
     border-radius:0 !important;
     box-shadow:none !important;
+    border:none !important;
     animation:none !important;
-    width:8.5in !important;
-    height:11in !important;
-    overflow:hidden !important;
+    overflow:visible !important;
+    background:white !important;
   }
+  /* Remove animated border & glow */
+  .resume-card::before,
+  .resume-card::after{ display:none !important; }
+
+  /* ── Header: keep gradient, compact ── */
+  .r-header{
+    padding:14px 22px 10px !important;
+    -webkit-print-color-adjust:exact !important;
+    print-color-adjust:exact !important;
+  }
+  .r-name{ font-size:22pt !important; letter-spacing:2px !important; }
+  .r-tagline{ margin-bottom:8px !important; }
+
+  /* ── Two-column body: grid stays, tightened ── */
+  .r-body{
+    display:grid !important;
+    grid-template-columns:0.85fr 2.6fr !important;
+    align-items:start !important;
+  }
+
+  /* ── Sidebar ── */
+  .r-sidebar{
+    padding:10px 10px 10px 12px !important;
+    background:linear-gradient(180deg,#f4f9ff 0%,#eef5fc 100%) !important;
+    border-right:1px solid #b8d4ed !important;
+    -webkit-print-color-adjust:exact !important;
+    print-color-adjust:exact !important;
+  }
+  .skill-group{ margin-bottom:5px !important; }
+  .skill-group-label{ font-size:0.66em !important; }
+  .skill-tag{ font-size:0.68em !important; padding:1px 6px !important; }
+  .cert-item{ margin-bottom:3px !important; }
+  .edu-item{ margin-bottom:3px !important; }
+  .ach-item{ font-size:0.76em !important; }
+  .entry-divider{ margin:4px 0 !important; }
+
+  /* ── Main content ── */
+  .r-main{
+    padding:10px 14px 10px 12px !important;
+    gap:6px !important;
+    display:flex !important;
+    flex-direction:column !important;
+  }
+  .r-section{
+    padding:8px 10px !important;
+    box-shadow:none !important;
+    border:1px solid rgba(30,136,229,.08) !important;
+    border-radius:6px !important;
+    margin-bottom:0 !important;
+    break-inside:avoid !important;
+    page-break-inside:avoid !important;
+  }
+  .sec-title{ margin-bottom:6px !important; padding-bottom:3px !important; }
+  .r-summary{ font-size:0.82em !important; line-height:1.45 !important; padding:6px 8px !important; }
+  .highlights-grid{ gap:4px !important; }
+  .hl-item{ padding:4px 8px !important; font-size:0.76em !important; }
+  .r-entry{ margin-bottom:5px !important; }
+  .r-entry:last-child{ margin-bottom:0 !important; }
+  .r-job-title{ font-size:0.9em !important; }
+  .r-company{ margin:1px 0 3px !important; font-size:0.78em !important; }
+  ul.r-bullets li{ font-size:0.8em !important; line-height:1.25 !important; margin-bottom:0 !important; }
+  .r-project{ margin-bottom:3px !important; }
+  .r-project-title{ font-size:0.84em !important; margin-bottom:1px !important; }
+  .r-project-tech{ font-size:0.68em !important; padding:0px 5px !important; margin-bottom:2px !important; }
+  .r-project-links{ margin-bottom:1px !important; }
+  .proj-link{ font-size:0.68em !important; }
+
+  /* ── Links ── */
   a{ color:inherit !important; text-decoration:none !important; }
-  [contenteditable]{ outline:none !important; background:transparent !important; }
-  .r-section{ box-shadow:none !important; border:1px solid rgba(30,136,229,.06) !important; }
-  *{ -webkit-print-color-adjust:exact !important; print-color-adjust:exact !important; }
+  .r-contact-pill{
+    background:rgba(255,255,255,0.15) !important;
+    border:1px solid rgba(255,255,255,0.3) !important;
+    -webkit-print-color-adjust:exact !important;
+    print-color-adjust:exact !important;
+  }
+
+  /* ── Sidebar section titles ── */
+  .sec-title-sidebar{
+    -webkit-print-color-adjust:exact !important;
+    print-color-adjust:exact !important;
+  }
 }
 </style>
 </head>
@@ -914,27 +971,28 @@ document.addEventListener('DOMContentLoaded', function () {
   });
 
   // PDF export via window.print()
-  document.getElementById('download-btn').addEventListener('click', function () {
-    const btn = this;
-    btn.textContent = '⏳ Preparing...';
-    btn.disabled = true;
+  const dlBtn = document.getElementById('download-btn');
 
-    // Strip contenteditable so it doesn't appear in PDF
-    const els = document.querySelectorAll('[contenteditable="true"]');
-    els.forEach(el => el.removeAttribute('contenteditable'));
+  window.addEventListener('beforeprint', () => {
+    document.querySelectorAll('[contenteditable]')
+      .forEach(el => el.setAttribute('data-ce', el.getAttribute('contenteditable') || 'true'));
+    document.querySelectorAll('[contenteditable]')
+      .forEach(el => el.removeAttribute('contenteditable'));
+  });
 
-    // Give browser a frame to re-render, then print
-    requestAnimationFrame(() => {
-      setTimeout(() => {
-        window.print();
-        // Restore after print dialog closes
-        setTimeout(() => {
-          els.forEach(el => el.setAttribute('contenteditable', 'true'));
-          btn.textContent = '⬇ Export Resume';
-          btn.disabled = false;
-        }, 800);
-      }, 150);
+  window.addEventListener('afterprint', () => {
+    document.querySelectorAll('[data-ce]').forEach(el => {
+      el.setAttribute('contenteditable', el.getAttribute('data-ce'));
+      el.removeAttribute('data-ce');
     });
+    dlBtn.textContent = '⬇ Export Resume';
+    dlBtn.disabled = false;
+  });
+
+  dlBtn.addEventListener('click', function () {
+    this.textContent = '⏳ Preparing...';
+    this.disabled = true;
+    setTimeout(() => window.print(), 200);
   });
 
 
