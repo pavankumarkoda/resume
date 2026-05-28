@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Pavan Kumar Koda — Resume</title>
 <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Cormorant+Garamond:wght@600;700&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 <style>
 :root {
   --navy:    #0d2137;
@@ -30,7 +31,7 @@ body{
     linear-gradient(135deg,#07111f 0%,#102742 45%,#0c4a6e 100%);
   min-height:100vh;
   padding:16px 16px 40px;
-  font-size:8.8pt;
+  font-size:9.3pt;
   color:var(--text);
 }
 
@@ -467,116 +468,136 @@ ul.r-bullets li::before{
   .r-contact{ gap:8px; }
   .r-contact-pill{ justify-content:center; }
 }
-
-@page{
-  size:letter portrait;
-  margin:0;
+@page {
+  size: letter portrait;
+  margin: 0;
 }
 
-@media print{
-  /* ── Reset page chrome ── */
-  html,body{
-    margin:0 !important; padding:0 !important;
-    background:white !important;
-    -webkit-print-color-adjust:exact !important;
-    print-color-adjust:exact !important;
+@media print {
+  /* ── Hide editor chrome ── */
+  html, body {
+    margin: 0 !important;
+    padding: 0 !important;
+    background: white !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+    width: 8.5in !important;
+    height: 11in !important;
+    overflow: hidden !important;
   }
-  .toolbar,.link-panel{ display:none !important; }
-  [contenteditable]{ outline:none !important; background:transparent !important; }
 
-  /* ── Card: full page, no decorations ── */
-  .resume-card{
-    margin:0 !important; padding:0 !important;
-    width:100% !important; max-width:100% !important;
-    border-radius:0 !important;
-    box-shadow:none !important;
-    border:none !important;
-    animation:none !important;
-    overflow:visible !important;
-    background:white !important;
+  .toolbar, .link-panel { display: none !important; }
+  [contenteditable] { outline: none !important; background: transparent !important; }
+  a { color: inherit !important; text-decoration: none !important; }
+  * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+
+  /* ── Card: full width, no decorations ── */
+  .resume-card {
+    margin: 0 !important;
+    width: 8.5in !important;
+    max-width: 8.5in !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    border: none !important;
+    animation: none !important;
+    overflow: visible !important;
+    background: white !important;
+    /* SCALE TO FIT: shrink entire card to 95% so all content fits in 11in */
+    transform-origin: top left !important;
+    transform: scale(0.76) !important;
+    /* At 0.76 scale: 11in content height × 0.76 ≈ 8.36in — fits in 11in page */
   }
-  /* Remove animated border & glow */
-  .resume-card::before,
-  .resume-card::after{ display:none !important; }
 
-  /* ── Header: keep gradient, compact ── */
-  .r-header{
-    padding:11px 20px 8px !important;
-    -webkit-print-color-adjust:exact !important;
-    print-color-adjust:exact !important;
+  /* Hide pseudo-element decorations */
+  .resume-card::before, .resume-card::after { display: none !important; }
+
+  /* ── Header ── */
+  .r-header {
+    padding: 18px 28px 12px !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
   }
-  .r-name{ font-size:19pt !important; letter-spacing:1.5px !important; }
-  .r-tagline{ margin-bottom:5px !important; font-size:0.75em !important; }
+  .r-name { font-size: 2.5em !important; }
+  .r-tagline { margin-bottom: 10px !important; }
 
-  /* ── Two-column body: grid stays, tightened ── */
-  .r-body{
-    display:grid !important;
-    grid-template-columns:0.85fr 2.6fr !important;
-    align-items:start !important;
+  /* ── Two-column grid stays intact ── */
+  .r-body {
+    display: grid !important;
+    grid-template-columns: 0.9fr 2.6fr !important;
+    align-items: start !important;
   }
 
   /* ── Sidebar ── */
-  .r-sidebar{
-    padding:8px 8px 8px 10px !important;
-    background:linear-gradient(180deg,#f4f9ff 0%,#eef5fc 100%) !important;
-    border-right:1px solid #b8d4ed !important;
-    -webkit-print-color-adjust:exact !important;
-    print-color-adjust:exact !important;
+  .r-sidebar {
+    background: linear-gradient(180deg, #f4f9ff 0%, #eef5fc 100%) !important;
+    border-right: 1px solid #b8d4ed !important;
+    padding: 14px 12px 14px 16px !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
   }
-  .skill-group{ margin-bottom:5px !important; }
-  .skill-group-label{ font-size:0.66em !important; }
-  .skill-tag{ font-size:0.68em !important; padding:1px 6px !important; }
-  .cert-item{ margin-bottom:3px !important; }
-  .edu-item{ margin-bottom:3px !important; }
-  .ach-item{ font-size:0.76em !important; }
-  .entry-divider{ margin:4px 0 !important; }
+
+  /* ── Section cards ── */
+  .r-section {
+    background: #fff !important;
+    border: 1px solid rgba(30,136,229,.08) !important;
+    border-radius: 8px !important;
+    box-shadow: none !important;
+    padding: 10px 12px !important;
+    break-inside: avoid !important;
+    page-break-inside: avoid !important;
+    margin-bottom: 0 !important;
+    transform: none !important;
+  }
 
   /* ── Main content ── */
-  .r-main{
-    padding:8px 12px 8px 10px !important;
-    gap:4px !important;
-    display:flex !important;
-    flex-direction:column !important;
-  }
-  .r-section{
-    padding:6px 8px !important;
-    box-shadow:none !important;
-    border:1px solid rgba(30,136,229,.08) !important;
-    border-radius:6px !important;
-    margin-bottom:0 !important;
-    break-inside:avoid !important;
-    page-break-inside:avoid !important;
-  }
-  .sec-title{ margin-bottom:4px !important; padding-bottom:2px !important; font-size:0.66em !important; }
-  .r-summary{ font-size:0.82em !important; line-height:1.45 !important; padding:6px 8px !important; }
-  .highlights-grid{ gap:4px !important; }
-  .hl-item{ padding:4px 8px !important; font-size:0.76em !important; }
-  .r-entry{ margin-bottom:3px !important; }
-  .r-entry:last-child{ margin-bottom:0 !important; }
-  .r-job-title{ font-size:0.9em !important; }
-  .r-company{ margin:1px 0 3px !important; font-size:0.78em !important; }
-  ul.r-bullets li{ font-size:0.78em !important; line-height:1.2 !important; margin-bottom:0 !important; }
-  .r-project{ margin-bottom:1px !important; }
-  .r-project-title{ font-size:0.84em !important; margin-bottom:1px !important; }
-  .r-project-tech{ font-size:0.68em !important; padding:0px 5px !important; margin-bottom:2px !important; }
-  .r-project-links{ margin-bottom:1px !important; }
-  .proj-link{ font-size:0.68em !important; }
-
-  /* ── Links ── */
-  a{ color:inherit !important; text-decoration:none !important; }
-  .r-contact-pill{
-    background:rgba(255,255,255,0.15) !important;
-    border:1px solid rgba(255,255,255,0.3) !important;
-    -webkit-print-color-adjust:exact !important;
-    print-color-adjust:exact !important;
+  .r-main {
+    padding: 14px 18px 14px 14px !important;
+    gap: 8px !important;
+    display: flex !important;
+    flex-direction: column !important;
   }
 
-  /* ── Sidebar section titles ── */
-  .sec-title-sidebar{
-    -webkit-print-color-adjust:exact !important;
-    print-color-adjust:exact !important;
+  /* ── Contact pills ── */
+  .r-contact-pill {
+    background: rgba(255,255,255,0.15) !important;
+    border: 1px solid rgba(255,255,255,0.3) !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  /* ── Skill tags ── */
+  .skill-tag, .skill-tag.hi {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+  .skill-tag.hi {
+    background: var(--navy) !important;
+    color: #fff !important;
+  }
+
+  /* ── Date badges ── */
+  .r-date {
+    background: var(--blue) !important;
+    color: #fff !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  /* ── Highlight cards ── */
+  .hl-item {
+    background: linear-gradient(135deg, rgba(240,247,255,.9), rgba(230,243,255,.6)) !important;
+    border: 1px solid rgba(30,136,229,.18) !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  /* ── Section titles ── */
+  .sec-title-sidebar {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
   }
 }
+
 </style>
 </head>
 <body>
@@ -767,6 +788,24 @@ ul.r-bullets li::before{
     <!-- ═══ MAIN CONTENT ═══ -->
     <main class="r-main">
 
+      <!-- TECHNICAL HIGHLIGHTS -->
+      <section class="r-section">
+        <div class="sec-title">Technical Highlights</div>
+        <div class="highlights-grid">
+          <div class="hl-item" contenteditable="true">~2 Years Enterprise Backend Experience</div>
+          <div class="hl-item" contenteditable="true">Offline AI RAG Systems — Local LLM, Zero Cloud Dependency</div>
+          <div class="hl-item" contenteditable="true">Secure Document Lifecycle Management — RBAC, Audit Logging</div>
+          <div class="hl-item" contenteditable="true">Java 21 · Docker Containerization · AWS Lambda + S3 Deployment</div>
+          <div class="hl-item" contenteditable="true">Oracle Certified Professional Java SE Developer</div>
+        </div>
+      </section>
+
+      <!-- PROFESSIONAL SUMMARY -->
+      <section class="r-section">
+        <div class="sec-title">Professional Summary</div>
+        <div class="r-summary" contenteditable="true">Software Engineer with ~2 years building enterprise Java 21 backends, AI-powered document systems, and secure REST APIs. Skilled in Spring Boot, MySQL, JWT, Docker, AWS Lambda, and offline RAG pipelines. Focused on scalable architecture, production security, and measurable operational impact.</div>
+      </section>
+
       <!-- WORK EXPERIENCE -->
       <section class="r-section">
         <div class="sec-title">Work Experience</div>
@@ -780,6 +819,9 @@ ul.r-bullets li::before{
           <ul class="r-bullets">
             <li contenteditable="true">Built Spring Boot (Java 21) DMS deployed via Docker — internal platform for document approvals and lifecycle management with uploads, versioning, RBAC, audit logging, and full lifecycle (Draft → Approved → Archived), cutting approval turnaround by <strong>~40%</strong>.</li>
             <li contenteditable="true">Deployed offline LLMs with RAG pipeline, enabling engineers to query internal technical PDFs and get accurate answers — reducing manual document search effort by <strong>~60%</strong>.</li>
+            <li contenteditable="true">Built "C&S Browser" — Spring Boot app with JWT auth, RBAC, and server-side PDF protection, securing access to internal Codes & Standards for authorized roles only.</li>
+            <li contenteditable="true">Reduced manual CAD workflow effort by <strong>~50%</strong> via VB.NET WPF app integrating Creo APIs — automated parameter updates, assembly, part renaming, and batch DRW-to-PDF export.</li>
+            <li contenteditable="true">Built Java 21 email-ingestion pipeline (JAR deployed on AWS Lambda via S3) that captures all incoming emails and stores them in an OpenAI vector store — enabling semantic search across inbox history and reducing manual triage by <strong>~50%</strong>.</li>
           </ul>
         </div>
 
@@ -792,7 +834,8 @@ ul.r-bullets li::before{
           </div>
           <div class="r-company" contenteditable="true">Webzyte — Hyderabad, India</div>
           <ul class="r-bullets">
-            <li contenteditable="true">Integrated Google OAuth 2.0 and Microsoft OAuth for secure third-party authentication, reducing login friction and hardening data security.</li>
+            <li contenteditable="true">Built responsive web apps using PHP, MySQL, HTML5, and JavaScript for multiple client projects.</li>
+            <li contenteditable="true">Integrated Google OAuth 2.0 and Microsoft OAuth for secure third-party authentication.</li>
           </ul>
         </div>
       </section>
@@ -806,25 +849,18 @@ ul.r-bullets li::before{
           <div class="r-project-tech">Python · LLM · RAG · PDF Parsing · Offline Inference</div>
           <div class="r-project-links"><a href="https://github.com/pavankumarkoda" target="_blank" id="proj-rag-gh" class="proj-link">GitHub ↗</a></div>
           <ul class="r-bullets">
-            <li contenteditable="true">Deployed offline LLMs with RAG pipeline — PDF-only answers, zero cloud dependency, reducing document lookup time by <strong>~65%</strong>.</li>
+            <li contenteditable="true">Deployed local LLMs with RAG — answers strictly from uploaded PDFs, no cloud, no data leakage; reduced document lookup time by <strong>~65%</strong> for engineering teams.</li>
+            <li contenteditable="true">Built PDF chunking, vector embedding, and semantic search pipeline for accurate, citation-backed responses.</li>
           </ul>
         </div>
 
         <div class="r-project">
-          <div class="r-project-title" contenteditable="true">Spring Boot Document Lifecycle Management System</div>
-          <div class="r-project-tech">Java 21 · Spring Boot · MySQL · REST API · RBAC · JWT · Docker</div>
+          <div class="r-project-title" contenteditable="true">Enterprise Document Management Platform — DMS + Codes &amp; Standards Browser</div>
+          <div class="r-project-tech">Java 21 · Spring Boot · MySQL · REST API · RBAC · JWT · Docker · PDF Security</div>
           <div class="r-project-links"><a href="https://github.com/pavankumarkoda" target="_blank" id="proj-dms-gh" class="proj-link">GitHub ↗</a> <span class="proj-link-note">(sanitized demo)</span></div>
           <ul class="r-bullets">
-            <li contenteditable="true">Spring Boot (Java 21) DMS in Docker — versioning, approval workflows, lifecycle states, RBAC, and audit logging.</li>
-          </ul>
-        </div>
-
-        <div class="r-project">
-          <div class="r-project-title" contenteditable="true">Secure Codes &amp; Standards Browser</div>
-          <div class="r-project-tech">Java · Spring Boot · JWT · RBAC · PDF Security</div>
-          <div class="r-project-links"><span class="proj-link-note">Internal enterprise platform</span></div>
-          <ul class="r-bullets">
-            <li contenteditable="true">Secure internal platform for Codes &amp; Standards access — RBAC, JWT auth, and protected PDF delivery.</li>
+            <li contenteditable="true">Built enterprise DMS on Java 21 + Spring Boot (Dockerized) supporting multiple document types with full lifecycle management — uploads, versioning, approval workflows (Draft → Approved → Archived), RBAC, audit logging, and full-text search.</li>
+            <li contenteditable="true">Extended the platform with a secure Codes &amp; Standards Browser module — JWT auth, role-based PDF access control, and audit tracking ensuring enterprise compliance across engineering departments.</li>
           </ul>
         </div>
 
@@ -833,10 +869,19 @@ ul.r-bullets li::before{
           <div class="r-project-tech">Java 21 · AWS Lambda · S3 · OpenAI API · Vector Store · JAR Deployment</div>
           <div class="r-project-links"><a href="https://github.com/pavankumarkoda" target="_blank" class="proj-link">GitHub ↗</a></div>
           <ul class="r-bullets">
-            <li contenteditable="true">Java 21 JAR on AWS Lambda + S3 — ingests emails into OpenAI vector store, enabling semantic search and reducing triage by <strong>~50%</strong>.</li>
+            <li contenteditable="true">Built a Java 21 Ant-based project compiled to a JAR, deployed on AWS Lambda via S3, that automatically ingests all incoming emails and stores them in an OpenAI vector store for semantic search and retrieval.</li>
+            <li contenteditable="true">Enabled intelligent, context-aware email querying across entire inbox history — reducing manual triage effort by <strong>~50%</strong> and supporting audit/compliance use cases.</li>
           </ul>
         </div>
 
+        <div class="r-project">
+          <div class="r-project-title" contenteditable="true">WPF Desktop App — Creo CAD Automation</div>
+          <div class="r-project-tech">VB.NET · SQL Server · Creo API · WPF</div>
+          <div class="r-project-links"><span class="proj-link-note">Internal project — architecture available on request</span></div>
+          <ul class="r-bullets">
+            <li contenteditable="true">Automated Creo CAD tasks — parameter updates, UCS assembly, feature deletion, batch PDF export.</li>
+          </ul>
+        </div>
 
       </section>
 
@@ -950,12 +995,11 @@ document.addEventListener('DOMContentLoaded', function () {
   const dlBtn = document.getElementById('download-btn');
 
   window.addEventListener('beforeprint', () => {
-    document.querySelectorAll('[contenteditable]')
-      .forEach(el => el.setAttribute('data-ce', el.getAttribute('contenteditable') || 'true'));
-    document.querySelectorAll('[contenteditable]')
-      .forEach(el => el.removeAttribute('contenteditable'));
+    document.querySelectorAll('[contenteditable]').forEach(el => {
+      el.setAttribute('data-ce', el.getAttribute('contenteditable') || 'true');
+      el.removeAttribute('contenteditable');
+    });
   });
-
   window.addEventListener('afterprint', () => {
     document.querySelectorAll('[data-ce]').forEach(el => {
       el.setAttribute('contenteditable', el.getAttribute('data-ce'));
@@ -964,13 +1008,11 @@ document.addEventListener('DOMContentLoaded', function () {
     dlBtn.textContent = '⬇ Export Resume';
     dlBtn.disabled = false;
   });
-
   dlBtn.addEventListener('click', function () {
     this.textContent = '⏳ Preparing...';
     this.disabled = true;
     setTimeout(() => window.print(), 200);
   });
-
 
   // ── Auto-save edits to localStorage ──────────────────────────────────
   const allEditable = document.querySelectorAll('[contenteditable="true"]');
