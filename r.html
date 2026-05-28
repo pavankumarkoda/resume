@@ -481,9 +481,8 @@ ul.r-bullets li::before{
     background: white !important;
     -webkit-print-color-adjust: exact !important;
     print-color-adjust: exact !important;
-    width: 8.5in !important;
-    height: 11in !important;
-    overflow: hidden !important;
+    width: 100% !important;
+    overflow: visible !important;
   }
 
   .toolbar, .link-panel { display: none !important; }
@@ -491,21 +490,18 @@ ul.r-bullets li::before{
   a { color: inherit !important; text-decoration: none !important; }
   * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
 
-  /* ── Card: full width, no decorations ── */
+  /* ── Card: full page, zoom to fit ── */
   .resume-card {
     margin: 0 !important;
-    width: 8.5in !important;
-    max-width: 8.5in !important;
+    width: 100% !important;
+    max-width: 100% !important;
     border-radius: 0 !important;
     box-shadow: none !important;
     border: none !important;
     animation: none !important;
     overflow: visible !important;
     background: white !important;
-    /* SCALE TO FIT: shrink entire card to 95% so all content fits in 11in */
-    transform-origin: top left !important;
-    transform: scale(0.76) !important;
-    /* At 0.76 scale: 11in content height × 0.76 ≈ 8.36in — fits in 11in page */
+    zoom: 0.78;
   }
 
   /* Hide pseudo-element decorations */
@@ -819,7 +815,6 @@ ul.r-bullets li::before{
           <ul class="r-bullets">
             <li contenteditable="true">Built Spring Boot (Java 21) DMS deployed via Docker — internal platform for document approvals and lifecycle management with uploads, versioning, RBAC, audit logging, and full lifecycle (Draft → Approved → Archived), cutting approval turnaround by <strong>~40%</strong>.</li>
             <li contenteditable="true">Deployed offline LLMs with RAG pipeline, enabling engineers to query internal technical PDFs and get accurate answers — reducing manual document search effort by <strong>~60%</strong>.</li>
-            <li contenteditable="true">Built "C&S Browser" — Spring Boot app with JWT auth, RBAC, and server-side PDF protection, securing access to internal Codes & Standards for authorized roles only.</li>
             <li contenteditable="true">Reduced manual CAD workflow effort by <strong>~50%</strong> via VB.NET WPF app integrating Creo APIs — automated parameter updates, assembly, part renaming, and batch DRW-to-PDF export.</li>
             <li contenteditable="true">Built Java 21 email-ingestion pipeline (JAR deployed on AWS Lambda via S3) that captures all incoming emails and stores them in an OpenAI vector store — enabling semantic search across inbox history and reducing manual triage by <strong>~50%</strong>.</li>
           </ul>
