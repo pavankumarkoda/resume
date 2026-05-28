@@ -30,41 +30,46 @@ body{
     radial-gradient(circle at bottom right, rgba(0,137,123,.25), transparent 40%),
     linear-gradient(135deg,#07111f 0%,#102742 45%,#0c4a6e 100%);
   min-height:100vh;
-  padding:0 16px 40px;
-  font-size:9.3pt;
+  padding:16px 16px 40px;
+  font-size:9pt;
   color:var(--text);
 }
 
 /* ─── TOOLBAR ─────────────────────────────────── */
 .toolbar{
-  position:sticky; top:0; z-index:100;
-  max-width:100%; padding:10px 20px;
-  display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:8px;
-  background:rgba(7,17,31,0.72);
-  backdrop-filter:blur(18px) saturate(180%);
-  -webkit-backdrop-filter:blur(18px) saturate(180%);
-  border-bottom:1px solid rgba(255,255,255,0.08);
-  margin-bottom:0;
+  position:sticky; top:12px; z-index:100;
+  max-width:8.5in; margin:0 auto;
+  padding:0;
+  background:none;
+  border:none;
+  pointer-events:none;
+  display:flex; justify-content:flex-end;
 }
 .toolbar-inner{
-  max-width:8.5in; margin:0 auto; width:100%;
-  display:flex; align-items:center; justify-content:space-between; gap:8px;
+  pointer-events:all;
+  display:flex; align-items:center; gap:8px;
+  background:rgba(7,17,31,0.78);
+  backdrop-filter:blur(22px) saturate(200%);
+  -webkit-backdrop-filter:blur(22px) saturate(200%);
+  border:1px solid rgba(255,255,255,0.1);
+  border-radius:40px;
+  padding:7px 12px;
+  box-shadow:0 8px 32px rgba(0,0,0,0.35);
 }
-.toolbar-left{ color:rgba(255,255,255,0.6); font-size:0.76em; letter-spacing:.3px; }
-.toolbar-left strong{ color:rgba(255,255,255,0.9); }
-.toolbar-btns{ display:flex; gap:8px; }
+.toolbar-left{ color:rgba(255,255,255,0.5); font-size:0.72em; letter-spacing:.3px; display:none; }
+.toolbar-btns{ display:flex; gap:6px; }
 .tbtn{
-  padding:6px 16px; border:none; border-radius:40px; cursor:pointer;
-  font-family:'Outfit',sans-serif; font-size:0.8em; font-weight:600; letter-spacing:.3px;
+  padding:5px 14px; border:none; border-radius:30px; cursor:pointer;
+  font-family:'Outfit',sans-serif; font-size:0.78em; font-weight:600; letter-spacing:.2px;
   transition:all .2s cubic-bezier(.4,0,.2,1);
 }
 .tbtn-outline{
-  background:rgba(255,255,255,0.09); color:rgba(255,255,255,0.85);
-  border:1px solid rgba(255,255,255,0.22);
+  background:rgba(255,255,255,0.08); color:rgba(255,255,255,0.8);
+  border:1px solid rgba(255,255,255,0.2);
 }
-.tbtn-outline:hover{ background:rgba(255,255,255,0.18); color:#fff; border-color:rgba(255,255,255,0.4); }
-.tbtn-solid{ background:linear-gradient(135deg,#1e88e5,#1565c0); color:#fff; box-shadow:0 2px 10px rgba(21,101,192,0.4); }
-.tbtn-solid:hover{ transform:translateY(-2px); box-shadow:0 6px 20px rgba(21,101,192,0.5); }
+.tbtn-outline:hover{ background:rgba(255,255,255,0.16); color:#fff; }
+.tbtn-solid{ background:linear-gradient(135deg,#1e88e5,#0d5fba); color:#fff; box-shadow:0 2px 10px rgba(21,101,192,0.45); }
+.tbtn-solid:hover{ transform:translateY(-1px); box-shadow:0 5px 18px rgba(21,101,192,0.55); }
 
 /* ─── LINK EDITOR PANEL ───────────────────────── */
 .link-panel{
@@ -90,7 +95,7 @@ body{
 
 /* ─── RESUME CARD ─────────────────────────────── */
 .resume-card{
-  max-width:8.5in; margin:12px auto 0;
+  max-width:8.5in; margin:12px auto 40px;
   background:rgba(255,255,255,0.985);
   backdrop-filter:blur(20px);
   border-radius:6px;
@@ -101,17 +106,49 @@ body{
     0 2px 10px rgba(0,0,0,.08),
     0 0 0 1px rgba(255,255,255,0.05);
   overflow:hidden;
+  animation:fadeUp .65s cubic-bezier(.4,0,.2,1) both;
 }
 
 
-/* ─── TOP ACCENT LINE ─────────────────────────── */
+/* ─── ANIMATED GRADIENT BORDER ───────────────── */
+@keyframes fadeUp{
+  from{opacity:0;transform:translateY(14px);}
+  to{opacity:1;transform:translateY(0);}
+}
+@keyframes borderFlow{
+  0%{background-position:0% 50%;}
+  100%{background-position:300% 50%;}
+}
 .resume-card::before{
   content:'';
   position:absolute;
-  top:0; left:0;
-  width:100%; height:4px;
-  background:linear-gradient(90deg,#1e88e5 0%,#00897b 50%,#f59e0b 100%);
-  z-index:1;
+  inset:0;
+  padding:3px;
+  border-radius:6px;
+  background:linear-gradient(130deg,
+    rgba(30,136,229,.95),
+    rgba(0,137,123,.85),
+    rgba(245,158,11,.85),
+    rgba(30,136,229,.95)
+  );
+  background-size:300% 300%;
+  animation:borderFlow 8s linear infinite;
+  -webkit-mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);
+  -webkit-mask-composite:xor;
+  mask-composite:exclude;
+  pointer-events:none;
+  z-index:0;
+  opacity:.72;
+}
+.resume-card::after{
+  content:'';
+  position:absolute;
+  inset:auto 8% -35px 8%;
+  height:40px;
+  background:radial-gradient(circle, rgba(30,136,229,.28), transparent 70%);
+  filter:blur(20px);
+  z-index:-1;
+  pointer-events:none;
 }
 /* ─── HEADER BAND ─────────────────────────────── */
 @keyframes shine{
@@ -127,7 +164,7 @@ body{
     radial-gradient(ellipse at 0% 0%, rgba(30,136,229,.22) 0%, transparent 50%),
     radial-gradient(ellipse at 100% 100%, rgba(0,137,123,.18) 0%, transparent 50%),
     linear-gradient(135deg, #07111f 0%, #0f2744 50%, #0d3a6b 100%);
-  padding: 22px 34px 16px;
+  padding: 18px 30px 12px;
   position:relative;
   overflow:hidden;
 }
@@ -153,7 +190,7 @@ body{
 .r-name{
   font-family:'Cormorant Garamond',serif;
   font-size:2.7em; font-weight:700;
-  color:#fff; letter-spacing:4px; text-transform:uppercase;
+  color:#fff; letter-spacing:2px; text-transform:uppercase;
   line-height:1; margin-bottom:4px;
   text-shadow:0 2px 20px rgba(0,0,0,0.3);
 }
@@ -162,23 +199,41 @@ body{
   letter-spacing:2px; text-transform:uppercase; margin-bottom:14px;
 }
 .r-contact{
-  display:flex; flex-wrap:wrap; gap:4px 0; align-items:center;
+  display:flex; flex-wrap:wrap; gap:6px; align-items:center; margin-top:2px;
 }
 .r-contact-item{
-  display:flex; align-items:center; gap:5px;
-  color:rgba(255,255,255,0.8); font-size:0.83em;
-  padding:4px 14px;
-  border-right:1px solid rgba(255,255,255,0.2);
+  display:flex; align-items:center; gap:4px;
+  color:rgba(255,255,255,0.82); font-size:0.82em;
+  padding:3px 11px;
+  border-right:1px solid rgba(255,255,255,0.18);
 }
 .r-contact-item:last-child{ border-right:none; }
 .r-contact-item a{ color:rgba(255,255,255,0.85); text-decoration:none; }
-.r-contact-item a:hover{ color:#fff; text-decoration:underline; }
+.r-contact-item a:hover{ color:#fff; }
 .r-contact-item:first-child{ padding-left:0; }
+.r-contact-pill{
+  display:inline-flex; align-items:center; gap:5px;
+  background:rgba(255,255,255,0.1);
+  border:1px solid rgba(255,255,255,0.22);
+  border-radius:20px;
+  padding:3px 10px 3px 8px;
+  color:rgba(255,255,255,0.88);
+  font-size:0.8em; font-weight:500;
+  text-decoration:none;
+  transition:all .2s ease;
+}
+.r-contact-pill:hover{
+  background:rgba(255,255,255,0.2);
+  color:#fff;
+  border-color:rgba(255,255,255,0.45);
+}
+.r-contact-pill svg{ flex-shrink:0; }
+.r-contact-pill{ word-break:break-word; }
 
 /* ─── BODY LAYOUT ─────────────────────────────── */
 .r-body{
   display:grid;
-  grid-template-columns:1fr 2.4fr;
+  grid-template-columns:0.9fr 2.6fr;
 }
 
 /* ─── LEFT SIDEBAR ────────────────────────────── */
@@ -191,6 +246,9 @@ body{
 /* ─── MAIN CONTENT ────────────────────────────── */
 .r-main{
   padding:18px 22px 18px 18px;
+  display:flex;
+  flex-direction:column;
+  gap:10px;
 }
 
 /* ─── SECTION TITLES ──────────────────────────── */
@@ -211,7 +269,20 @@ body{
 }
 
 /* ─── SECTION WRAPPERS ────────────────────────── */
-.r-section{ margin-bottom:10px; break-inside:avoid; }
+.r-section{
+  background:#fff;
+  border:1px solid rgba(30,136,229,.07);
+  border-radius:10px;
+  padding:12px 14px;
+  box-shadow:0 2px 8px rgba(0,0,0,.025);
+  break-inside:avoid;
+  margin-bottom:0;
+  transition:all .25s ease;
+}
+.r-section:hover{
+  transform:translateY(-2px);
+  box-shadow:0 10px 24px rgba(0,0,0,.06);
+}
 .r-section:last-child{ margin-bottom:0; }
 
 /* ─── SUMMARY ─────────────────────────────────── */
@@ -222,21 +293,33 @@ body{
   margin-top:2px;
 }
 .hl-item{
-  background:var(--lighter);
-  border:1px solid var(--border);
-  border-left:3px solid var(--sky);
-  padding:5px 10px;
-  border-radius:0 5px 5px 0;
-  font-size:0.82em;
-  font-weight:500;
+  position:relative;
+  background:linear-gradient(135deg,rgba(240,247,255,.9),rgba(230,243,255,.6));
+  border:1px solid rgba(30,136,229,.18);
+  border-radius:8px;
+  padding:6px 11px;
+  font-size:0.81em;
+  font-weight:600;
   color:var(--navy);
   line-height:1.4;
-  transition:all .2s ease;
+  overflow:hidden;
+  transition:all .25s cubic-bezier(.4,0,.2,1);
+  box-shadow:0 1px 4px rgba(30,136,229,.08);
+}
+.hl-item::before{
+  content:'';
+  position:absolute; top:0; left:-80%;
+  width:60%; height:100%;
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,.45),transparent);
+  transition:left .5s ease;
+  pointer-events:none;
 }
 .hl-item:hover{
-  transform:translateY(-1px);
-  box-shadow:0 4px 12px rgba(0,0,0,0.08);
+  transform:translateY(-2px);
+  box-shadow:0 6px 20px rgba(30,136,229,.15);
+  border-color:rgba(30,136,229,.35);
 }
+.hl-item:hover::before{ left:120%; }
 .r-summary{
   font-size:0.9em; color:var(--muted); line-height:1.72;
   padding:9px 12px;
@@ -279,7 +362,7 @@ ul.r-bullets li::before{
 }
 
 /* ─── PROJECT ENTRY ───────────────────────────── */
-.r-project{ margin-bottom:6px; }
+.r-project{ margin-bottom:2px; }
 .r-project-title{
   font-weight:700; font-size:0.9em; color:var(--navy);
   margin-bottom:3px;
@@ -312,18 +395,20 @@ ul.r-bullets li::before{
 }
 .skill-tags{ display:flex; flex-wrap:wrap; gap:4px; }
 .skill-tag{
-  font-size:0.76em; padding:2px 8px; border-radius:20px;
-  background:var(--white); border:1px solid var(--border);
-  color:var(--text); font-weight:500;
+  font-size:0.74em; padding:2px 7px; border-radius:20px;
+  background:rgba(255,255,255,.7); border:1px solid rgba(200,220,240,.8);
+  color:#35506d; font-weight:500;
   cursor:default;
-  transition:all .22s cubic-bezier(.4,0,.2,1);
+  transition:all .2s ease;
+  opacity:1;
 }
 .skill-tag:hover{
   background:var(--navy); color:#fff; border-color:var(--navy);
-  transform:translateY(-1px);
+  transform:translateY(-1px); opacity:1;
 }
 .skill-tag.hi{
   background:var(--navy); color:#fff; border-color:var(--navy);
+  opacity:1; font-weight:600;
 }
 .skill-tag.hi:hover{
   background:var(--blue); border-color:var(--blue);
@@ -378,18 +463,63 @@ ul.r-bullets li::before{
   .r-contact{ flex-direction:column; align-items:flex-start; }
   .r-contact-item{ border-right:none; padding-left:0; }
   .highlights-grid{ grid-template-columns:1fr; }
-  .toolbar{ flex-direction:column; align-items:flex-start; }
+  .toolbar{ flex-direction:column; align-items:center; }
+  .toolbar-inner{ width:auto; justify-content:center; }
+  .r-contact{ gap:8px; }
+  .r-contact-pill{ justify-content:center; }
 }
-@page{ size:letter; margin:0; }
+
+/* ─── PERFECT SINGLE PAGE PDF ─────────────────── */
+html, body{
+  width:8.5in;
+  min-height:11in;
+}
+.resume-card{
+  width:8.5in;
+  min-height:11in;
+  overflow:hidden;
+}
+.r-section{ padding:10px 12px; }
+.r-main{ gap:7px; }
+.r-sidebar{ padding:14px 12px 14px 14px; }
+.r-header{ padding:14px 24px 10px; }
+.r-name{ font-size:2.3em; }
+.r-summary{ line-height:1.5; }
+ul.r-bullets li{ margin-bottom:0px; line-height:1.25; }
+.r-entry{ margin-bottom:5px; }
+.entry-divider{ margin:5px 0; }
+.resume-card,.r-body,.r-section,.r-entry{
+  page-break-inside:avoid !important;
+  break-inside:avoid !important;
+}
+
+@page{
+  size:letter portrait;
+  margin:0;
+}
+
 @media print{
-  body{ background:white !important; padding:0 !important; }
-  a{ color:inherit !important; text-decoration:none !important; }
+  html,body{
+    width:8.5in;
+    height:11in;
+    overflow:hidden;
+    background:white !important;
+  }
+  body{ padding:0 !important; margin:0 !important; }
   .toolbar,.link-panel{ display:none !important; }
-  .resume-card{ box-shadow:none; border-radius:0; max-width:100%; margin:0; }
+  .resume-card{
+    margin:0 !important;
+    border-radius:0 !important;
+    box-shadow:none !important;
+    animation:none !important;
+    width:8.5in !important;
+    height:11in !important;
+    overflow:hidden !important;
+  }
+  a{ color:inherit !important; text-decoration:none !important; }
   [contenteditable]{ outline:none !important; background:transparent !important; }
-  .r-date{ -webkit-print-color-adjust:exact; print-color-adjust:exact; }
-  .r-header{ -webkit-print-color-adjust:exact; print-color-adjust:exact; }
-  .r-sidebar{ -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+  .r-section{ box-shadow:none !important; border:1px solid rgba(30,136,229,.06) !important; }
+  *{ -webkit-print-color-adjust:exact !important; print-color-adjust:exact !important; }
 }
 </style>
 </head>
@@ -398,10 +528,9 @@ ul.r-bullets li::before{
 <!-- TOOLBAR -->
 <div class="toolbar no-print">
   <div class="toolbar-inner">
-    <div class="toolbar-left"><strong>Resume Editor</strong> · Click any text to edit · Enter = new bullet · Backspace on empty line = delete</div>
     <div class="toolbar-btns">
       <button class="tbtn tbtn-outline" id="toggle-links-btn">⚙ Edit Links</button>
-      <button class="tbtn tbtn-solid" id="download-btn">⬇ Download PDF</button>
+      <button class="tbtn tbtn-solid" id="download-btn">⬇ Export Resume</button>
     </div>
   </div>
 </div>
@@ -433,9 +562,20 @@ ul.r-bullets li::before{
       <div class="r-contact-item"><span contenteditable="true">Hyderabad, India</span></div>
       <div class="r-contact-item"><a href="tel:9704147418" id="lnk-tel" contenteditable="true">9704147418</a></div>
       <div class="r-contact-item"><a href="mailto:Pavankumarkoda007@gmail.com" id="lnk-email" contenteditable="true">Pavankumarkoda007@gmail.com</a></div>
-      <div class="r-contact-item"><a href="https://pavankumarkoda.github.io/portfolio/" id="lnk-portfolio" target="_blank">Portfolio</a></div>
-      <div class="r-contact-item"><a href="https://www.linkedin.com/in/pavankoda/" id="lnk-linkedin" target="_blank">LinkedIn</a></div>
-      <div class="r-contact-item"><a href="https://github.com/pavankumarkoda" id="lnk-github" target="_blank">GitHub</a></div>
+      <div class="r-contact-item" style="border-right:none;padding-left:8px;gap:6px;">
+        <a href="https://pavankumarkoda.github.io/portfolio/" id="lnk-portfolio" target="_blank" class="r-contact-pill">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+          Portfolio
+        </a>
+        <a href="https://www.linkedin.com/in/pavankoda/" id="lnk-linkedin" target="_blank" class="r-contact-pill">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+          LinkedIn
+        </a>
+        <a href="https://github.com/pavankumarkoda" id="lnk-github" target="_blank" class="r-contact-pill">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+          GitHub
+        </a>
+      </div>
     </div>
   </header>
 
@@ -600,11 +740,10 @@ ul.r-bullets li::before{
           </div>
           <div class="r-company" contenteditable="true">Adroitec Engineering Solutions Pvt. Ltd. — Hyderabad, India</div>
           <ul class="r-bullets">
-            <li contenteditable="true">Built Spring Boot (Java 21) DMS deployed via Docker — internal platform for document approvals and lifecycle management with uploads, versioning, RBAC, audit logging, and full lifecycle (Draft → Approved → Archived), cutting approval turnaround by ~40%.</li>
-            <li contenteditable="true">Deployed offline LLMs with RAG pipeline, enabling engineers to query internal technical PDFs and get accurate answers — reducing manual document search effort by ~60%.</li>
-            <li contenteditable="true">Built "C&S Browser" — Spring Boot app with JWT auth, RBAC, and server-side PDF protection, securing access to internal Codes & Standards for authorized roles only.</li>
-            <li contenteditable="true">Reduced manual CAD workflow effort by ~50% via VB.NET WPF app integrating Creo APIs — automated parameter updates, assembly, part renaming, and batch DRW-to-PDF export.</li>
-            <li contenteditable="true">Built Java 21 email-ingestion pipeline (JAR deployed on AWS Lambda via S3) that captures all incoming emails and stores them in an OpenAI vector store — enabling semantic search across inbox history and reducing manual triage by ~50%.</li>
+            <li contenteditable="true">Built Spring Boot (Java 21) DMS deployed via Docker — internal platform for document approvals and lifecycle management with uploads, versioning, RBAC, audit logging, and full lifecycle (Draft → Approved → Archived), cutting approval turnaround by <strong>~40%</strong>.</li>
+            <li contenteditable="true">Deployed offline LLMs with RAG pipeline, enabling engineers to query internal technical PDFs and get accurate answers — reducing manual document search effort by <strong>~60%</strong>.</li>
+            <li contenteditable="true">Reduced manual CAD workflow effort by <strong>~50%</strong> via VB.NET WPF app integrating Creo APIs — automated parameter updates, assembly, part renaming, and batch DRW-to-PDF export.</li>
+            <li contenteditable="true">Built Java 21 email-ingestion pipeline (JAR deployed on AWS Lambda via S3) that captures all incoming emails and stores them in an OpenAI vector store — enabling semantic search across inbox history and reducing manual triage by <strong>~50%</strong>.</li>
           </ul>
         </div>
 
@@ -617,7 +756,6 @@ ul.r-bullets li::before{
           </div>
           <div class="r-company" contenteditable="true">Webzyte — Hyderabad, India</div>
           <ul class="r-bullets">
-            <li contenteditable="true">Built responsive web apps using PHP, MySQL, HTML5, and JavaScript for multiple client projects.</li>
             <li contenteditable="true">Integrated Google OAuth 2.0 and Microsoft OAuth for secure third-party authentication.</li>
           </ul>
         </div>
@@ -632,7 +770,7 @@ ul.r-bullets li::before{
           <div class="r-project-tech">Python · LLM · RAG · PDF Parsing · Offline Inference</div>
           <div class="r-project-links"><a href="https://github.com/pavankumarkoda" target="_blank" id="proj-rag-gh" class="proj-link">GitHub ↗</a></div>
           <ul class="r-bullets">
-            <li contenteditable="true">Deployed local LLMs with RAG — answers strictly from uploaded PDFs, no cloud, no data leakage; reduced document lookup time by ~65% for engineering teams.</li>
+            <li contenteditable="true">Deployed local LLMs with RAG — answers strictly from uploaded PDFs, no cloud, no data leakage; reduced document lookup time by <strong>~65%</strong> for engineering teams.</li>
             <li contenteditable="true">Built PDF chunking, vector embedding, and semantic search pipeline for accurate, citation-backed responses.</li>
           </ul>
         </div>
@@ -663,18 +801,10 @@ ul.r-bullets li::before{
           <div class="r-project-links"><a href="https://github.com/pavankumarkoda" target="_blank" class="proj-link">GitHub ↗</a></div>
           <ul class="r-bullets">
             <li contenteditable="true">Built a Java 21 Ant-based project compiled to a JAR, deployed on AWS Lambda via S3, that automatically ingests all incoming emails and stores them in an OpenAI vector store for semantic search and retrieval.</li>
-            <li contenteditable="true">Enabled intelligent, context-aware email querying across entire inbox history — reducing manual triage effort by ~50% and supporting audit/compliance use cases.</li>
+            <li contenteditable="true">Enabled intelligent, context-aware email querying across entire inbox history — reducing manual triage effort by <strong>~50%</strong> and supporting audit/compliance use cases.</li>
           </ul>
         </div>
 
-        <div class="r-project">
-          <div class="r-project-title" contenteditable="true">WPF Desktop App — Creo CAD Automation</div>
-          <div class="r-project-tech">VB.NET · SQL Server · Creo API · WPF</div>
-          <div class="r-project-links"><span class="proj-link-note">Internal project — architecture available on request</span></div>
-          <ul class="r-bullets">
-            <li contenteditable="true">Automated Creo CAD tasks — parameter updates, UCS assembly, feature deletion, batch PDF export.</li>
-          </ul>
-        </div>
 
       </section>
 
@@ -799,15 +929,16 @@ document.addEventListener('DOMContentLoaded', function () {
     const opt = {
       margin: 0,
       filename: 'Pavan_Kumar_Koda_Resume.pdf',
-      image: { type:'jpeg', quality:0.98 },
-      html2canvas: { scale:3, useCORS:true, logging:false, letterRendering:true },
-      jsPDF: { unit:'in', format:'letter', orientation:'portrait' }
+      image: { type:'jpeg', quality:1 },
+      html2canvas: { scale:2, useCORS:true, scrollY:0, windowWidth:1400 },
+      jsPDF: { unit:'in', format:'letter', orientation:'portrait' },
+      pagebreak: { mode:['avoid-all'] }
     };
     html2pdf().set(opt).from(card).save().then(() => {
       toolbar.style.display = '';
       linkPanel.style.display = '';
       els.forEach(el => el.setAttribute('contenteditable', 'true'));
-      btn.textContent = '⬇ Download PDF';
+      btn.textContent = '⬇ Export Resume';
       btn.disabled = false;
     });
   });
