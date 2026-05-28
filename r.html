@@ -5,7 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Pavan Kumar Koda — Resume</title>
 <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Cormorant+Garamond:wght@600;700&display=swap" rel="stylesheet">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 <style>
 :root {
   --navy:    #0d2137;
@@ -914,32 +913,27 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   });
 
-  // PDF download via html2pdf
+  // PDF export via window.print()
   document.getElementById('download-btn').addEventListener('click', function () {
     const btn = this;
-    btn.textContent = '⏳ Generating...';
+    btn.textContent = '⏳ Preparing...';
     btn.disabled = true;
-    const els = document.querySelectorAll('[contenteditable]');
+
+    // Strip contenteditable so it doesn't appear in PDF
+    const els = document.querySelectorAll('[contenteditable="true"]');
     els.forEach(el => el.removeAttribute('contenteditable'));
-    const toolbar = document.querySelector('.toolbar');
-    const linkPanel = document.getElementById('link-panel');
-    toolbar.style.display = 'none';
-    linkPanel.style.display = 'none';
-    const card = document.getElementById('resume');
-    const opt = {
-      margin: 0,
-      filename: 'Pavan_Kumar_Koda_Resume.pdf',
-      image: { type:'jpeg', quality:1 },
-      html2canvas: { scale:2, useCORS:true, scrollY:0, windowWidth:1400 },
-      jsPDF: { unit:'in', format:'letter', orientation:'portrait' },
-      pagebreak: { mode:['avoid-all'] }
-    };
-    html2pdf().set(opt).from(card).save().then(() => {
-      toolbar.style.display = '';
-      linkPanel.style.display = '';
-      els.forEach(el => el.setAttribute('contenteditable', 'true'));
-      btn.textContent = '⬇ Export Resume';
-      btn.disabled = false;
+
+    // Give browser a frame to re-render, then print
+    requestAnimationFrame(() => {
+      setTimeout(() => {
+        window.print();
+        // Restore after print dialog closes
+        setTimeout(() => {
+          els.forEach(el => el.setAttribute('contenteditable', 'true'));
+          btn.textContent = '⬇ Export Resume';
+          btn.disabled = false;
+        }, 800);
+      }, 150);
     });
   });
 
