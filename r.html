@@ -30,7 +30,7 @@ body{
     linear-gradient(135deg,#07111f 0%,#102742 45%,#0c4a6e 100%);
   min-height:100vh;
   padding:16px 16px 40px;
-  font-size:9pt;
+  font-size:8.8pt;
   color:var(--text);
 }
 
@@ -501,12 +501,12 @@ ul.r-bullets li::before{
 
   /* ── Header: keep gradient, compact ── */
   .r-header{
-    padding:14px 22px 10px !important;
+    padding:11px 20px 8px !important;
     -webkit-print-color-adjust:exact !important;
     print-color-adjust:exact !important;
   }
-  .r-name{ font-size:22pt !important; letter-spacing:2px !important; }
-  .r-tagline{ margin-bottom:8px !important; }
+  .r-name{ font-size:19pt !important; letter-spacing:1.5px !important; }
+  .r-tagline{ margin-bottom:5px !important; font-size:0.75em !important; }
 
   /* ── Two-column body: grid stays, tightened ── */
   .r-body{
@@ -517,7 +517,7 @@ ul.r-bullets li::before{
 
   /* ── Sidebar ── */
   .r-sidebar{
-    padding:10px 10px 10px 12px !important;
+    padding:8px 8px 8px 10px !important;
     background:linear-gradient(180deg,#f4f9ff 0%,#eef5fc 100%) !important;
     border-right:1px solid #b8d4ed !important;
     -webkit-print-color-adjust:exact !important;
@@ -533,13 +533,13 @@ ul.r-bullets li::before{
 
   /* ── Main content ── */
   .r-main{
-    padding:10px 14px 10px 12px !important;
-    gap:6px !important;
+    padding:8px 12px 8px 10px !important;
+    gap:4px !important;
     display:flex !important;
     flex-direction:column !important;
   }
   .r-section{
-    padding:8px 10px !important;
+    padding:6px 8px !important;
     box-shadow:none !important;
     border:1px solid rgba(30,136,229,.08) !important;
     border-radius:6px !important;
@@ -547,16 +547,16 @@ ul.r-bullets li::before{
     break-inside:avoid !important;
     page-break-inside:avoid !important;
   }
-  .sec-title{ margin-bottom:6px !important; padding-bottom:3px !important; }
+  .sec-title{ margin-bottom:4px !important; padding-bottom:2px !important; font-size:0.66em !important; }
   .r-summary{ font-size:0.82em !important; line-height:1.45 !important; padding:6px 8px !important; }
   .highlights-grid{ gap:4px !important; }
   .hl-item{ padding:4px 8px !important; font-size:0.76em !important; }
-  .r-entry{ margin-bottom:5px !important; }
+  .r-entry{ margin-bottom:3px !important; }
   .r-entry:last-child{ margin-bottom:0 !important; }
   .r-job-title{ font-size:0.9em !important; }
   .r-company{ margin:1px 0 3px !important; font-size:0.78em !important; }
-  ul.r-bullets li{ font-size:0.8em !important; line-height:1.25 !important; margin-bottom:0 !important; }
-  .r-project{ margin-bottom:3px !important; }
+  ul.r-bullets li{ font-size:0.78em !important; line-height:1.2 !important; margin-bottom:0 !important; }
+  .r-project{ margin-bottom:1px !important; }
   .r-project-title{ font-size:0.84em !important; margin-bottom:1px !important; }
   .r-project-tech{ font-size:0.68em !important; padding:0px 5px !important; margin-bottom:2px !important; }
   .r-project-links{ margin-bottom:1px !important; }
@@ -767,24 +767,6 @@ ul.r-bullets li::before{
     <!-- ═══ MAIN CONTENT ═══ -->
     <main class="r-main">
 
-      <!-- TECHNICAL HIGHLIGHTS -->
-      <section class="r-section">
-        <div class="sec-title">Technical Highlights</div>
-        <div class="highlights-grid">
-          <div class="hl-item" contenteditable="true">~2 Years Enterprise Backend Experience</div>
-          <div class="hl-item" contenteditable="true">Offline AI RAG Systems — Local LLM, Zero Cloud Dependency</div>
-          <div class="hl-item" contenteditable="true">Secure Document Lifecycle Management — RBAC, Audit Logging</div>
-          <div class="hl-item" contenteditable="true">Java 21 · Docker Containerization · AWS Lambda + S3 Deployment</div>
-          <div class="hl-item" contenteditable="true">Oracle Certified Professional Java SE Developer</div>
-        </div>
-      </section>
-
-      <!-- PROFESSIONAL SUMMARY -->
-      <section class="r-section">
-        <div class="sec-title">Professional Summary</div>
-        <div class="r-summary" contenteditable="true">Software Engineer with ~2 years building enterprise Java 21 backends, AI-powered document systems, and secure REST APIs. Skilled in Spring Boot, MySQL, JWT, Docker, AWS Lambda, and offline RAG pipelines. Focused on scalable architecture, production security, and measurable operational impact.</div>
-      </section>
-
       <!-- WORK EXPERIENCE -->
       <section class="r-section">
         <div class="sec-title">Work Experience</div>
@@ -798,8 +780,6 @@ ul.r-bullets li::before{
           <ul class="r-bullets">
             <li contenteditable="true">Built Spring Boot (Java 21) DMS deployed via Docker — internal platform for document approvals and lifecycle management with uploads, versioning, RBAC, audit logging, and full lifecycle (Draft → Approved → Archived), cutting approval turnaround by <strong>~40%</strong>.</li>
             <li contenteditable="true">Deployed offline LLMs with RAG pipeline, enabling engineers to query internal technical PDFs and get accurate answers — reducing manual document search effort by <strong>~60%</strong>.</li>
-            <li contenteditable="true">Reduced manual CAD workflow effort by <strong>~50%</strong> via VB.NET WPF app integrating Creo APIs — automated parameter updates, assembly, part renaming, and batch DRW-to-PDF export.</li>
-            <li contenteditable="true">Built Java 21 email-ingestion pipeline (JAR deployed on AWS Lambda via S3) that captures all incoming emails and stores them in an OpenAI vector store — enabling semantic search across inbox history and reducing manual triage by <strong>~50%</strong>.</li>
           </ul>
         </div>
 
@@ -812,7 +792,7 @@ ul.r-bullets li::before{
           </div>
           <div class="r-company" contenteditable="true">Webzyte — Hyderabad, India</div>
           <ul class="r-bullets">
-            <li contenteditable="true">Integrated Google OAuth 2.0 and Microsoft OAuth for secure third-party authentication.</li>
+            <li contenteditable="true">Integrated Google OAuth 2.0 and Microsoft OAuth for secure third-party authentication, reducing login friction and hardening data security.</li>
           </ul>
         </div>
       </section>
@@ -826,8 +806,7 @@ ul.r-bullets li::before{
           <div class="r-project-tech">Python · LLM · RAG · PDF Parsing · Offline Inference</div>
           <div class="r-project-links"><a href="https://github.com/pavankumarkoda" target="_blank" id="proj-rag-gh" class="proj-link">GitHub ↗</a></div>
           <ul class="r-bullets">
-            <li contenteditable="true">Deployed local LLMs with RAG — answers strictly from uploaded PDFs, no cloud, no data leakage; reduced document lookup time by <strong>~65%</strong> for engineering teams.</li>
-            <li contenteditable="true">Built PDF chunking, vector embedding, and semantic search pipeline for accurate, citation-backed responses.</li>
+            <li contenteditable="true">Deployed offline LLMs with RAG pipeline — PDF-only answers, zero cloud dependency, reducing document lookup time by <strong>~65%</strong>.</li>
           </ul>
         </div>
 
@@ -836,8 +815,7 @@ ul.r-bullets li::before{
           <div class="r-project-tech">Java 21 · Spring Boot · MySQL · REST API · RBAC · JWT · Docker</div>
           <div class="r-project-links"><a href="https://github.com/pavankumarkoda" target="_blank" id="proj-dms-gh" class="proj-link">GitHub ↗</a> <span class="proj-link-note">(sanitized demo)</span></div>
           <ul class="r-bullets">
-            <li contenteditable="true">Enterprise DMS built on Java 21 + Spring Boot, containerized with Docker — multi-format uploads, versioning, approval workflows, lifecycle states, and RBAC.</li>
-            <li contenteditable="true">Implemented audit logging, metadata tagging, and full-text search for compliance and traceability.</li>
+            <li contenteditable="true">Spring Boot (Java 21) DMS in Docker — versioning, approval workflows, lifecycle states, RBAC, and audit logging.</li>
           </ul>
         </div>
 
@@ -846,8 +824,7 @@ ul.r-bullets li::before{
           <div class="r-project-tech">Java · Spring Boot · JWT · RBAC · PDF Security</div>
           <div class="r-project-links"><span class="proj-link-note">Internal enterprise platform</span></div>
           <ul class="r-bullets">
-            <li contenteditable="true">Developed secure internal platform for accessing engineering Codes &amp; Standards with role-based authorization and protected PDF delivery.</li>
-            <li contenteditable="true">Implemented JWT authentication, access restriction, and audit tracking — ensuring enterprise compliance across engineering departments.</li>
+            <li contenteditable="true">Secure internal platform for Codes &amp; Standards access — RBAC, JWT auth, and protected PDF delivery.</li>
           </ul>
         </div>
 
@@ -856,8 +833,7 @@ ul.r-bullets li::before{
           <div class="r-project-tech">Java 21 · AWS Lambda · S3 · OpenAI API · Vector Store · JAR Deployment</div>
           <div class="r-project-links"><a href="https://github.com/pavankumarkoda" target="_blank" class="proj-link">GitHub ↗</a></div>
           <ul class="r-bullets">
-            <li contenteditable="true">Built a Java 21 Ant-based project compiled to a JAR, deployed on AWS Lambda via S3, that automatically ingests all incoming emails and stores them in an OpenAI vector store for semantic search and retrieval.</li>
-            <li contenteditable="true">Enabled intelligent, context-aware email querying across entire inbox history — reducing manual triage effort by <strong>~50%</strong> and supporting audit/compliance use cases.</li>
+            <li contenteditable="true">Java 21 JAR on AWS Lambda + S3 — ingests emails into OpenAI vector store, enabling semantic search and reducing triage by <strong>~50%</strong>.</li>
           </ul>
         </div>
 
