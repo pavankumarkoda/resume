@@ -118,7 +118,6 @@ body{
   background:linear-gradient(105deg,transparent 30%,rgba(255,255,255,0.04) 50%,transparent 70%);
   animation:shine 7s ease-in-out infinite; pointer-events:none;
 }
-/* Name: use Outfit (always loaded) with tight letter-spacing — avoids Cormorant doubling issue on mobile */
 .r-name{
   font-family:'Outfit',Arial,sans-serif;
   font-size:2.4em; font-weight:700;
@@ -279,148 +278,177 @@ ul.r-bullets li::before{ content:'▸'; position:absolute; left:-1em; color:var(
 }
 
 /* ══════════════════════════════════════════════
-   PRINT STYLES — Mobile & Desktop PDF export
+   PRINT STYLES — tight single A4 page
    ══════════════════════════════════════════════ */
-@page { size:A4 portrait; margin:0; }
+@page {
+  size: A4 portrait;
+  margin: 0;
+}
 
 @media print {
-  html {
-    -webkit-print-color-adjust:exact !important;
-    print-color-adjust:exact !important;
-  }
-  body {
-    margin:0 !important; padding:0 !important;
-    background:white !important;
-    width:210mm !important; min-height:0 !important;
-    font-size:7.8pt !important;
-    -webkit-print-color-adjust:exact !important;
-    print-color-adjust:exact !important;
+  html, body {
+    margin: 0 !important;
+    padding: 0 !important;
+    width: 210mm !important;
+    height: 297mm !important;
+    max-height: 297mm !important;
+    overflow: hidden !important;
+    background: white !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
   }
 
-  .toolbar, .link-panel { display:none !important; }
-  [contenteditable]{ outline:none !important; background:transparent !important; }
-  a{ color:inherit !important; text-decoration:none !important; }
-  * { -webkit-print-color-adjust:exact !important; print-color-adjust:exact !important; }
+  .toolbar, .link-panel { display: none !important; }
+  [contenteditable]{ outline: none !important; background: transparent !important; }
+  a { color: inherit !important; text-decoration: none !important; }
+  * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
 
-  /* ── Card ── */
-  .resume-card{
-    margin:0 !important; width:210mm !important; max-width:210mm !important;
-    border-radius:0 !important; box-shadow:none !important; border:none !important;
-    animation:none !important; overflow:visible !important; background:white !important;
-    transform:none !important;
+  /* ── Card: fill exactly A4 ── */
+  .resume-card {
+    margin: 0 !important;
+    width: 210mm !important;
+    max-width: 210mm !important;
+    height: 297mm !important;
+    max-height: 297mm !important;
+    overflow: hidden !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    border: none !important;
+    animation: none !important;
+    background: white !important;
+    transform: none !important;
+    display: flex !important;
+    flex-direction: column !important;
   }
-  .resume-card::before, .resume-card::after{ display:none !important; }
+  .resume-card::before,
+  .resume-card::after { display: none !important; }
 
   /* ── Header ── */
-  .r-header{
-    padding:12px 22px 10px !important;
-    background:linear-gradient(135deg,#07111f 0%,#0f2744 50%,#0d3a6b 100%) !important;
-    -webkit-print-color-adjust:exact !important; print-color-adjust:exact !important;
-    overflow:hidden !important;
+  .r-header {
+    padding: 10px 20px 8px !important;
+    background: linear-gradient(135deg,#07111f 0%,#0f2744 50%,#0d3a6b 100%) !important;
+    flex-shrink: 0 !important;
+    overflow: hidden !important;
   }
-  .r-header::before{ display:none !important; }
-  .r-name{ font-size:1.85em !important; letter-spacing:3px !important; margin-bottom:3px !important; }
-  .r-tagline{ font-size:0.68em !important; margin-bottom:7px !important; letter-spacing:2px !important; }
-  .r-contact{ gap:3px !important; flex-direction:row !important; flex-wrap:wrap !important; }
-  .r-contact-item{ font-size:0.7em !important; padding:2px 8px !important; border-right:1px solid rgba(255,255,255,0.18) !important; }
-  .r-contact-item:first-child{ padding-left:0 !important; }
-  .r-contact-item:last-child{ border-right:none !important; }
-  .r-contact-pill{
-    font-size:0.68em !important; padding:2px 7px 2px 6px !important;
-    background:rgba(255,255,255,0.12) !important;
-    border:1px solid rgba(255,255,255,0.28) !important;
-    -webkit-print-color-adjust:exact !important; print-color-adjust:exact !important;
+  .r-header::before { display: none !important; }
+  .r-name { font-size: 1.7em !important; letter-spacing: 3px !important; margin-bottom: 2px !important; }
+  .r-tagline { font-size: 0.62em !important; margin-bottom: 6px !important; letter-spacing: 2px !important; }
+  .r-contact { gap: 2px !important; flex-direction: row !important; flex-wrap: wrap !important; }
+  .r-contact-item { font-size: 0.65em !important; padding: 1px 7px !important; border-right: 1px solid rgba(255,255,255,0.18) !important; }
+  .r-contact-item:first-child { padding-left: 0 !important; }
+  .r-contact-item:last-child { border-right: none !important; }
+  .r-contact-pill {
+    font-size: 0.62em !important;
+    padding: 1px 6px 1px 5px !important;
+    background: rgba(255,255,255,0.12) !important;
+    border: 1px solid rgba(255,255,255,0.28) !important;
   }
 
-  /* ── Two-column body — always ── */
-  .r-body{
-    display:grid !important;
-    grid-template-columns:195px 1fr !important;
-    align-items:start !important; width:100% !important;
+  /* ── Body: fills remaining space, no overflow ── */
+  .r-body {
+    display: grid !important;
+    grid-template-columns: 178px 1fr !important;
+    flex: 1 !important;
+    min-height: 0 !important;
+    overflow: hidden !important;
+    align-items: start !important;
   }
 
   /* ── Sidebar ── */
-  .r-sidebar{
-    background:linear-gradient(180deg,#f4f9ff 0%,#eef5fc 100%) !important;
-    border-right:1px solid #b8d4ed !important;
-    padding:10px 10px 10px 13px !important;
-    -webkit-print-color-adjust:exact !important; print-color-adjust:exact !important;
+  .r-sidebar {
+    background: linear-gradient(180deg,#f4f9ff 0%,#eef5fc 100%) !important;
+    border-right: 1px solid #b8d4ed !important;
+    padding: 8px 8px 8px 10px !important;
+    height: 100% !important;
+    overflow: hidden !important;
   }
 
   /* ── Main ── */
-  .r-main{ padding:10px 14px 10px 12px !important; gap:5px !important; }
+  .r-main {
+    padding: 8px 12px 8px 10px !important;
+    gap: 4px !important;
+    overflow: hidden !important;
+  }
 
   /* ── Section cards ── */
-  .r-section{
-    background:#fff !important; border:1px solid rgba(30,136,229,.08) !important;
-    border-radius:6px !important; box-shadow:none !important;
-    padding:7px 9px !important; break-inside:avoid !important;
-    page-break-inside:avoid !important; margin-bottom:0 !important;
-    transform:none !important; transition:none !important;
+  .r-section {
+    background: #fff !important;
+    border: 1px solid rgba(30,136,229,.08) !important;
+    border-radius: 5px !important;
+    box-shadow: none !important;
+    padding: 5px 7px !important;
+    break-inside: avoid !important;
+    page-break-inside: avoid !important;
+    margin-bottom: 0 !important;
+    transform: none !important;
+    transition: none !important;
   }
-  .r-section:hover{ transform:none !important; box-shadow:none !important; }
+  .r-section:hover { transform: none !important; box-shadow: none !important; }
 
   /* ── Section titles ── */
-  .sec-title{ font-size:0.63em !important; padding-bottom:3px !important; margin-bottom:6px !important; }
-  .sec-title-sidebar{ font-size:0.62em !important; }
+  .sec-title { font-size: 0.58em !important; padding-bottom: 2px !important; margin-bottom: 4px !important; }
+  .sec-title-sidebar { font-size: 0.57em !important; }
 
   /* ── Highlights ── */
-  .highlights-grid{ grid-template-columns:1fr 1fr !important; gap:3px !important; }
-  .hl-item{
-    padding:4px 8px !important; font-size:0.74em !important;
-    background:linear-gradient(135deg,rgba(240,247,255,.9),rgba(230,243,255,.6)) !important;
-    border:1px solid rgba(30,136,229,.18) !important;
-    transform:none !important;
-    -webkit-print-color-adjust:exact !important; print-color-adjust:exact !important;
+  .highlights-grid { grid-template-columns: 1fr 1fr !important; gap: 2px !important; }
+  .hl-item {
+    padding: 3px 6px !important;
+    font-size: 0.7em !important;
+    background: linear-gradient(135deg,rgba(240,247,255,.9),rgba(230,243,255,.6)) !important;
+    border: 1px solid rgba(30,136,229,.18) !important;
+    transform: none !important;
+    line-height: 1.3 !important;
   }
 
   /* ── Summary ── */
-  .r-summary{ font-size:0.8em !important; line-height:1.55 !important; padding:6px 9px !important; }
+  .r-summary { font-size: 0.73em !important; line-height: 1.45 !important; padding: 4px 7px !important; }
 
   /* ── Experience ── */
-  .r-entry{ margin-bottom:5px !important; }
-  .r-job-title{ font-size:0.86em !important; }
-  .r-company{ font-size:0.74em !important; margin:1px 0 3px !important; }
-  .r-date{
-    font-size:0.68em !important;
-    background:var(--blue) !important; color:#fff !important;
-    -webkit-print-color-adjust:exact !important; print-color-adjust:exact !important;
+  .r-entry { margin-bottom: 4px !important; }
+  .r-job-title { font-size: 0.8em !important; }
+  .r-company { font-size: 0.7em !important; margin: 1px 0 2px !important; }
+  .r-date {
+    font-size: 0.63em !important;
+    background: var(--blue) !important;
+    color: #fff !important;
+    padding: 1px 6px !important;
   }
 
   /* ── Bullets ── */
-  ul.r-bullets li{ font-size:0.77em !important; line-height:1.3 !important; margin-bottom:1px !important; }
+  ul.r-bullets li { font-size: 0.71em !important; line-height: 1.25 !important; margin-bottom: 1px !important; }
 
   /* ── Projects ── */
-  .r-project{ margin-bottom:4px !important; }
-  .r-project-title{ font-size:0.8em !important; margin-bottom:1px !important; }
-  .r-project-tech{ font-size:0.65em !important; margin-bottom:2px !important; }
+  .r-project { margin-bottom: 3px !important; }
+  .r-project-title { font-size: 0.76em !important; margin-bottom: 1px !important; }
+  .r-project-tech { font-size: 0.61em !important; margin-bottom: 2px !important; padding: 1px 5px !important; }
 
   /* ── Skills ── */
-  .skill-group{ margin-bottom:4px !important; }
-  .skill-group-label{ font-size:0.62em !important; margin-bottom:2px !important; }
-  .skill-tags{ gap:2px !important; }
-  .skill-tag{ font-size:0.66em !important; padding:1px 5px !important; }
-  .skill-tag.hi{
-    background:var(--navy) !important; color:#fff !important; border-color:var(--navy) !important;
-    -webkit-print-color-adjust:exact !important; print-color-adjust:exact !important;
+  .skill-group { margin-bottom: 3px !important; }
+  .skill-group-label { font-size: 0.58em !important; margin-bottom: 2px !important; }
+  .skill-tags { gap: 2px !important; }
+  .skill-tag { font-size: 0.62em !important; padding: 1px 4px !important; }
+  .skill-tag.hi {
+    background: var(--navy) !important;
+    color: #fff !important;
+    border-color: var(--navy) !important;
   }
 
   /* ── Certs ── */
-  .cert-item{ margin-bottom:4px !important; }
-  .cert-name{ font-size:0.74em !important; }
-  .cert-issuer, .cert-link{ font-size:0.65em !important; }
+  .cert-item { margin-bottom: 3px !important; }
+  .cert-name { font-size: 0.69em !important; line-height: 1.25 !important; }
+  .cert-issuer, .cert-link { font-size: 0.61em !important; }
 
   /* ── Education ── */
-  .edu-item{ margin-bottom:4px !important; }
-  .edu-degree{ font-size:0.76em !important; }
-  .edu-school{ font-size:0.68em !important; }
-  .edu-date{ font-size:0.63em !important; }
+  .edu-item { margin-bottom: 3px !important; }
+  .edu-degree { font-size: 0.71em !important; line-height: 1.25 !important; }
+  .edu-school { font-size: 0.63em !important; }
+  .edu-date { font-size: 0.59em !important; }
 
   /* ── Achievements ── */
-  .ach-item{ font-size:0.74em !important; margin-bottom:2px !important; }
+  .ach-item { font-size: 0.7em !important; margin-bottom: 2px !important; }
 
   /* ── Divider ── */
-  .entry-divider{ margin:4px 0 !important; }
+  .entry-divider { margin: 3px 0 !important; }
 }
 </style>
 </head>
