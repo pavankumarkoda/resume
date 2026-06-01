@@ -174,119 +174,155 @@ ul.r-bullets li::before{content:'▸';position:absolute;left:-1em;color:var(--sk
 }
 
 /* ─── PRINT ─── */
-@page{size:letter portrait;margin:0;}
+@page {
+  size: letter portrait;
+  margin: 0;
+}
 
-@media print{
-  html,body{
-    margin:0!important;padding:0!important;background:white!important;
-    -webkit-print-color-adjust:exact!important;print-color-adjust:exact!important;
-    width:100%!important;height:auto!important;overflow:visible!important;
-  }
-  .toolbar,.link-panel{display:none!important;}
-  [contenteditable]{outline:none!important;background:transparent!important;}
-  a{color:inherit!important;text-decoration:none!important;}
-  *{-webkit-print-color-adjust:exact!important;print-color-adjust:exact!important;}
-
-  /* Scale the whole card to fit one page — transform works on mobile Safari/Chrome */
-  .resume-card{
-    margin:0!important;
-    border-radius:0!important;box-shadow:none!important;border:none!important;
-    animation:none!important;background:white!important;overflow:visible!important;
-    /* 
-      Scale so the 8.5in card fits within the print viewport.
-      transform-origin top-left + compensate width so nothing clips.
-      Adjust the scale value if content still overflows — try 0.68 or 0.65.
-    */
-    transform:scale(0.72)!important;
-    transform-origin:top left!important;
-    width:calc(100% / 0.72)!important;
-    max-width:calc(100% / 0.72)!important;
-  }
-  .resume-card::before,.resume-card::after{display:none!important;}
-
-  /* Force two-column layout */
-  .r-body{
-    display:grid!important;
-    grid-template-columns:0.9fr 2.6fr!important;
-    align-items:start!important;width:100%!important;
+@media print {
+  html {
+    width: 8.5in;
+    height: 11in;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
   }
 
-  /* Tighter header */
-  .r-header{padding:12px 22px 9px!important;}
-  .r-name{font-size:2.1em!important;}
-  .r-tagline{font-size:0.75em!important;margin-bottom:8px!important;}
-  .r-contact{
-    flex-direction:row!important;flex-wrap:wrap!important;align-items:center!important;gap:3px!important;
-  }
-  .r-contact-item{
-    font-size:0.75em!important;padding:2px 8px!important;
-    border-right:1px solid rgba(255,255,255,0.18)!important;
-  }
-  .r-contact-item:first-child{padding-left:0!important;}
-  .r-contact-item:last-child{border-right:none!important;}
-  .r-contact-pill{font-size:0.72em!important;padding:2px 7px 2px 6px!important;}
-
-  /* Tighter sidebar */
-  .r-sidebar{
-    background:linear-gradient(180deg,#f4f9ff 0%,#eef5fc 100%)!important;
-    border-right:1px solid #b8d4ed!important;border-bottom:none!important;
-    padding:10px 10px 10px 12px!important;
-    -webkit-print-color-adjust:exact!important;print-color-adjust:exact!important;
+  body {
+    margin: 0 !important;
+    padding: 0 !important;
+    background: white !important;
+    width: 8.5in !important;
+    height: auto !important;
+    overflow: visible !important;
+    font-size: 8pt !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
   }
 
-  /* Tighter main */
-  .r-main{padding:10px 14px 10px 10px!important;gap:5px!important;}
+  .toolbar, .link-panel { display: none !important; }
+  [contenteditable] { outline: none !important; background: transparent !important; }
+  a { color: inherit !important; text-decoration: none !important; }
+  * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
 
-  /* Tighter sections */
-  .r-section{
-    background:#fff!important;border:1px solid rgba(30,136,229,.08)!important;
-    border-radius:6px!important;box-shadow:none!important;
-    padding:7px 9px!important;break-inside:avoid!important;
-    page-break-inside:avoid!important;margin-bottom:0!important;transform:none!important;
+  /* The resume card fills the page exactly — no transform tricks */
+  .resume-card {
+    margin: 0 !important;
+    width: 8.5in !important;
+    max-width: 8.5in !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    border: none !important;
+    animation: none !important;
+    background: white !important;
+    overflow: visible !important;
+    transform: none !important;
   }
-  .r-section:hover{transform:none!important;box-shadow:none!important;}
+  .resume-card::before, .resume-card::after { display: none !important; }
 
-  .sec-title{font-size:0.65em!important;padding-bottom:3px!important;margin-bottom:6px!important;}
+  /* Two-column layout */
+  .r-body {
+    display: grid !important;
+    grid-template-columns: 0.9fr 2.6fr !important;
+    align-items: start !important;
+    width: 100% !important;
+  }
 
-  /* Skill groups */
-  .skill-group{margin-bottom:5px!important;}
-  .skill-group-label{font-size:0.67em!important;margin-bottom:3px!important;}
-  .skill-tag{font-size:0.68em!important;padding:1px 5px!important;}
-  .skill-tag.hi{background:var(--navy)!important;color:#fff!important;}
+  /* Header */
+  .r-header {
+    padding: 10px 20px 8px !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+  .r-name { font-size: 1.9em !important; letter-spacing: 1.5px !important; }
+  .r-tagline { font-size: 0.72em !important; margin-bottom: 7px !important; }
+  .r-contact {
+    flex-direction: row !important;
+    flex-wrap: wrap !important;
+    align-items: center !important;
+    gap: 2px !important;
+  }
+  .r-contact-item {
+    font-size: 0.72em !important;
+    padding: 2px 7px !important;
+    border-right: 1px solid rgba(255,255,255,0.18) !important;
+  }
+  .r-contact-item:first-child { padding-left: 0 !important; }
+  .r-contact-item:last-child { border-right: none !important; }
+  .r-contact-pill { font-size: 0.68em !important; padding: 2px 6px 2px 5px !important; }
 
-  /* Education / certs / achievements */
-  .edu-item{margin-bottom:4px!important;}
-  .edu-degree{font-size:0.77em!important;}
-  .edu-school{font-size:0.71em!important;}
-  .edu-date{font-size:0.67em!important;}
-  .cert-item{margin-bottom:4px!important;}
-  .cert-name{font-size:0.76em!important;}
-  .cert-issuer{font-size:0.68em!important;}
-  .cert-link{font-size:0.66em!important;}
-  .ach-item{font-size:0.76em!important;margin-bottom:2px!important;}
+  /* Sidebar */
+  .r-sidebar {
+    background: linear-gradient(180deg,#f4f9ff 0%,#eef5fc 100%) !important;
+    border-right: 1px solid #b8d4ed !important;
+    border-bottom: none !important;
+    padding: 8px 8px 8px 10px !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
 
-  /* Highlights grid */
-  .highlights-grid{grid-template-columns:1fr 1fr!important;gap:4px!important;}
-  .hl-item{font-size:0.74em!important;padding:4px 8px!important;}
-  .hl-item:hover{transform:none!important;}
+  /* Main */
+  .r-main { padding: 8px 12px 8px 8px !important; gap: 4px !important; }
+
+  /* Sections */
+  .r-section {
+    background: #fff !important;
+    border: 1px solid rgba(30,136,229,.08) !important;
+    border-radius: 5px !important;
+    box-shadow: none !important;
+    padding: 6px 8px !important;
+    break-inside: avoid !important;
+    page-break-inside: avoid !important;
+    margin-bottom: 0 !important;
+    transform: none !important;
+  }
+  .r-section:hover { transform: none !important; box-shadow: none !important; }
+
+  .sec-title { font-size: 0.62em !important; padding-bottom: 2px !important; margin-bottom: 5px !important; }
+
+  /* Skills */
+  .skill-group { margin-bottom: 4px !important; }
+  .skill-group-label { font-size: 0.63em !important; margin-bottom: 2px !important; }
+  .skill-tag { font-size: 0.64em !important; padding: 1px 5px !important; }
+  .skill-tag.hi { background: var(--navy) !important; color: #fff !important; }
+
+  /* Education */
+  .edu-item { margin-bottom: 3px !important; }
+  .edu-degree { font-size: 0.72em !important; }
+  .edu-school { font-size: 0.67em !important; }
+  .edu-date { font-size: 0.63em !important; }
+
+  /* Certs */
+  .cert-item { margin-bottom: 3px !important; }
+  .cert-name { font-size: 0.71em !important; }
+  .cert-issuer { font-size: 0.64em !important; }
+  .cert-link { font-size: 0.62em !important; }
+
+  /* Achievements */
+  .ach-item { font-size: 0.71em !important; margin-bottom: 2px !important; }
+
+  /* Highlights */
+  .highlights-grid { grid-template-columns: 1fr 1fr !important; gap: 3px !important; }
+  .hl-item { font-size: 0.7em !important; padding: 3px 7px !important; }
+  .hl-item:hover { transform: none !important; }
 
   /* Summary */
-  .r-summary{font-size:0.82em!important;line-height:1.5!important;padding:7px 10px!important;}
+  .r-summary { font-size: 0.78em !important; line-height: 1.45 !important; padding: 6px 8px !important; }
 
   /* Experience */
-  .r-entry{margin-bottom:5px!important;}
-  .r-job-title{font-size:0.88em!important;}
-  .r-date{font-size:0.71em!important;padding:1px 6px!important;background:var(--blue)!important;color:#fff!important;}
-  .r-company{font-size:0.77em!important;margin:1px 0 3px!important;}
-  ul.r-bullets li{font-size:0.8em!important;line-height:1.28!important;margin-bottom:1px!important;}
+  .r-entry { margin-bottom: 4px !important; }
+  .r-job-title { font-size: 0.84em !important; }
+  .r-date { font-size: 0.67em !important; padding: 1px 5px !important; background: var(--blue) !important; color: #fff !important; }
+  .r-company { font-size: 0.73em !important; margin: 1px 0 2px !important; }
+  ul.r-bullets li { font-size: 0.76em !important; line-height: 1.25 !important; margin-bottom: 1px !important; }
 
   /* Projects */
-  .r-project{margin-bottom:4px!important;}
-  .r-project-title{font-size:0.83em!important;margin-bottom:2px!important;}
-  .r-project-tech{font-size:0.68em!important;padding:1px 5px!important;margin-bottom:2px!important;}
+  .r-project { margin-bottom: 3px !important; }
+  .r-project-title { font-size: 0.79em !important; margin-bottom: 2px !important; }
+  .r-project-tech { font-size: 0.64em !important; padding: 1px 5px !important; margin-bottom: 2px !important;
+    background: var(--light) !important; -webkit-print-color-adjust: exact !important; }
 
   /* Divider */
-  .entry-divider{margin:4px 0!important;}
+  .entry-divider { margin: 3px 0 !important; }
 }
 </style>
 </head>
