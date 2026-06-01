@@ -275,8 +275,8 @@ ul.r-bullets li::before{content:'▸';position:absolute;left:-1em;color:var(--sk
     print-color-adjust: exact !important;
   }
 
-  /* Main */
-  .r-main { padding: 12px 18px 12px 12px !important; gap: 6px !important; }
+  /* Main — right column only gets 11pt */
+  .r-main { padding: 8px 18px 8px 12px !important; gap: 4px !important; font-size: 11pt !important; }
 
   /* Sections */
   .r-section {
@@ -284,7 +284,7 @@ ul.r-bullets li::before{content:'▸';position:absolute;left:-1em;color:var(--sk
     border: 1px solid rgba(30,136,229,.08) !important;
     border-radius: 5px !important;
     box-shadow: none !important;
-    padding: 9px 12px !important;
+    padding: 7px 12px !important;
     break-inside: avoid !important;
     page-break-inside: avoid !important;
     margin-bottom: 0 !important;
@@ -292,7 +292,7 @@ ul.r-bullets li::before{content:'▸';position:absolute;left:-1em;color:var(--sk
   }
   .r-section:hover { transform: none !important; box-shadow: none !important; }
 
-  .sec-title { font-size: 0.62em !important; padding-bottom: 3px !important; margin-bottom: 8px !important; }
+  .sec-title { font-size: 0.65em !important; padding-bottom: 3px !important; margin-bottom: 5px !important; }
 
   /* Skills */
   .skill-group { margin-bottom: 6px !important; }
@@ -316,28 +316,28 @@ ul.r-bullets li::before{content:'▸';position:absolute;left:-1em;color:var(--sk
   .ach-item { font-size: 0.71em !important; margin-bottom: 3px !important; }
 
   /* Highlights */
-  .highlights-grid { grid-template-columns: 1fr 1fr !important; gap: 5px !important; }
-  .hl-item { font-size: 0.7em !important; padding: 5px 11px !important; }
+  .highlights-grid { grid-template-columns: 1fr 1fr !important; gap: 4px !important; }
+  .hl-item { font-size: 0.73em !important; padding: 4px 10px !important; }
   .hl-item:hover { transform: none !important; }
 
   /* Summary */
-  .r-summary { font-size: 0.78em !important; line-height: 1.45 !important; padding: 9px 12px !important; }
+  .r-summary { font-size: 0.82em !important; line-height: 1.4 !important; padding: 7px 10px !important; }
 
   /* Experience */
-  .r-entry { margin-bottom: 6px !important; }
-  .r-job-title { font-size: 0.84em !important; }
-  .r-date { font-size: 0.67em !important; padding: 2px 8px !important; background: var(--blue) !important; color: #fff !important; }
-  .r-company { font-size: 0.73em !important; margin: 2px 0 3px !important; }
-  ul.r-bullets li { font-size: 0.76em !important; line-height: 1.25 !important; margin-bottom: 2px !important; }
+  .r-entry { margin-bottom: 4px !important; }
+  .r-job-title { font-size: 0.88em !important; }
+  .r-date { font-size: 0.7em !important; padding: 2px 8px !important; background: var(--blue) !important; color: #fff !important; }
+  .r-company { font-size: 0.77em !important; margin: 2px 0 3px !important; }
+  ul.r-bullets li { font-size: 0.81em !important; line-height: 1.3 !important; margin-bottom: 2px !important; }
 
   /* Projects */
-  .r-project { margin-bottom: 5px !important; }
-  .r-project-title { font-size: 0.79em !important; margin-bottom: 3px !important; }
-  .r-project-tech { font-size: 0.64em !important; padding: 2px 8px !important; margin-bottom: 3px !important;
+  .r-project { margin-bottom: 3px !important; }
+  .r-project-title { font-size: 0.83em !important; margin-bottom: 2px !important; }
+  .r-project-tech { font-size: 0.67em !important; padding: 2px 8px !important; margin-bottom: 2px !important;
     background: var(--light) !important; -webkit-print-color-adjust: exact !important; }
 
   /* Divider */
-  .entry-divider { margin: 5px 0 !important; }
+  .entry-divider { margin: 3px 0 !important; }
 }
 </style>
 </head>
@@ -495,7 +495,7 @@ ul.r-bullets li::before{content:'▸';position:absolute;left:-1em;color:var(--sk
       <section class="r-section">
         <div class="sec-title">Technical Highlights</div>
         <div class="highlights-grid">
-          <div class="hl-item" contenteditable="true">~2 Years Enterprise Backend Experience</div>
+          <div class="hl-item" contenteditable="true">Nearly 2 Years Enterprise Backend Experience</div>
           <div class="hl-item" contenteditable="true">Offline AI RAG Systems — Local LLM, Zero Cloud Dependency</div>
           <div class="hl-item" contenteditable="true">Secure Document Lifecycle Management — RBAC, Audit Logging</div>
           <div class="hl-item" contenteditable="true">Java 21 · Docker · AWS Lambda + S3 Deployment</div>
@@ -505,7 +505,7 @@ ul.r-bullets li::before{content:'▸';position:absolute;left:-1em;color:var(--sk
 
       <section class="r-section">
         <div class="sec-title">Professional Summary</div>
-        <div class="r-summary" contenteditable="true">Software Engineer with ~2 years building enterprise Java 21 backends, AI-powered document systems, and secure REST APIs. Skilled in Spring Boot, MySQL, JWT, Docker, AWS Lambda, and offline RAG pipelines. Focused on scalable architecture, production security, and measurable operational impact.</div>
+        <div class="r-summary" contenteditable="true">Software Engineer with nearly 2 years of experience building enterprise-grade Java 21 backends, AI-powered document systems, and secure REST APIs. Proficient in Spring Boot, MySQL, JWT, Docker, AWS Lambda, and offline RAG pipelines — passionate about scalable architecture, production-grade security, and delivering real-world operational impact.</div>
       </section>
 
       <section class="r-section">
@@ -517,10 +517,10 @@ ul.r-bullets li::before{content:'▸';position:absolute;left:-1em;color:var(--sk
           </div>
           <div class="r-company" contenteditable="true">Adroitec Engineering Solutions Pvt. Ltd. — Hyderabad, India</div>
           <ul class="r-bullets">
-            <li contenteditable="true">Built Spring Boot (Java 21) DMS via Docker — lifecycle management with RBAC, audit logging, versioning, and approval workflows (Draft → Approved → Archived), cutting turnaround by <strong>~40%</strong>.</li>
-            <li contenteditable="true">Deployed offline LLMs with RAG pipeline for querying internal technical PDFs — reducing manual search effort by <strong>~60%</strong>.</li>
-            <li contenteditable="true">Reduced CAD workflow effort by <strong>~50%</strong> via VB.NET WPF app integrating Creo APIs — automated parameter updates, assembly, renaming, and batch DRW-to-PDF export.</li>
-            <li contenteditable="true">Built Java 21 email-ingestion pipeline (AWS Lambda via S3) storing emails in an OpenAI vector store — enabling semantic search and reducing manual triage by <strong>~50%</strong>.</li>
+            <li contenteditable="true">Engineered a Spring Boot (Java 21) DMS containerized with Docker — full document lifecycle (Draft → Approved → Archived) with RBAC, audit logging, versioning, and multi-stage approval workflows.</li>
+            <li contenteditable="true">Deployed offline LLMs with a RAG pipeline for querying internal technical PDFs — delivers instant, citation-backed answers with zero cloud dependency.</li>
+            <li contenteditable="true">Built a VB.NET WPF desktop application integrating Creo APIs to automate parameter updates, assembly management, component renaming, and batch DRW-to-PDF export.</li>
+            <li contenteditable="true">Developed a Java 21 email-ingestion pipeline on AWS Lambda (S3-triggered) that indexes incoming emails into an OpenAI vector store for semantic search and audit compliance.</li>
           </ul>
         </div>
         <div class="entry-divider"></div>
@@ -543,7 +543,7 @@ ul.r-bullets li::before{content:'▸';position:absolute;left:-1em;color:var(--sk
           <div class="r-project-title" contenteditable="true">Offline PDF Intelligence System (RAG + Local LLM)</div>
           <div class="r-project-tech">Python · LLM · RAG · PDF Parsing · Offline Inference</div>
           <ul class="r-bullets">
-            <li contenteditable="true">Deployed local LLMs with RAG — answers strictly from uploaded PDFs, no cloud; reduced lookup time by <strong>~65%</strong>.</li>
+            <li contenteditable="true">Deployed local LLMs with RAG — answers sourced strictly from uploaded PDFs with no cloud dependency; supports fully offline, air-gapped enterprise environments.</li>
             <li contenteditable="true">Built PDF chunking, vector embedding, and semantic search pipeline for citation-backed responses.</li>
           </ul>
         </div>
@@ -558,7 +558,7 @@ ul.r-bullets li::before{content:'▸';position:absolute;left:-1em;color:var(--sk
           <div class="r-project-title" contenteditable="true">Email Intelligence Pipeline — AWS Lambda + OpenAI Vector Store</div>
           <div class="r-project-tech">Java 21 · AWS Lambda · S3 · OpenAI API · Vector Store</div>
           <ul class="r-bullets">
-            <li contenteditable="true">JAR on AWS Lambda auto-ingests emails into OpenAI vector store — semantic inbox search, reducing triage by <strong>~50%</strong> and supporting audit/compliance.</li>
+            <li contenteditable="true">JAR deployed on AWS Lambda auto-ingests emails into an OpenAI vector store — enables semantic inbox search and supports audit/compliance workflows.</li>
           </ul>
         </div>
         <div class="r-project">
