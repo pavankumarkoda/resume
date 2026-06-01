@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Deepthi Baipalli - Resume</title>
+    <style>
+        :root {
+            --primary-color: #6b48a8;
+            --primary-text: #1e1b2e;
+            --secondary-text: #5a5370;
+            --focus-bg-color: #f0ebff;
+            --highlight-color: #fff3cd;
+        }
+        body {
+            font-family: Georgia, 'Times New Roman', serif;
+            background-color: #f0ecf8;
+            color: var(--primary-text);
+            margin: 0;
+            padding: 0;
+            font-size: 9.5pt;
+            line-height: 1.25;
+        }
+        .container {
+            max-width: 8.5in;
+            margin: 20px auto;
+            background-color: #ffffff;
+            padding: 0.3in 0.4in;
+            box-shadow: 0 4px 12px rgba(107, 72, 168, 0.15);
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            min-height: 11in;
+        }
+        #resume-content {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        main { flex-grow: 1; }
+        .download-container { text-align: right; margin-bottom: 10px; }
+        #download-btn {
+            background-color: var(--primary-color); color: white; border: none; padding: 8px 16px;
+            font-size: 1em; font-weight: 600; border-radius: 5px; cursor: pointer; font-family: Georgia, serif;
+        }
+        [contenteditable="true"]:focus {
+            background-color: var(--focus-bg-color);
+            outline: 1px solid var(--primary-color);
+        }
+        .no-print { display: block; }
+
+        @page { size: letter; margin: 0; }
+        @media print {
+            .no-print { display: none !important; }
+            body { margin: 0 !important; background-color: #ffffff; }
+            .container { margin: 0 !important; padding: 0.3in 0.4in; box-shadow: none !important; min-height: 0; max-width: 100%; }
+        }
+
+        #link-editor {
+            border: 1px solid #d9d0ee;
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            background-color: #f9f7ff;
+        }
+        #link-editor h2 { margin-top: 0; margin-bottom: 15px; font-size: 1.2em; color: var(--primary-text); }
+        .input-group { display: grid; grid-template-columns: 120px 1fr; gap: 10px; align-items: center; margin-bottom: 8px; }
+        .input-group label { font-weight: bold; text-align: right; }
+        .input-group input { width: 100%; padding: 5px 8px; border: 1px solid #ccc; border-radius: 3px; box-sizing: border-box; }
+        .highlight-link { background-color: var(--highlight-color); padding: 2px 4px; border-radius: 3px; transition: all 0.2s ease-in-out; }
+
+        header { text-align: center; margin-bottom: 8px; }
+        header h1 {
+            font-size: 2.2em; color: var(--primary-color); margin: 0; font-weight: bold;
+            letter-spacing: 2px; text-transform: uppercase; font-family: Georgia, serif;
+        }
+        .contact-info { margin-top: 4px; display: flex; flex-wrap: wrap; justify-content: center; gap: 4px 8px; font-size: 0.9em; }
+        .contact-info span { color: var(--secondary-text); }
+        a { color: var(--primary-color); text-decoration: none; }
+        section { margin-bottom: 5px; }
+        h2 {
+            font-size: 1.1em; color: var(--primary-color); text-transform: uppercase;
+            border-bottom: 2px solid var(--primary-color);
+            padding-bottom: 2px; margin-bottom: 4px;
+            letter-spacing: 1.5px; font-weight: bold; font-family: Georgia, serif;
+        }
+        .entry { margin-bottom: 5px; }
+        .entry h4 { margin: 1px 0 2px 0; font-weight: normal; color: var(--secondary-text); font-size: 1em; }
+        .job-header { width: 100%; table-layout: fixed; border-collapse: collapse; }
+        .job-header td { padding: 0; vertical-align: top; overflow: hidden; }
+        .job-header .job-title { text-align: left; font-size: 1em; font-weight: bold; }
+        .job-header .job-date {
+            text-align: right; white-space: nowrap; color: var(--secondary-text);
+            font-size: 0.95em; padding-left: 15px; font-weight: bold;
+        }
+        .right-buffer { width: 0.2in; }
+        .section-wrapper { width: 100%; table-layout: fixed; }
+        ul { list-style-type: none; padding-left: 0; margin: 3px 0 0 0; }
+        li { padding-left: 1.4em; position: relative; margin-bottom: 2px; }
+        li::before { content: '•'; position: absolute; left: 0.5em; top: 0; font-weight: bold; color: var(--primary-color); }
+        .two-column-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1px 20px; }
+        .grid-item { display: flex; padding: 1px 0; }
+        .grid-item strong { flex-basis: 110px; flex-shrink: 0; font-weight: bold; }
+        .grid-item span { flex-grow: 1; }
+        .project { margin-bottom: 4px; }
+        .project-header { width: 100%; table-layout: fixed; }
+        .project-header .project-title h3 { font-size: 1em; font-weight: bold; margin: 0 0 2px 0; }
+        footer { margin-top: auto; padding-top: 10px; }
+        .footer-table { width: 100%; table-layout: fixed; }
+        .footer-table .footer-name { text-align: right; font-weight: bold; color: var(--primary-color); }
+        .summary-text { margin: 3px 0 5px 0; font-size: 0.95em; color: var(--secondary-text); line-height: 1.4; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="download-container no-print">
+            <button id="download-btn">Download as PDF</button>
+        </div>
+
+        <div id="link-editor" class="no-print">
+            <h2>Edit Your Links</h2>
+            <div class="input-group">
+                <label for="input-tel">Phone</label>
+                <input type="text" class="link-input" id="input-tel" data-target="link-tel" value="+918897082930">
+            </div>
+            <div class="input-group">
+                <label for="input-email">Email</label>
+                <input type="text" class="link-input" id="input-email" data-target="link-email" value="deepthichinnni@gmail.com">
+            </div>
+            <div class="input-group">
+                <label for="input-github">GitHub</label>
+                <input type="text" class="link-input" id="input-github" data-target="link-github" value="https://github.com/Deepthi-Baipalli">
+            </div>
+            <div class="input-group">
+                <label for="input-linkedin">LinkedIn</label>
+                <input type="text" class="link-input" id="input-linkedin" data-target="link-linkedin" value="https://linkedin.com/in/deepthi-baipalli">
+            </div>
+            <div class="input-group">
+                <label for="input-leetcode">LeetCode</label>
+                <input type="text" class="link-input" id="input-leetcode" data-target="link-leetcode" value="https://leetcode.com/">
+            </div>
+            <div class="input-group">
+                <label for="input-oracle-gen">Oracle GenAI Cert</label>
+                <input type="text" class="link-input" id="input-oracle-gen" data-target="link-oracle-gen" value="#">
+            </div>
+            <div class="input-group">
+                <label for="input-google-cloud">Google Cloud AI</label>
+                <input type="text" class="link-input" id="input-google-cloud" data-target="link-google-cloud" value="#">
+            </div>
+            <div class="input-group">
+                <label for="input-aws-cert">AWS Foundations</label>
+                <input type="text" class="link-input" id="input-aws-cert" data-target="link-aws-cert" value="#">
+            </div>
+        </div>
+
+        <div id="resume-content">
+            <header>
+                <h1 contenteditable="true">DEEPTHI BAIPALLI</h1>
+                <div class="contact-info">
+                    <span contenteditable="true">Visakhapatnam, Andhra Pradesh, India</span> |
+                    <a href="tel:+918897082930" target="_blank" id="link-tel" contenteditable="true">+91 8897082930</a> |
+                    <a href="mailto:deepthichinnni@gmail.com" target="_blank" id="link-email" contenteditable="true">deepthichinnni@gmail.com</a> |
+                    <a href="https://github.com/Deepthi-Baipalli" target="_blank" id="link-github" contenteditable="true">GitHub</a> |
+                    <a href="https://linkedin.com/in/deepthi-baipalli" target="_blank" id="link-linkedin" contenteditable="true">LinkedIn</a>
+                </div>
+            </header>
+
+            <main>
+                <section id="summary">
+                    <h2 contenteditable="true">PROFESSIONAL SUMMARY</h2>
+                    <p class="summary-text" contenteditable="true">Computer Science undergraduate specializing in Artificial Intelligence and Machine Learning with strong foundations in software development, object-oriented programming, data structures, and cloud technologies. Proficient in Python, Java, SQL, and problem-solving with hands-on experience in AI-based applications and cloud computing.</p>
+                </section>
+
+                <section id="education">
+                    <h2 contenteditable="true">EDUCATION</h2>
+                    <div class="entry">
+                        <table class="job-header">
+                            <tr>
+                                <td class="job-title" contenteditable="true">Bachelor of Technology (B.Tech) – CSE (AI & ML)</td>
+                                <td class="job-date" contenteditable="true">2022 – 2026</td>
+                                <td class="right-buffer"></td>
+                            </tr>
+                        </table>
+                        <h4 contenteditable="true">Raghu Engineering College &nbsp;|&nbsp; CGPA: 8.8/10</h4>
+                    </div>
+                </section>
+
+                <section id="technical-skills">
+                    <h2 contenteditable="true">TECHNICAL SKILLS</h2>
+                    <table class="section-wrapper">
+                        <tr>
+                            <td>
+                                <div class="two-column-grid">
+                                    <div class="grid-item"><strong contenteditable="true">Languages:</strong> <span contenteditable="true">Python, Java, SQL</span></div>
+                                    <div class="grid-item"><strong contenteditable="true">Libraries:</strong> <span contenteditable="true">NumPy, Pandas, Matplotlib</span></div>
+                                    <div class="grid-item"><strong contenteditable="true">Core Subjects:</strong> <span contenteditable="true">Data Structures, DBMS, OOP, SDLC</span></div>
+                                    <div class="grid-item"><strong contenteditable="true">Cloud & Tools:</strong> <span contenteditable="true">AWS Cloud, Oracle Cloud, Git, GitHub</span></div>
+                                    <div class="grid-item" style="grid-column: 1 / -1;"><strong contenteditable="true">Soft Skills:</strong> <span contenteditable="true">Problem Solving, Debugging, Team Collaboration</span></div>
+                                </div>
+                            </td>
+                            <td class="right-buffer"></td>
+                        </tr>
+                    </table>
+                </section>
+
+                <section id="projects">
+                    <h2 contenteditable="true">PROJECTS</h2>
+                    <div class="project">
+                        <table class="project-header"><tr><td class="project-title"><h3 contenteditable="true">Multi-Agent Resume Analyzer</h3></td><td class="right-buffer"></td></tr></table>
+                        <ul>
+                            <li contenteditable="true">Developed an NLP-based system to extract structured data from resumes.</li>
+                            <li contenteditable="true">Applied preprocessing and feature extraction techniques for automated analysis.</li>
+                            <li contenteditable="true">Reduced manual effort through automated resume processing pipeline.</li>
+                        </ul>
+                    </div>
+                    <div class="project">
+                        <table class="project-header"><tr><td class="project-title"><h3 contenteditable="true">Farm2Fresh Application</h3></td><td class="right-buffer"></td></tr></table>
+                        <ul>
+                            <li contenteditable="true">Built a web-based application for managing users and product data end-to-end.</li>
+                            <li contenteditable="true">Optimized SQL queries for improved database performance and scalability.</li>
+                            <li contenteditable="true">Performed thorough testing and debugging to ensure application reliability.</li>
+                        </ul>
+                    </div>
+                </section>
+
+                <section id="internships">
+                    <h2 contenteditable="true">INTERNSHIPS</h2>
+                    <div class="entry">
+                        <table class="job-header">
+                            <tr>
+                                <td class="job-title" contenteditable="true">Google AI-ML Virtual Internship</td>
+                                <td class="job-date" contenteditable="true">Jul 2025 – Sep 2025</td>
+                                <td class="right-buffer"></td>
+                            </tr>
+                        </table>
+                        <ul>
+                            <li contenteditable="true">Performed data preprocessing, validation, and analysis on real-world datasets.</li>
+                            <li contenteditable="true">Applied feature extraction techniques and evaluated model outputs.</li>
+                        </ul>
+                    </div>
+                    <div class="entry">
+                        <table class="job-header">
+                            <tr>
+                                <td class="job-title" contenteditable="true">AWS Academy Cloud Virtual Internship</td>
+                                <td class="job-date" contenteditable="true">Apr 2024 – Jun 2024</td>
+                                <td class="right-buffer"></td>
+                            </tr>
+                        </table>
+                        <ul>
+                            <li contenteditable="true">Completed curriculum provided by AWS Academy covering cloud fundamentals.</li>
+                            <li contenteditable="true">Learned cloud deployment concepts and infrastructure design fundamentals.</li>
+                        </ul>
+                    </div>
+                </section>
+
+                <section id="certifications">
+                    <h2 contenteditable="true">CERTIFICATIONS</h2>
+                    <table class="section-wrapper">
+                        <tr>
+                            <td>
+                                <div class="two-column-grid">
+                                    <ul>
+                                        <li contenteditable="true">Oracle Cloud Infrastructure 2025 Certified Generative AI Professional <a href="#" target="_blank" id="link-oracle-gen">Link</a></li>
+                                        <li contenteditable="true">NPTEL: Programming in Java – Score: 58%</li>
+                                        <li contenteditable="true">NPTEL: Problem Solving Through Programming in C – Score: 56%</li>
+                                    </ul>
+                                    <ul>
+                                        <li contenteditable="true">AWS Academy Cloud Foundations <a href="#" target="_blank" id="link-aws-cert">Link</a></li>
+                                        <li contenteditable="true">Google Cloud Generative AI <a href="#" target="_blank" id="link-google-cloud">Link</a></li>
+                                        <li contenteditable="true">Solved 100+ problems on <a href="https://leetcode.com/" target="_blank" id="link-leetcode">LeetCode</a></li>
+                                    </ul>
+                                </div>
+                            </td>
+                            <td class="right-buffer"></td>
+                        </tr>
+                    </table>
+                </section>
+
+                <section id="achievements">
+                    <h2 contenteditable="true">ACHIEVEMENTS</h2>
+                    <ul>
+                        <li contenteditable="true">Solved 100+ problems on LeetCode, covering AI, NLP, databases, and cloud technology domains.</li>
+                        <li contenteditable="true">Built projects involving AI, NLP, databases, and cloud technologies.</li>
+                        <li contenteditable="true">Maintained a CGPA of 8.8/10 in B.Tech (CSE – AI & ML) at Raghu Engineering College.</li>
+                    </ul>
+                </section>
+            </main>
+
+            <footer>
+                <table class="footer-table">
+                    <tr>
+                        <td></td>
+                        <td class="footer-name" contenteditable="true">DEEPTHI BAIPALLI</td>
+                        <td class="right-buffer"></td>
+                    </tr>
+                </table>
+            </footer>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const resumeContent = document.getElementById('resume-content');
+
+            resumeContent.addEventListener('focusin', function(e) {
+                const element = e.target;
+                if (element.getAttribute('contenteditable') === 'true') {
+                    const selection = window.getSelection();
+                    const range = document.createRange();
+                    range.selectNodeContents(element);
+                    selection.removeAllRanges();
+                    selection.addRange(range);
+                }
+            });
+
+            resumeContent.addEventListener('click', function(e) {
+                if (e.target.getAttribute('contenteditable') === 'true') {
+                    e.preventDefault();
+                }
+            });
+
+            const inputs = document.querySelectorAll('.link-input');
+            inputs.forEach(input => {
+                const targetElement = document.getElementById(input.dataset.target);
+                if (!targetElement) return;
+
+                input.addEventListener('focus', function() { this.select(); });
+                input.addEventListener('focus', () => targetElement.classList.add('highlight-link'));
+                input.addEventListener('blur', () => targetElement.classList.remove('highlight-link'));
+                input.addEventListener('input', function() {
+                    const newValue = this.value;
+                    if (input.id === 'input-tel') {
+                        targetElement.href = 'tel:' + newValue;
+                        targetElement.textContent = newValue;
+                    } else if (input.id === 'input-email') {
+                        targetElement.href = 'mailto:' + newValue;
+                        targetElement.textContent = newValue;
+                    } else {
+                        targetElement.href = newValue;
+                    }
+                });
+            });
+
+            resumeContent.addEventListener('keydown', function(e) {
+                if (e.key === 'Enter') {
+                    const selection = window.getSelection();
+                    const node = selection.anchorNode;
+                    const parentLi = node.nodeType === 3 ? node.parentNode.closest('li') : node.closest('li');
+                    if (parentLi) {
+                        e.preventDefault();
+                        const newLi = document.createElement('li');
+                        newLi.setAttribute('contenteditable', 'true');
+                        parentLi.parentNode.insertBefore(newLi, parentLi.nextSibling);
+                        const range = document.createRange();
+                        range.selectNodeContents(newLi);
+                        range.collapse(true);
+                        selection.removeAllRanges();
+                        selection.addRange(range);
+                    }
+                }
+            });
+
+            resumeContent.addEventListener('paste', function(e) {
+                const target = e.target;
+                if (target.tagName === 'LI' || target.closest('li')) {
+                    e.preventDefault();
+                    let text = (e.clipboardData || window.clipboardData).getData('text/plain');
+                    text = text.replace(/^[\s•*-]+\s*/, '');
+                    document.execCommand('insertText', false, text);
+                }
+            });
+        });
+
+        document.getElementById('download-btn').addEventListener('click', function() {
+            const editableElements = document.querySelectorAll('[contenteditable="true"]');
+            editableElements.forEach(el => el.removeAttribute('contenteditable'));
+            window.print();
+            setTimeout(() => {
+                editableElements.forEach(el => el.setAttribute('contenteditable', 'true'));
+            }, 500);
+        });
+    </script>
+</body>
+</html>
