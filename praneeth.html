@@ -52,7 +52,6 @@ body.theme-green {
   --skill-hi-border: rgba(0,232,122,0.35); --skill-hi-color: #7fffd4;
   --btn-color: #000; --toolbar-bg: rgba(10,15,13,0.9);
 }
-/* ── FORMAL / LIGHT THEMES ── */
 body.theme-classic {
   --bg: #f0f2f5; --surface: #ffffff; --card: #f7f8fa;
   --border: #d0d7e2; --accent: #1a3a6b; --accent2: #2e5fa3;
@@ -80,7 +79,6 @@ body.theme-minimal {
   --skill-hi-border: rgba(0,0,0,0.20); --skill-hi-color: #111111;
   --btn-color: #fff; --toolbar-bg: rgba(248,248,248,0.95);
 }
-/* On minimal theme, header name span must be white since accent is dark */
 body.theme-minimal .r-name span { color: #ffffff; }
 body.theme-teal {
   --bg: #f0f7f6; --surface: #ffffff; --card: #f4faf9;
@@ -138,6 +136,46 @@ body {
   white-space: nowrap;
 }
 .tbtn:hover { opacity: 0.85; transform: translateY(-1px); }
+.tbtn.edit-active {
+  background: #22c55e !important;
+  color: #fff !important;
+  box-shadow: 0 0 12px rgba(34,197,94,0.4);
+}
+
+/* ── EDIT MODE STYLES ── */
+body.edit-mode [contenteditable="true"] {
+  outline: 1.5px dashed var(--accent);
+  border-radius: 2px;
+  cursor: text;
+  min-width: 20px;
+  min-height: 1em;
+  transition: outline 0.15s, background 0.15s;
+}
+body.edit-mode [contenteditable="true"]:hover {
+  outline: 2px solid var(--accent);
+  background: rgba(255,255,255,0.04);
+}
+body.edit-mode [contenteditable="true"]:focus {
+  outline: 2px solid var(--accent);
+  background: rgba(255,255,255,0.07);
+}
+
+/* Edit mode indicator banner */
+#edit-banner {
+  display: none;
+  background: linear-gradient(90deg, #22c55e, #16a34a);
+  color: #fff;
+  font-family: 'Space Mono', monospace;
+  font-size: 0.7em;
+  text-align: center;
+  padding: 5px 12px;
+  letter-spacing: 1.5px;
+  font-weight: 700;
+  position: sticky;
+  top: 0;
+  z-index: 101;
+}
+body.edit-mode #edit-banner { display: block; }
 
 /* ── RESUME ── */
 .resume {
@@ -164,11 +202,12 @@ body {
   position: absolute; top: -40px; right: -60px;
   width: 320px; height: 320px; border-radius: 50%;
   background: radial-gradient(circle, var(--header-glow) 0%, transparent 70%);
+  pointer-events: none;
 }
 .r-header::after {
   content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 1px;
   background: linear-gradient(90deg, transparent, var(--accent), transparent);
-  opacity: 0.5;
+  opacity: 0.5; pointer-events: none;
 }
 .header-top { display: flex; justify-content: space-between; align-items: flex-start; gap: 20px; }
 .r-name {
@@ -342,12 +381,26 @@ ul.r-bullets li::before {
   margin: 13px 0;
 }
 
+/* ── LIGHT THEME OVERRIDES ── */
+body.theme-classic .r-role, body.theme-executive .r-role,
+body.theme-minimal .r-role, body.theme-teal .r-role { color: rgba(255,255,255,0.72); }
+body.theme-classic .r-sidebar, body.theme-executive .r-sidebar,
+body.theme-minimal .r-sidebar, body.theme-teal .r-sidebar { background: var(--card); }
+body.theme-classic .skill-tag, body.theme-executive .skill-tag,
+body.theme-minimal .skill-tag, body.theme-teal .skill-tag { background: rgba(0,0,0,0.04); }
+body.theme-classic .hl-item, body.theme-executive .hl-item,
+body.theme-minimal .hl-item, body.theme-teal .hl-item { background: rgba(0,0,0,0.03); }
+body.theme-classic .r-summary, body.theme-executive .r-summary,
+body.theme-minimal .r-summary, body.theme-teal .r-summary { background: rgba(0,0,0,0.02); }
+body.theme-classic .toolbar, body.theme-executive .toolbar,
+body.theme-minimal .toolbar, body.theme-teal .toolbar { border-bottom: 1px solid var(--border); }
+
 /* ── PRINT ── */
 @page { size: A4 portrait; margin: 0; }
 @media print {
   html, body { width: 210mm; margin: 0 !important; padding: 0 !important;
     -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
-  .toolbar { display: none !important; }
+  .toolbar, #edit-banner { display: none !important; }
   .resume { margin: 0 !important; max-width: 100% !important; border-radius: 0 !important;
     box-shadow: none !important; animation: none !important; }
   .r-body { grid-template-columns: 220px 1fr !important; }
@@ -355,43 +408,8 @@ ul.r-bullets li::before {
   .r-main { padding: 18px 24px !important; gap: 14px !important; }
   .r-header { padding: 24px 30px 20px !important; }
   .r-name { font-size: 2.1em !important; }
+  [contenteditable] { outline: none !important; background: transparent !important; }
   * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
-}
-/* ── LIGHT THEME OVERRIDES ── */
-body.theme-classic .r-role,
-body.theme-executive .r-role,
-body.theme-minimal .r-role,
-body.theme-teal .r-role { color: rgba(255,255,255,0.72); }
-
-body.theme-classic .r-sidebar,
-body.theme-executive .r-sidebar,
-body.theme-minimal .r-sidebar,
-body.theme-teal .r-sidebar {
-  background: var(--card);
-}
-body.theme-classic .skill-tag,
-body.theme-executive .skill-tag,
-body.theme-minimal .skill-tag,
-body.theme-teal .skill-tag {
-  background: rgba(0,0,0,0.04);
-}
-body.theme-classic .hl-item,
-body.theme-executive .hl-item,
-body.theme-minimal .hl-item,
-body.theme-teal .hl-item {
-  background: rgba(0,0,0,0.03);
-}
-body.theme-classic .r-summary,
-body.theme-executive .r-summary,
-body.theme-minimal .r-summary,
-body.theme-teal .r-summary {
-  background: rgba(0,0,0,0.02);
-}
-body.theme-classic .toolbar,
-body.theme-executive .toolbar,
-body.theme-minimal .toolbar,
-body.theme-teal .toolbar {
-  border-bottom: 1px solid var(--border);
 }
 
 @media (max-width: 700px) {
@@ -407,6 +425,8 @@ body.theme-teal .toolbar {
 </style>
 </head>
 <body class="theme-navy">
+
+<div id="edit-banner">✏ EDIT MODE ON — Click any text to edit it &nbsp;|&nbsp; Click "✏ Edit Resume" again to exit</div>
 
 <div class="toolbar">
   <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap;">
@@ -442,7 +462,10 @@ body.theme-teal .toolbar {
       </button>
     </div>
   </div>
-  <button class="tbtn" id="dl-btn">⬇ Export PDF</button>
+  <div style="display:flex;gap:8px;align-items:center;flex-shrink:0;">
+    <button class="tbtn" id="edit-btn">✏ Edit Resume</button>
+    <button class="tbtn" id="dl-btn">⬇ Export PDF</button>
+  </div>
 </div>
 
 <div class="resume">
@@ -454,17 +477,18 @@ body.theme-teal .toolbar {
         <div class="r-role">Cybersecurity Analyst · SOC L1 · Threat Detection</div>
       </div>
       <div class="status-badge">
-        <span class="status-dot"></span> Open to Opportunities
+        <span class="status-dot"></span>
+        <span class="editable-inline">Open to Opportunities</span>
       </div>
     </div>
     <div class="r-contact">
       <div class="r-contact-item">
         <span class="ci-icon">✉</span>
-        <a href="mailto:Praneeth.rudroju4@gmail.com">Praneeth.rudroju4@gmail.com</a>
+        <span class="editable-inline">Praneeth.rudroju4@gmail.com</span>
       </div>
       <div class="r-contact-item">
         <span class="ci-icon">◉</span>
-        Hyderabad, Telangana
+        <span class="editable-inline">Hyderabad, Telangana</span>
       </div>
     </div>
   </header>
@@ -615,7 +639,7 @@ body.theme-teal .toolbar {
 </div>
 
 <script>
-// Theme switcher
+/* ── THEME SWITCHER ── */
 const themes = ['theme-navy','theme-purple','theme-crimson','theme-cyan','theme-green','theme-classic','theme-executive','theme-minimal','theme-teal'];
 document.querySelectorAll('.theme-btn').forEach(btn => {
   btn.addEventListener('click', () => {
@@ -627,7 +651,6 @@ document.querySelectorAll('.theme-btn').forEach(btn => {
     localStorage.setItem('resume-theme', t);
   });
 });
-// Restore saved theme
 const saved = localStorage.getItem('resume-theme');
 if (saved && themes.includes(saved)) {
   themes.forEach(th => document.body.classList.remove(th));
@@ -636,9 +659,117 @@ if (saved && themes.includes(saved)) {
     b.classList.toggle('active', b.dataset.theme === saved);
   });
 }
-// Export
+
+/* ── EDITABLE ELEMENTS ── */
+// These selectors target all editable text areas in the resume
+const EDITABLE_SELECTORS = [
+  '.r-name span',           // last name accent
+  '.r-role',                // role subtitle
+  '.editable-inline',       // contact, status badge
+  '.r-summary',             // profile paragraph
+  '.hl-item',               // highlight cards
+  '.r-job-title',           // job title
+  '.r-date',                // date badge
+  '.r-company',             // company name
+  '.r-sub',                 // sub-role
+  'ul.r-bullets li',        // bullet points
+  '.r-project-title',       // project titles
+  '.r-project-tech',        // project tech tags
+  '.edu-degree',            // education degree
+  '.edu-school',            // education school
+  '.edu-date',              // education dates
+  '.training-item',         // training items
+  '.skill-tag',             // skill tags
+  '.skill-label',           // skill category labels
+  '.sec-title',             // section titles
+];
+
+let editMode = false;
+const editBtn = document.getElementById('edit-btn');
+
+function enableEditing() {
+  EDITABLE_SELECTORS.forEach(sel => {
+    document.querySelectorAll(sel).forEach(el => {
+      el.setAttribute('contenteditable', 'true');
+      el.setAttribute('spellcheck', 'false');
+      // Prevent Enter key from adding <div> blocks
+      el.addEventListener('keydown', preventNewline);
+    });
+  });
+  // Name first part (non-span) — target the text node via a wrapper trick
+  makeNameFirstEditable(true);
+}
+
+function disableEditing() {
+  document.querySelectorAll('[contenteditable="true"]').forEach(el => {
+    el.removeAttribute('contenteditable');
+    el.removeEventListener('keydown', preventNewline);
+  });
+  makeNameFirstEditable(false);
+}
+
+function preventNewline(e) {
+  if (e.key === 'Enter') {
+    e.preventDefault();
+    this.blur();
+  }
+}
+
+// Handle the "PRANEETH" first-name text specially since it's a raw text node
+function makeNameFirstEditable(on) {
+  const nameEl = document.querySelector('.r-name');
+  if (!nameEl) return;
+  // Wrap raw text node if not already wrapped
+  let firstSpan = nameEl.querySelector('.name-first');
+  if (!firstSpan) {
+    const textNodes = Array.from(nameEl.childNodes).filter(n => n.nodeType === 3 && n.textContent.trim());
+    if (textNodes.length) {
+      const wrap = document.createElement('span');
+      wrap.className = 'name-first';
+      wrap.style.color = 'inherit';
+      wrap.textContent = textNodes[0].textContent;
+      nameEl.replaceChild(wrap, textNodes[0]);
+      firstSpan = wrap;
+    }
+  }
+  if (firstSpan) {
+    if (on) {
+      firstSpan.setAttribute('contenteditable', 'true');
+      firstSpan.setAttribute('spellcheck', 'false');
+      firstSpan.addEventListener('keydown', preventNewline);
+    } else {
+      firstSpan.removeAttribute('contenteditable');
+      firstSpan.removeEventListener('keydown', preventNewline);
+    }
+  }
+}
+
+editBtn.addEventListener('click', () => {
+  editMode = !editMode;
+  if (editMode) {
+    document.body.classList.add('edit-mode');
+    editBtn.textContent = '✅ Done Editing';
+    editBtn.classList.add('edit-active');
+    enableEditing();
+  } else {
+    document.body.classList.remove('edit-mode');
+    editBtn.textContent = '✏ Edit Resume';
+    editBtn.classList.remove('edit-active');
+    disableEditing();
+  }
+});
+
+/* ── EXPORT PDF ── */
 const dlBtn = document.getElementById('dl-btn');
 dlBtn.addEventListener('click', () => {
+  // Disable edit mode before printing
+  if (editMode) {
+    editMode = false;
+    document.body.classList.remove('edit-mode');
+    editBtn.textContent = '✏ Edit Resume';
+    editBtn.classList.remove('edit-active');
+    disableEditing();
+  }
   dlBtn.textContent = '⏳ Preparing...';
   dlBtn.disabled = true;
   setTimeout(() => window.print(), 200);
