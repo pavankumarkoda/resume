@@ -1,0 +1,1096 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pavan Kumar Koda — Resume Studio</title>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Cormorant+Garamond:wght@600;700&family=Syne:wght@400;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=Fraunces:ital,wght@0,600;0,700;1,600&display=swap" rel="stylesheet">
+<style>
+/* ─── RESET ─── */
+*{box-sizing:border-box;margin:0;padding:0;}
+
+/* ─── STUDIO SHELL ─── */
+:root{
+  --ui-bg:#0a0a0f;--ui-surface:#13131a;--ui-border:#1e1e2e;
+  --ui-text:#e8e8f0;--ui-muted:#6b6b80;
+}
+body{background:var(--ui-bg);font-family:'Plus Jakarta Sans',sans-serif;color:var(--ui-text);min-height:100vh;}
+
+.studio-bar{
+  position:sticky;top:0;z-index:200;
+  background:rgba(10,10,15,0.95);backdrop-filter:blur(20px);
+  border-bottom:1px solid var(--ui-border);
+  padding:10px 20px;display:flex;align-items:center;gap:12px;flex-wrap:wrap;
+}
+.studio-logo{font-family:'Syne',sans-serif;font-weight:800;font-size:1em;
+  background:linear-gradient(135deg,#6c63ff,#f093fb);-webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;white-space:nowrap;}
+.studio-label{font-size:0.68em;font-weight:600;color:var(--ui-muted);
+  text-transform:uppercase;letter-spacing:1.5px;white-space:nowrap;}
+.picker-row{display:flex;gap:6px;flex-wrap:wrap;align-items:center;}
+.tpl-btn{
+  padding:5px 12px;border-radius:30px;border:1px solid var(--ui-border);
+  background:var(--ui-surface);color:var(--ui-muted);cursor:pointer;
+  font-family:inherit;font-size:0.74em;font-weight:600;
+  transition:all .18s ease;white-space:nowrap;
+}
+.tpl-btn:hover{border-color:#6c63ff55;color:var(--ui-text);}
+.tpl-btn.active{background:linear-gradient(135deg,#6c63ff,#f093fb);color:#fff;
+  border-color:transparent;box-shadow:0 3px 12px rgba(108,99,255,.4);}
+.swatch{width:24px;height:24px;border-radius:50%;cursor:pointer;
+  border:2px solid transparent;transition:all .18s ease;flex-shrink:0;}
+.swatch:hover{transform:scale(1.18);}
+.swatch.active{border-color:#fff;box-shadow:0 0 0 3px rgba(255,255,255,0.3);}
+.dl-btn{
+  margin-left:auto;padding:6px 16px;border-radius:30px;border:none;cursor:pointer;
+  background:linear-gradient(135deg,#6c63ff,#f093fb);color:#fff;
+  font-family:inherit;font-size:0.76em;font-weight:700;
+  box-shadow:0 3px 16px rgba(108,99,255,.45);transition:all .18s ease;white-space:nowrap;
+}
+.dl-btn:hover{transform:translateY(-1px);box-shadow:0 5px 22px rgba(108,99,255,.55);}
+
+/* ─── PREVIEW WRAP ─── */
+.preview-wrap{padding:16px;display:flex;justify-content:center;}
+
+/* ─── RESUME FRAME — exactly A4 ─── */
+#resume-frame{
+  width:210mm;
+  min-height:297mm;
+  max-height:297mm;
+  overflow:hidden;
+  background:white;
+  box-shadow:0 20px 80px rgba(0,0,0,.65),0 0 0 1px rgba(255,255,255,.06);
+  border-radius:3px;
+  transition:all .35s ease;
+  position:relative;
+  display:flex;
+  flex-direction:column;
+}
+
+/* ─── COLOR THEMES ─── */
+#resume-frame.theme-midnight{
+  --H1:#0d2137;--H2:#1565c0;--H3:#00897b;--ACC:#f59e0b;
+  --HDR-FROM:#07111f;--HDR-TO:#0d3a6b;--HDR-MID:#0f2744;
+  --SB-FROM:#f4f9ff;--SB-TO:#eef5fc;--BORD:#b8d4ed;--PILL:#e3f0fb;
+  --TX-M:#0d1b2a;--TX-S:#4a5568;--LINK:#1e88e5;
+}
+#resume-frame.theme-emerald{
+  --H1:#0a2118;--H2:#059669;--H3:#0d9488;--ACC:#f59e0b;
+  --HDR-FROM:#061410;--HDR-TO:#0a4228;--HDR-MID:#0d3320;
+  --SB-FROM:#f0fdf8;--SB-TO:#ecfdf5;--BORD:#a7f3d0;--PILL:#d1fae5;
+  --TX-M:#0a2118;--TX-S:#374151;--LINK:#059669;
+}
+#resume-frame.theme-rose{
+  --H1:#3b0a1f;--H2:#be185d;--H3:#9d174d;--ACC:#f59e0b;
+  --HDR-FROM:#1a0510;--HDR-TO:#4c0f25;--HDR-MID:#3b0a1f;
+  --SB-FROM:#fff1f5;--SB-TO:#fce7ef;--BORD:#fbcfe8;--PILL:#fce7ef;
+  --TX-M:#3b0a1f;--TX-S:#4b5563;--LINK:#be185d;
+}
+#resume-frame.theme-purple{
+  --H1:#1e1240;--H2:#7c3aed;--H3:#6d28d9;--ACC:#f59e0b;
+  --HDR-FROM:#0d0824;--HDR-TO:#2d1b69;--HDR-MID:#1e1240;
+  --SB-FROM:#f5f3ff;--SB-TO:#ede9fe;--BORD:#c4b5fd;--PILL:#ede9fe;
+  --TX-M:#1e1240;--TX-S:#4b5563;--LINK:#7c3aed;
+}
+#resume-frame.theme-slate{
+  --H1:#0f172a;--H2:#334155;--H3:#475569;--ACC:#f59e0b;
+  --HDR-FROM:#020617;--HDR-TO:#1e293b;--HDR-MID:#0f172a;
+  --SB-FROM:#f8fafc;--SB-TO:#f1f5f9;--BORD:#cbd5e1;--PILL:#e2e8f0;
+  --TX-M:#0f172a;--TX-S:#475569;--LINK:#334155;
+}
+#resume-frame.theme-copper{
+  --H1:#1c0f06;--H2:#b45309;--H3:#92400e;--ACC:#d97706;
+  --HDR-FROM:#0d0703;--HDR-TO:#451a03;--HDR-MID:#1c0f06;
+  --SB-FROM:#fffbeb;--SB-TO:#fef3c7;--BORD:#fde68a;--PILL:#fef3c7;
+  --TX-M:#1c0f06;--TX-S:#44403c;--LINK:#b45309;
+}
+#resume-frame.theme-teal{
+  --H1:#042f2e;--H2:#0f766e;--H3:#134e4a;--ACC:#f59e0b;
+  --HDR-FROM:#011716;--HDR-TO:#0d3330;--HDR-MID:#042f2e;
+  --SB-FROM:#f0fdfa;--SB-TO:#ccfbf1;--BORD:#99f6e4;--PILL:#ccfbf1;
+  --TX-M:#042f2e;--TX-S:#374151;--LINK:#0f766e;
+}
+#resume-frame.theme-crimson{
+  --H1:#1a0505;--H2:#b91c1c;--H3:#991b1b;--ACC:#f59e0b;
+  --HDR-FROM:#0d0202;--HDR-TO:#450a0a;--HDR-MID:#1a0505;
+  --SB-FROM:#fff5f5;--SB-TO:#fee2e2;--BORD:#fecaca;--PILL:#fee2e2;
+  --TX-M:#1a0505;--TX-S:#4b5563;--LINK:#b91c1c;
+}
+
+/* ════════════════════════════════════════
+   TEMPLATE CONTENT WRAPPERS
+════════════════════════════════════════ */
+.tpl-content{display:none;flex-direction:column;height:297mm;}
+.tpl-content.active{display:flex;}
+
+/* ════════════════════════════════════════
+   SHARED BODY GRID
+════════════════════════════════════════ */
+.r-body{display:grid;flex:1;overflow:hidden;}
+
+/* ════════════════════════════════════════
+   TEMPLATE 1 — NOVA (Premium Two-Column)
+════════════════════════════════════════ */
+#tpl-nova .r-header{
+  background:linear-gradient(135deg,var(--HDR-FROM) 0%,var(--HDR-MID) 55%,var(--HDR-TO) 100%);
+  padding:13px 24px 10px;flex-shrink:0;
+}
+#tpl-nova .r-name{
+  font-family:'Cormorant Garamond',serif;font-size:24pt;font-weight:700;
+  color:#fff;letter-spacing:2.5px;text-transform:uppercase;line-height:1;margin-bottom:3px;
+}
+#tpl-nova .r-tagline{
+  color:rgba(255,255,255,.58);font-size:7pt;font-weight:400;
+  letter-spacing:2.5px;text-transform:uppercase;margin-bottom:9px;
+}
+#tpl-nova .r-contact{display:flex;flex-wrap:wrap;align-items:center;gap:0;}
+#tpl-nova .ci{
+  color:rgba(255,255,255,.82);font-size:7.2pt;
+  padding:2px 10px;border-right:1px solid rgba(255,255,255,.18);
+}
+#tpl-nova .ci:first-child{padding-left:0;}
+#tpl-nova .ci:last-child{border-right:none;}
+#tpl-nova .ci a{color:rgba(255,255,255,.85);text-decoration:none;}
+#tpl-nova .cpill{
+  display:inline-flex;align-items:center;gap:4px;
+  background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.22);
+  border-radius:20px;padding:2px 8px 2px 7px;
+  color:rgba(255,255,255,.88);font-size:6.8pt;font-weight:500;text-decoration:none;
+}
+#tpl-nova .r-body{grid-template-columns:155px 1fr;}
+#tpl-nova .r-sidebar{
+  background:linear-gradient(180deg,var(--SB-FROM),var(--SB-TO));
+  border-right:1px solid var(--BORD);
+  padding:11px 10px 10px 13px;overflow:hidden;
+}
+#tpl-nova .r-main{
+  padding:11px 16px 10px 13px;
+  display:flex;flex-direction:column;gap:8px;overflow:hidden;
+}
+/* NOVA shared elements */
+#tpl-nova .sec-title{
+  font-size:6.5pt;font-weight:700;text-transform:uppercase;letter-spacing:1.8px;
+  color:var(--H2);padding-bottom:3px;border-bottom:1.5px solid var(--H2);margin-bottom:7px;
+}
+#tpl-nova .sec-title.sb{color:var(--H3);border-bottom-color:var(--H3);}
+#tpl-nova .block{margin-bottom:9px;}
+#tpl-nova .block:last-child{margin-bottom:0;}
+#tpl-nova .sg{margin-bottom:5px;}
+#tpl-nova .sg-label{font-size:6pt;font-weight:700;color:var(--H1);text-transform:uppercase;letter-spacing:.7px;margin-bottom:3px;}
+#tpl-nova .tag{
+  font-size:6.2pt;padding:1px 6px;border-radius:10px;
+  background:rgba(255,255,255,.75);border:1px solid var(--BORD);
+  color:var(--TX-S);font-weight:500;display:inline-block;margin:1px 1px 0 0;
+}
+#tpl-nova .tag.hi{background:var(--H1);color:#fff;border-color:var(--H1);}
+#tpl-nova .edu-deg{font-size:7pt;font-weight:700;color:var(--H1);}
+#tpl-nova .edu-sch{font-size:6.3pt;color:var(--TX-S);}
+#tpl-nova .edu-dt{font-size:6pt;color:var(--H3);font-weight:600;}
+#tpl-nova .edu-item{margin-bottom:5px;}
+#tpl-nova .cert-item{margin-bottom:5px;}
+#tpl-nova .cert-nm{font-size:6.8pt;font-weight:600;color:var(--H1);line-height:1.3;}
+#tpl-nova .cert-is{font-size:6pt;color:var(--TX-S);}
+#tpl-nova .cert-lk{font-size:5.8pt;color:var(--LINK);text-decoration:none;}
+#tpl-nova .ach{font-size:6.5pt;color:var(--TX-S);margin-bottom:3px;padding-left:10px;position:relative;}
+#tpl-nova .ach::before{content:'★';position:absolute;left:0;color:var(--ACC);font-size:5.5pt;top:1px;}
+/* main area */
+#tpl-nova .hgrid{display:grid;grid-template-columns:1fr 1fr;gap:4px;margin-top:0;}
+#tpl-nova .hl{
+  background:linear-gradient(135deg,var(--SB-FROM),var(--SB-TO));
+  border:1px solid var(--BORD);border-radius:5px;
+  padding:4px 8px;font-size:6.8pt;font-weight:600;color:var(--H1);line-height:1.35;
+}
+#tpl-nova .summary{
+  font-size:7.3pt;color:var(--TX-S);line-height:1.6;
+  padding:7px 10px;background:var(--PILL);
+  border-left:2.5px solid var(--LINK);border-radius:0 3px 3px 0;
+}
+#tpl-nova .r-entry{margin-bottom:6px;}
+#tpl-nova .r-entry:last-child{margin-bottom:0;}
+#tpl-nova .eh{display:flex;justify-content:space-between;align-items:center;gap:6px;margin-bottom:1px;}
+#tpl-nova .jt{font-weight:700;font-size:8pt;color:var(--H1);}
+#tpl-nova .dt{font-size:6.3pt;color:#fff;background:var(--H2);padding:1px 7px;border-radius:10px;font-weight:600;white-space:nowrap;}
+#tpl-nova .co{font-size:7pt;color:var(--H3);font-weight:600;margin-bottom:3px;}
+#tpl-nova ul.bl{list-style:none;padding:0;margin:0;}
+#tpl-nova ul.bl li{font-size:7pt;color:var(--TX-S);margin-bottom:1px;padding-left:10px;position:relative;line-height:1.35;}
+#tpl-nova ul.bl li::before{content:'▸';position:absolute;left:0;color:var(--LINK);font-size:6.5pt;top:0px;}
+#tpl-nova .divider{height:1px;background:linear-gradient(90deg,transparent,var(--BORD) 20%,var(--LINK) 50%,var(--BORD) 80%,transparent);margin:5px 0;opacity:.6;}
+#tpl-nova .pt{font-weight:700;font-size:7.5pt;color:var(--H1);margin-bottom:2px;}
+#tpl-nova .ptech{font-size:5.8pt;color:var(--H2);font-weight:600;background:var(--PILL);padding:1px 6px;border-radius:10px;display:inline-block;margin-bottom:3px;}
+#tpl-nova .proj{margin-bottom:6px;}
+#tpl-nova .proj:last-child{margin-bottom:0;}
+
+/* ════════════════════════════════════════
+   TEMPLATE 2 — EDGE (Modern Minimal)
+════════════════════════════════════════ */
+#tpl-edge .r-header{
+  background:linear-gradient(135deg,var(--HDR-FROM) 0%,var(--HDR-TO) 100%);
+  padding:14px 22px 12px;display:flex;align-items:flex-start;justify-content:space-between;gap:16px;flex-shrink:0;
+}
+#tpl-edge .r-name{font-family:'Syne',sans-serif;font-size:20pt;font-weight:800;color:#fff;letter-spacing:.5px;line-height:1;margin-bottom:4px;}
+#tpl-edge .r-tagline{color:rgba(255,255,255,.5);font-size:6.8pt;font-weight:500;letter-spacing:1.5px;text-transform:uppercase;}
+#tpl-edge .hdr-right{display:flex;flex-direction:column;gap:3px;align-items:flex-end;flex-shrink:0;}
+#tpl-edge .hcl{color:rgba(255,255,255,.75);font-size:7pt;text-align:right;text-decoration:none;display:block;}
+#tpl-edge .pills{display:flex;gap:5px;margin-top:4px;}
+#tpl-edge .cpill{display:inline-flex;align-items:center;background:var(--H2);border-radius:3px;padding:2px 8px;color:#fff;font-size:6.5pt;text-decoration:none;font-weight:600;}
+#tpl-edge .r-body{grid-template-columns:145px 1fr;}
+#tpl-edge .r-sidebar{background:var(--H1);padding:13px 11px 12px 13px;overflow:hidden;}
+#tpl-edge .r-main{background:#fff;padding:13px 18px 12px 14px;display:flex;flex-direction:column;gap:10px;overflow:hidden;}
+#tpl-edge .sec-title{font-family:'Syne',sans-serif;font-size:6.5pt;font-weight:700;text-transform:uppercase;letter-spacing:2px;color:var(--H2);padding-bottom:3px;border-bottom:1.5px solid var(--H2);margin-bottom:8px;}
+#tpl-edge .sec-title.sb{color:rgba(255,255,255,.55);border-bottom-color:rgba(255,255,255,.2);}
+#tpl-edge .sg{margin-bottom:5px;}
+#tpl-edge .sg-label{font-size:6pt;font-weight:700;color:rgba(255,255,255,.45);text-transform:uppercase;letter-spacing:.8px;margin-bottom:3px;}
+#tpl-edge .tag{font-size:6.2pt;padding:1px 6px;border-radius:3px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.15);color:rgba(255,255,255,.82);font-weight:500;display:inline-block;margin:1px 1px 0 0;}
+#tpl-edge .tag.hi{background:var(--H2);border-color:var(--H2);color:#fff;}
+#tpl-edge .edu-item{margin-bottom:5px;border-left:2px solid var(--H2);padding-left:6px;}
+#tpl-edge .edu-deg{font-size:7pt;font-weight:700;color:#fff;}
+#tpl-edge .edu-sch{font-size:6pt;color:rgba(255,255,255,.55);}
+#tpl-edge .edu-dt{font-size:5.8pt;color:var(--H3);font-weight:600;}
+#tpl-edge .cert-item{margin-bottom:4px;border-left:2px solid var(--H3);padding-left:6px;}
+#tpl-edge .cert-nm{font-size:6.8pt;font-weight:600;color:#fff;line-height:1.3;}
+#tpl-edge .cert-is{font-size:6pt;color:rgba(255,255,255,.5);}
+#tpl-edge .cert-lk{font-size:5.8pt;color:var(--H3);text-decoration:none;}
+#tpl-edge .ach{font-size:6.5pt;color:rgba(255,255,255,.7);margin-bottom:3px;padding-left:10px;position:relative;}
+#tpl-edge .ach::before{content:'▶';position:absolute;left:0;color:var(--H2);font-size:5.5pt;top:1px;}
+#tpl-edge .sb-div{height:1px;background:rgba(255,255,255,.1);margin:9px 0;}
+/* main */
+#tpl-edge .hgrid{display:grid;grid-template-columns:1fr 1fr;gap:4px;}
+#tpl-edge .hl{background:var(--PILL);border:1px solid var(--BORD);border-left:2.5px solid var(--H2);border-radius:4px;padding:4px 8px;font-size:6.8pt;font-weight:600;color:var(--H1);line-height:1.35;}
+#tpl-edge .summary{font-size:7.3pt;color:var(--TX-S);line-height:1.58;padding:8px 12px;background:var(--PILL);border-radius:6px;border-top:2.5px solid var(--H2);}
+#tpl-edge .r-entry{margin-bottom:7px;padding-bottom:7px;border-bottom:1px solid #f0f4f8;}
+#tpl-edge .r-entry:last-child{border-bottom:none;margin-bottom:0;padding-bottom:0;}
+#tpl-edge .eh{display:flex;justify-content:space-between;align-items:center;gap:6px;margin-bottom:1px;}
+#tpl-edge .jt{font-weight:700;font-size:8pt;color:var(--H1);}
+#tpl-edge .dt{font-size:6.3pt;color:var(--H2);font-weight:700;border:1.5px solid var(--H2);padding:1px 7px;border-radius:3px;}
+#tpl-edge .co{font-size:6.8pt;color:var(--TX-S);font-weight:500;margin-bottom:3px;}
+#tpl-edge ul.bl{list-style:none;padding:0;margin:0;}
+#tpl-edge ul.bl li{font-size:7pt;color:var(--TX-S);margin-bottom:1px;padding-left:10px;position:relative;line-height:1.35;}
+#tpl-edge ul.bl li::before{content:'—';position:absolute;left:0;color:var(--H2);font-size:7pt;}
+#tpl-edge .proj{margin-bottom:5px;padding:6px 8px;background:#f8fafc;border-radius:4px;border-left:2.5px solid var(--H2);}
+#tpl-edge .proj:last-child{margin-bottom:0;}
+#tpl-edge .pt{font-weight:700;font-size:7.5pt;color:var(--H1);margin-bottom:2px;}
+#tpl-edge .ptech{font-size:5.8pt;color:var(--H2);font-weight:600;background:var(--PILL);border:1px solid var(--BORD);padding:1px 6px;border-radius:3px;display:inline-block;margin-bottom:3px;}
+
+/* ════════════════════════════════════════
+   TEMPLATE 3 — SERIF (Editorial Luxury)
+════════════════════════════════════════ */
+#tpl-serif .r-header{
+  background:linear-gradient(160deg,var(--HDR-FROM) 0%,var(--HDR-MID) 55%,var(--HDR-TO) 100%);
+  padding:16px 28px 12px;flex-shrink:0;
+}
+#tpl-serif .r-name{font-family:'Fraunces',serif;font-size:26pt;font-weight:700;font-style:italic;color:#fff;letter-spacing:.3px;line-height:1;margin-bottom:5px;}
+#tpl-serif .r-tagline{color:rgba(255,255,255,.55);font-size:7pt;letter-spacing:2.5px;text-transform:uppercase;margin-bottom:10px;}
+#tpl-serif .r-contact{display:flex;flex-wrap:wrap;align-items:center;gap:0;}
+#tpl-serif .ci{color:rgba(255,255,255,.78);font-size:7pt;padding:2px 10px;border-right:1px solid rgba(255,255,255,.18);}
+#tpl-serif .ci:first-child{padding-left:0;}
+#tpl-serif .ci:last-child{border-right:none;}
+#tpl-serif .ci a{color:rgba(255,255,255,.85);text-decoration:none;}
+#tpl-serif .cpill{display:inline-flex;align-items:center;gap:4px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.25);border-radius:20px;padding:2px 9px;color:rgba(255,255,255,.9);font-size:6.8pt;text-decoration:none;}
+#tpl-serif .r-body{grid-template-columns:148px 1fr;}
+#tpl-serif .r-sidebar{background:var(--SB-FROM);border-right:2px solid var(--BORD);padding:13px 11px 12px 15px;overflow:hidden;}
+#tpl-serif .r-main{background:#fff;padding:13px 22px 12px 16px;display:flex;flex-direction:column;gap:10px;overflow:hidden;}
+#tpl-serif .sec-title{font-family:'Fraunces',serif;font-size:9pt;font-weight:700;font-style:italic;color:var(--H2);padding-bottom:4px;border-bottom:1px solid var(--BORD);margin-bottom:8px;}
+#tpl-serif .sec-title.sb{color:var(--H3);}
+#tpl-serif .block{margin-bottom:10px;}
+#tpl-serif .block:last-child{margin-bottom:0;}
+#tpl-serif .sg{margin-bottom:5px;}
+#tpl-serif .sg-label{font-size:6pt;font-weight:700;color:var(--H2);text-transform:uppercase;letter-spacing:1px;margin-bottom:3px;}
+#tpl-serif .tag{font-size:6.2pt;padding:1px 7px;border-radius:2px;background:#fff;border:1px solid var(--BORD);color:var(--TX-S);font-weight:500;display:inline-block;margin:1px 1px 0 0;}
+#tpl-serif .tag.hi{background:var(--H1);color:#fff;border-color:var(--H1);}
+#tpl-serif .edu-item{margin-bottom:6px;padding-bottom:6px;border-bottom:1px dashed var(--BORD);}
+#tpl-serif .edu-item:last-child{border-bottom:none;margin-bottom:0;}
+#tpl-serif .edu-deg{font-size:7.2pt;font-weight:700;color:var(--H1);}
+#tpl-serif .edu-sch{font-size:6.3pt;color:var(--TX-S);}
+#tpl-serif .edu-dt{font-size:6pt;color:var(--H3);font-weight:600;}
+#tpl-serif .cert-item{margin-bottom:5px;}
+#tpl-serif .cert-nm{font-size:6.8pt;font-weight:600;color:var(--H1);line-height:1.3;}
+#tpl-serif .cert-is{font-size:6pt;color:var(--TX-S);}
+#tpl-serif .cert-lk{font-size:5.8pt;color:var(--LINK);text-decoration:none;}
+#tpl-serif .ach{font-size:6.5pt;color:var(--TX-S);margin-bottom:3px;padding-left:12px;position:relative;}
+#tpl-serif .ach::before{content:'◆';position:absolute;left:0;color:var(--ACC);font-size:5.5pt;top:2px;}
+/* main */
+#tpl-serif .hgrid{display:grid;grid-template-columns:1fr;gap:3px;}
+#tpl-serif .hl{background:var(--PILL);border-left:2.5px solid var(--H2);padding:4px 9px;font-size:6.8pt;font-weight:600;color:var(--H1);line-height:1.35;}
+#tpl-serif .summary{font-size:7.3pt;color:var(--TX-S);line-height:1.62;font-style:italic;padding:8px 12px;border-left:2.5px solid var(--H2);background:var(--PILL);}
+#tpl-serif .r-entry{margin-bottom:7px;padding-bottom:7px;border-bottom:1px solid #f0eded;}
+#tpl-serif .r-entry:last-child{border-bottom:none;margin-bottom:0;padding-bottom:0;}
+#tpl-serif .eh{display:flex;justify-content:space-between;align-items:baseline;gap:8px;margin-bottom:1px;}
+#tpl-serif .jt{font-weight:700;font-size:8pt;color:var(--H1);}
+#tpl-serif .dt{font-size:6.8pt;color:var(--H3);font-weight:700;font-style:italic;font-family:'Fraunces',serif;}
+#tpl-serif .co{font-size:7pt;color:var(--H2);font-weight:600;margin-bottom:3px;}
+#tpl-serif ul.bl{list-style:none;padding:0;margin:0;}
+#tpl-serif ul.bl li{font-size:7pt;color:var(--TX-S);margin-bottom:1px;padding-left:11px;position:relative;line-height:1.35;}
+#tpl-serif ul.bl li::before{content:'◦';position:absolute;left:0;color:var(--H2);font-size:10pt;top:-3px;}
+#tpl-serif .proj{margin-bottom:5px;padding-left:9px;border-left:2px solid var(--BORD);}
+#tpl-serif .proj:last-child{margin-bottom:0;}
+#tpl-serif .pt{font-weight:700;font-size:7.5pt;color:var(--H1);margin-bottom:2px;}
+#tpl-serif .ptech{font-size:5.8pt;color:var(--H2);font-weight:700;letter-spacing:.5px;text-transform:uppercase;display:inline-block;margin-bottom:3px;}
+#tpl-serif .divider{height:1px;background:var(--BORD);margin:5px 0;}
+
+/* ════════════════════════════════════════
+   TEMPLATE 4 — MONO (Developer / Terminal)
+════════════════════════════════════════ */
+#tpl-mono{background:var(--HDR-FROM)!important;}
+#tpl-mono .r-header{
+  background:transparent;
+  border-bottom:2px solid var(--H2);
+  padding:13px 20px 11px;flex-shrink:0;
+}
+#tpl-mono .hdr-top{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;}
+#tpl-mono .r-name{font-family:'IBM Plex Mono',monospace;font-size:16pt;font-weight:600;color:var(--H2);letter-spacing:.3px;line-height:1;margin-bottom:3px;}
+#tpl-mono .r-name::before{content:'> ';color:rgba(255,255,255,.25);}
+#tpl-mono .r-tagline{color:rgba(255,255,255,.45);font-size:6.8pt;font-style:italic;font-family:'IBM Plex Mono',monospace;margin-bottom:8px;}
+#tpl-mono .r-contact{display:flex;flex-wrap:wrap;gap:4px;}
+#tpl-mono .ci{color:rgba(255,255,255,.6);font-size:6.8pt;font-family:'IBM Plex Mono',monospace;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);padding:1px 7px;border-radius:2px;}
+#tpl-mono .ci a{color:inherit;text-decoration:none;}
+#tpl-mono .cpill{display:inline-flex;align-items:center;background:var(--H2);border-radius:2px;padding:2px 8px;color:#fff;font-size:6.5pt;font-family:'IBM Plex Mono',monospace;text-decoration:none;font-weight:600;}
+#tpl-mono .r-body{grid-template-columns:148px 1fr;}
+#tpl-mono .r-sidebar{background:rgba(0,0,0,.25);border-right:1px solid rgba(255,255,255,.08);padding:12px 11px 12px 14px;overflow:hidden;}
+#tpl-mono .r-main{background:#fff;padding:12px 16px 12px 13px;display:flex;flex-direction:column;gap:9px;overflow:hidden;}
+#tpl-mono .sec-title{font-family:'IBM Plex Mono',monospace;font-size:6.5pt;font-weight:600;text-transform:uppercase;letter-spacing:1.5px;color:var(--H2);padding-bottom:3px;border-bottom:1px solid var(--H2);margin-bottom:8px;}
+#tpl-mono .sec-title.sb{color:rgba(255,255,255,.55);border-bottom-color:rgba(255,255,255,.18);}
+#tpl-mono .sec-title::before{content:'// ';}
+#tpl-mono .sg{margin-bottom:5px;}
+#tpl-mono .sg-label{font-size:6pt;color:rgba(255,255,255,.38);text-transform:uppercase;letter-spacing:.8px;margin-bottom:2px;font-family:'IBM Plex Mono',monospace;}
+#tpl-mono .tag{font-size:6.2pt;padding:1px 6px;border-radius:2px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);color:rgba(255,255,255,.75);font-family:'IBM Plex Mono',monospace;display:inline-block;margin:1px 1px 0 0;}
+#tpl-mono .tag.hi{background:var(--H2);border-color:var(--H2);color:#fff;}
+#tpl-mono .edu-item{margin-bottom:5px;}
+#tpl-mono .edu-deg{font-size:6.8pt;font-weight:600;color:rgba(255,255,255,.85);font-family:'IBM Plex Mono',monospace;}
+#tpl-mono .edu-sch{font-size:6pt;color:rgba(255,255,255,.48);}
+#tpl-mono .edu-dt{font-size:5.8pt;color:var(--H3);font-weight:600;}
+#tpl-mono .cert-item{margin-bottom:4px;}
+#tpl-mono .cert-nm{font-size:6.8pt;font-weight:600;color:rgba(255,255,255,.82);line-height:1.3;}
+#tpl-mono .cert-is{font-size:6pt;color:rgba(255,255,255,.43);}
+#tpl-mono .cert-lk{font-size:5.8pt;color:var(--H2);text-decoration:none;}
+#tpl-mono .ach{font-size:6.5pt;color:rgba(255,255,255,.62);margin-bottom:3px;padding-left:10px;position:relative;font-family:'IBM Plex Mono',monospace;}
+#tpl-mono .ach::before{content:'#';position:absolute;left:0;color:var(--H2);}
+#tpl-mono .sb-div{height:1px;background:rgba(255,255,255,.09);margin:9px 0;}
+/* main (white bg) */
+#tpl-mono .r-section{background:#fff;}
+#tpl-mono .hgrid{display:grid;grid-template-columns:1fr 1fr;gap:4px;}
+#tpl-mono .hl{background:var(--PILL);border:1px solid var(--BORD);border-radius:3px;padding:4px 8px;font-size:6.8pt;font-weight:600;color:var(--H1);font-family:'IBM Plex Mono',monospace;}
+#tpl-mono .summary{font-size:7pt;color:var(--TX-S);line-height:1.55;padding:7px 10px;background:#f8fafc;border-left:2.5px solid var(--H2);border-radius:0 3px 3px 0;font-family:'IBM Plex Mono',monospace;}
+#tpl-mono .r-entry{margin-bottom:7px;}
+#tpl-mono .r-entry:last-child{margin-bottom:0;}
+#tpl-mono .eh{display:flex;justify-content:space-between;align-items:center;gap:6px;margin-bottom:1px;}
+#tpl-mono .jt{font-weight:600;font-size:7.8pt;color:var(--H1);}
+#tpl-mono .dt{font-size:6.3pt;color:var(--H2);font-weight:600;border:1px solid var(--H2);padding:1px 7px;border-radius:2px;font-family:'IBM Plex Mono',monospace;}
+#tpl-mono .co{font-size:6.8pt;color:var(--TX-S);margin-bottom:3px;font-family:'IBM Plex Mono',monospace;}
+#tpl-mono ul.bl{list-style:none;padding:0;margin:0;}
+#tpl-mono ul.bl li{font-size:7pt;color:var(--TX-S);margin-bottom:1px;padding-left:13px;position:relative;line-height:1.35;}
+#tpl-mono ul.bl li::before{content:'$ ';position:absolute;left:0;color:var(--H2);font-weight:600;font-family:'IBM Plex Mono',monospace;font-size:6.5pt;}
+#tpl-mono .divider{height:1px;background:#eef2f7;margin:5px 0;}
+#tpl-mono .proj{margin-bottom:5px;padding:5px 8px;background:#f8fafc;border-left:2.5px solid var(--H2);border-radius:0 3px 3px 0;}
+#tpl-mono .proj:last-child{margin-bottom:0;}
+#tpl-mono .pt{font-weight:600;font-size:7.5pt;color:var(--H1);margin-bottom:2px;}
+#tpl-mono .ptech{font-size:5.8pt;color:var(--H2);background:var(--PILL);border:1px solid var(--BORD);padding:1px 6px;border-radius:2px;display:inline-block;margin-bottom:3px;font-family:'IBM Plex Mono',monospace;}
+
+/* ─── PRINT ─── */
+@page{size:A4 portrait;margin:0;}
+@media print{
+  body{background:#fff!important;padding:0!important;}
+  .studio-bar{display:none!important;}
+  .preview-wrap{padding:0!important;}
+  #resume-frame{
+    box-shadow:none!important;border-radius:0!important;
+    width:210mm!important;min-height:297mm!important;max-height:none!important;
+  }
+  .tpl-content{height:auto!important;min-height:297mm!important;}
+  *{-webkit-print-color-adjust:exact!important;print-color-adjust:exact!important;}
+  a{color:inherit!important;text-decoration:none!important;}
+}
+</style>
+</head>
+<body>
+
+<!-- STUDIO BAR -->
+<div class="studio-bar">
+  <span class="studio-logo">✦ Resume Studio</span>
+
+  <span class="studio-label">Template</span>
+  <div class="picker-row" id="tpl-picker">
+    <button class="tpl-btn active" data-tpl="nova">Nova</button>
+    <button class="tpl-btn" data-tpl="edge">Edge</button>
+    <button class="tpl-btn" data-tpl="serif">Serif</button>
+    <button class="tpl-btn" data-tpl="mono">Mono</button>
+  </div>
+
+  <span class="studio-label" style="margin-left:4px;">Color</span>
+  <div class="picker-row" id="color-picker">
+    <div class="swatch active" data-theme="midnight" style="background:linear-gradient(135deg,#0d2137,#1565c0)" title="Midnight Blue"></div>
+    <div class="swatch" data-theme="emerald"  style="background:linear-gradient(135deg,#0a2118,#059669)" title="Emerald Forest"></div>
+    <div class="swatch" data-theme="rose"     style="background:linear-gradient(135deg,#3b0a1f,#be185d)" title="Rose Gold"></div>
+    <div class="swatch" data-theme="purple"   style="background:linear-gradient(135deg,#1e1240,#7c3aed)" title="Obsidian Purple"></div>
+    <div class="swatch" data-theme="slate"    style="background:linear-gradient(135deg,#0f172a,#334155)" title="Slate Carbon"></div>
+    <div class="swatch" data-theme="copper"   style="background:linear-gradient(135deg,#1c0f06,#b45309)" title="Copper Warm"></div>
+    <div class="swatch" data-theme="teal"     style="background:linear-gradient(135deg,#042f2e,#0f766e)" title="Teal Minimal"></div>
+    <div class="swatch" data-theme="crimson"  style="background:linear-gradient(135deg,#1a0505,#b91c1c)" title="Crimson Executive"></div>
+  </div>
+
+  <button class="dl-btn" id="dl-btn">⬇ Export PDF</button>
+</div>
+
+<!-- PREVIEW WRAPPER -->
+<div class="preview-wrap">
+<div id="resume-frame" class="theme-midnight">
+
+<!-- ══════════════════════════════════════
+     TEMPLATE 1 — NOVA
+══════════════════════════════════════ -->
+<div id="tpl-nova" class="tpl-content active">
+  <header class="r-header">
+    <div class="r-name">PAVAN KUMAR KODA</div>
+    <div class="r-tagline">Software Engineer · Java Backend · Spring Boot · AI &amp; Enterprise Systems</div>
+    <div class="r-contact">
+      <div class="ci">Hyderabad, India</div>
+      <div class="ci"><a href="tel:9704147418">9704147418</a></div>
+      <div class="ci"><a href="mailto:Pavankumarkoda007@gmail.com">Pavankumarkoda007@gmail.com</a></div>
+      <div class="ci" style="border-right:none;display:flex;gap:5px;align-items:center;">
+        <a href="https://pavankumarkoda.github.io/portfolio/" target="_blank" class="cpill">🌐 Portfolio</a>
+        <a href="https://www.linkedin.com/in/pavankoda/" target="_blank" class="cpill">in LinkedIn</a>
+        <a href="https://github.com/pavankumarkoda" target="_blank" class="cpill">⌥ GitHub</a>
+        <a href="https://leetcode.com/u/pavankoda/" target="_blank" class="cpill">⌘ LeetCode</a>
+      </div>
+    </div>
+  </header>
+  <div class="r-body">
+    <!-- SIDEBAR -->
+    <aside class="r-sidebar">
+      <div class="block">
+        <div class="sec-title sb">Technical Skills</div>
+        <div class="sg"><div class="sg-label">Languages</div>
+          <span class="tag hi">Java 21</span><span class="tag hi">Python</span>
+          <span class="tag">JavaScript</span><span class="tag">C#</span></div>
+        <div class="sg"><div class="sg-label">Frameworks</div>
+          <span class="tag hi">Spring Boot</span><span class="tag">Spring MVC</span><span class="tag">ReactJS</span></div>
+        <div class="sg"><div class="sg-label">Backend &amp; APIs</div>
+          <span class="tag hi">REST APIs</span><span class="tag hi">JWT</span>
+          <span class="tag">OAuth 2.0</span><span class="tag">RBAC</span></div>
+        <div class="sg"><div class="sg-label">Databases</div>
+          <span class="tag hi">MySQL</span><span class="tag">Oracle SQL</span><span class="tag">SQL Server</span></div>
+        <div class="sg"><div class="sg-label">Cloud &amp; Deploy</div>
+          <span class="tag hi">Docker</span><span class="tag">Linux</span>
+          <span class="tag">AWS S3</span><span class="tag">AWS Lambda</span>
+          <span class="tag">Git</span><span class="tag">Maven</span></div>
+        <div class="sg"><div class="sg-label">AI &amp; ML</div>
+          <span class="tag hi">RAG</span><span class="tag hi">LLM (Offline)</span>
+          <span class="tag">Vector Search</span><span class="tag">OpenCV</span></div>
+        <div class="sg"><div class="sg-label">Tools</div>
+          <span class="tag">IntelliJ IDEA</span><span class="tag">Postman</span>
+          <span class="tag">Tomcat</span><span class="tag">VS Code</span></div>
+      </div>
+      <div class="divider"></div>
+      <div class="block">
+        <div class="sec-title sb">Education</div>
+        <div class="edu-item">
+          <div class="edu-deg">B.Tech — Mechanical Engg.</div>
+          <div class="edu-sch">Malla Reddy Engineering College</div>
+          <div class="edu-sch" style="font-size:5.8pt;color:var(--LINK);">JNTU Hyderabad</div>
+          <div class="edu-dt">2020 – 2023</div>
+        </div>
+        <div class="edu-item">
+          <div class="edu-deg">Diploma — Mechanical Engg.</div>
+          <div class="edu-sch">Govt. Polytechnic, SBTET</div>
+          <div class="edu-dt">2017 – 2020</div>
+        </div>
+        <div class="edu-item">
+          <div class="edu-deg">SSC — SNMZP High School</div>
+        </div>
+        <div class="edu-item">
+          <div class="edu-deg">Full Stack Java Development</div>
+          <div class="edu-sch">QEdge Technologies, Hyderabad</div>
+          <div class="edu-dt">Sep 2023 – Mar 2024</div>
+        </div>
+      </div>
+      <div class="divider"></div>
+      <div class="block">
+        <div class="sec-title sb">Certifications</div>
+        <div class="cert-item">
+          <div class="cert-nm">Oracle Certified Professional Java SE Developer</div>
+          <div class="cert-is">Oracle Corporation</div>
+          <a href="https://catalog-education.oracle.com/pls/certview/sharebadge?id=E93AF429AB7580F8A84FFCDAD3EF1A0EF489A41BCBC63E9BA6983E2D7CF2C762" class="cert-lk" target="_blank">View Certificate ↗</a>
+        </div>
+        <div class="cert-item">
+          <div class="cert-nm">Oracle Certified AI Foundations Associate</div>
+          <div class="cert-is">Oracle Corporation</div>
+          <a href="https://catalog-education.oracle.com/pls/certview/sharebadge?id=6864808A81DE022DF53EA87E0983FC68F6319CCFE20D292D7DAB1F0A158349C1" class="cert-lk" target="_blank">View Certificate ↗</a>
+        </div>
+        <div class="cert-item">
+          <div class="cert-nm">NPTEL – Programming in Java (Elite)</div>
+          <div class="cert-is">IIT Kharagpur · Score: 70%</div>
+        </div>
+      </div>
+      <div class="divider"></div>
+      <div class="block">
+        <div class="sec-title sb">Achievements</div>
+        <div class="ach">TCS NQT — Score: 80.95 percentile</div>
+        <div class="ach">Solved <strong>500+ problems</strong> on LeetCode &amp; Code360</div>
+      </div>
+    </aside>
+    <!-- MAIN -->
+    <main class="r-main">
+      <div>
+        <div class="sec-title">Technical Highlights</div>
+        <div class="hgrid">
+          <div class="hl">Nearly 2 Years Enterprise Backend Experience</div>
+          <div class="hl">Offline AI RAG — Local LLM, Zero Cloud Dependency</div>
+          <div class="hl">Secure Document Lifecycle — RBAC, Audit Logging</div>
+          <div class="hl">Java 21 · Docker · AWS Lambda + S3 Deployment</div>
+          <div class="hl">Oracle Certified Professional Java SE Developer</div>
+          <div class="hl">500+ DSA Problems · TCS NQT 80.95 Percentile</div>
+        </div>
+      </div>
+      <div>
+        <div class="sec-title">Professional Summary</div>
+        <div class="summary">Software Engineer with nearly 2 years of experience building enterprise-grade Java 21 backends, AI-powered document systems, and secure REST APIs. Proficient in Spring Boot, MySQL, JWT, Docker, AWS Lambda, and offline RAG pipelines — passionate about scalable architecture, production-grade security, and delivering real-world operational impact.</div>
+      </div>
+      <div>
+        <div class="sec-title">Work Experience</div>
+        <div class="r-entry">
+          <div class="eh">
+            <span class="jt">Associate Software Developer</span>
+            <span class="dt">July 2024 – Present</span>
+          </div>
+          <div class="co">Adroitec Engineering Solutions Pvt. Ltd. — Hyderabad, India</div>
+          <ul class="bl">
+            <li>Engineered Spring Boot (Java 21) DMS containerized with Docker — full document lifecycle (Draft → Approved → Archived) with RBAC, audit logging, versioning, and multi-stage approval workflows.</li>
+            <li>Deployed offline LLMs with RAG pipeline for querying internal technical PDFs — instant citation-backed answers with zero cloud dependency.</li>
+            <li>Built VB.NET WPF desktop app integrating Creo APIs to automate parameter updates, assembly management, component renaming, and batch DRW-to-PDF export.</li>
+            <li>Developed Java 21 email-ingestion pipeline on AWS Lambda (S3-triggered) indexing emails into OpenAI vector store for semantic search and audit compliance.</li>
+          </ul>
+        </div>
+        <div class="divider"></div>
+        <div class="r-entry">
+          <div class="eh">
+            <span class="jt">Web Developer</span>
+            <span class="dt">Sep 2023 – Jun 2024</span>
+          </div>
+          <div class="co">Webzyte — Hyderabad, India</div>
+          <ul class="bl">
+            <li>Built responsive web apps using PHP, MySQL, HTML5, and JavaScript for multiple client projects.</li>
+            <li>Integrated Google OAuth 2.0 and Microsoft OAuth for secure third-party authentication.</li>
+          </ul>
+        </div>
+      </div>
+      <div>
+        <div class="sec-title">Key Projects</div>
+        <div class="proj">
+          <div class="pt">Offline PDF Intelligence System (RAG + Local LLM)</div>
+          <div class="ptech">Python · LLM · RAG · PDF Parsing · Offline Inference</div>
+          <ul class="bl">
+            <li>Deployed local LLMs with RAG — answers sourced strictly from uploaded PDFs with no cloud dependency; supports fully offline, air-gapped enterprise environments.</li>
+            <li>Built PDF chunking, vector embedding, and semantic search pipeline for citation-backed responses.</li>
+          </ul>
+        </div>
+        <div class="proj">
+          <div class="pt">Enterprise DMS + Codes &amp; Standards Browser</div>
+          <div class="ptech">Java 21 · Spring Boot · MySQL · REST API · RBAC · JWT · Docker · PDF Security</div>
+          <ul class="bl">
+            <li>Dockerized DMS with full lifecycle — uploads, versioning, RBAC, audit logging, full-text search, role-based PDF access for engineering compliance.</li>
+          </ul>
+        </div>
+        <div class="proj">
+          <div class="pt">Email Intelligence Pipeline — AWS Lambda + OpenAI Vector Store</div>
+          <div class="ptech">Java 21 · AWS Lambda · S3 · OpenAI API · Vector Store</div>
+          <ul class="bl">
+            <li>JAR on AWS Lambda auto-ingests S3-triggered emails into OpenAI vector store — enables semantic inbox search and audit/compliance workflows.</li>
+          </ul>
+        </div>
+        <div class="proj">
+          <div class="pt">WPF Desktop App — Creo CAD Automation</div>
+          <div class="ptech">VB.NET · SQL Server · Creo API · WPF</div>
+          <ul class="bl">
+            <li>Automated Creo CAD tasks — parameter updates, UCS assembly, feature deletion, and batch PDF export eliminating manual effort.</li>
+          </ul>
+        </div>
+      </div>
+    </main>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════
+     TEMPLATE 2 — EDGE
+══════════════════════════════════════ -->
+<div id="tpl-edge" class="tpl-content">
+  <header class="r-header">
+    <div>
+      <div class="r-name">PAVAN KUMAR KODA</div>
+      <div class="r-tagline">Software Engineer · Java Backend · Spring Boot · AI &amp; Enterprise Systems</div>
+    </div>
+    <div class="hdr-right">
+      <span class="hcl">Hyderabad, India</span>
+      <a href="tel:9704147418" class="hcl">9704147418</a>
+      <a href="mailto:Pavankumarkoda007@gmail.com" class="hcl">Pavankumarkoda007@gmail.com</a>
+      <div class="pills">
+        <a href="https://pavankumarkoda.github.io/portfolio/" target="_blank" class="cpill">Portfolio</a>
+        <a href="https://www.linkedin.com/in/pavankoda/" target="_blank" class="cpill">LinkedIn</a>
+        <a href="https://github.com/pavankumarkoda" target="_blank" class="cpill">GitHub</a>
+        <a href="https://leetcode.com/u/pavankoda/" target="_blank" class="cpill">LeetCode</a>
+      </div>
+    </div>
+  </header>
+  <div class="r-body">
+    <aside class="r-sidebar">
+      <div class="sec-title sb">Skills</div>
+      <div class="sg"><div class="sg-label">Languages</div>
+        <span class="tag hi">Java 21</span><span class="tag hi">Python</span>
+        <span class="tag">JavaScript</span><span class="tag">C#</span></div>
+      <div class="sg"><div class="sg-label">Frameworks</div>
+        <span class="tag hi">Spring Boot</span><span class="tag">Spring MVC</span><span class="tag">ReactJS</span></div>
+      <div class="sg"><div class="sg-label">APIs &amp; Security</div>
+        <span class="tag hi">REST APIs</span><span class="tag hi">JWT</span>
+        <span class="tag">OAuth 2.0</span><span class="tag">RBAC</span></div>
+      <div class="sg"><div class="sg-label">Databases</div>
+        <span class="tag hi">MySQL</span><span class="tag">Oracle SQL</span><span class="tag">SQL Server</span></div>
+      <div class="sg"><div class="sg-label">Cloud &amp; Deploy</div>
+        <span class="tag hi">Docker</span><span class="tag">AWS Lambda</span>
+        <span class="tag">AWS S3</span><span class="tag">Linux</span><span class="tag">Git</span></div>
+      <div class="sg"><div class="sg-label">AI &amp; ML</div>
+        <span class="tag hi">RAG</span><span class="tag hi">LLM Offline</span>
+        <span class="tag">Vector Search</span><span class="tag">OpenCV</span></div>
+      <div class="sb-div"></div>
+      <div class="sec-title sb">Education</div>
+      <div class="edu-item">
+        <div class="edu-deg">B.Tech — Mechanical Engg.</div>
+        <div class="edu-sch">Malla Reddy Engineering College</div>
+        <div class="edu-sch">JNTU Hyderabad</div>
+        <div class="edu-dt">2020 – 2023</div>
+      </div>
+      <div class="edu-item">
+        <div class="edu-deg">Diploma — Mechanical Engg.</div>
+        <div class="edu-sch">Govt. Polytechnic, SBTET</div>
+        <div class="edu-dt">2017 – 2020</div>
+      </div>
+      <div class="edu-item">
+        <div class="edu-deg">Full Stack Java Dev.</div>
+        <div class="edu-sch">QEdge Technologies</div>
+        <div class="edu-dt">Sep 2023 – Mar 2024</div>
+      </div>
+      <div class="sb-div"></div>
+      <div class="sec-title sb">Certifications</div>
+      <div class="cert-item">
+        <div class="cert-nm">Oracle Certified Professional Java SE Developer</div>
+        <div class="cert-is">Oracle Corporation</div>
+        <a href="https://catalog-education.oracle.com/pls/certview/sharebadge?id=E93AF429AB7580F8A84FFCDAD3EF1A0EF489A41BCBC63E9BA6983E2D7CF2C762" class="cert-lk" target="_blank">View ↗</a>
+      </div>
+      <div class="cert-item">
+        <div class="cert-nm">Oracle Certified AI Foundations Associate</div>
+        <div class="cert-is">Oracle Corporation</div>
+        <a href="https://catalog-education.oracle.com/pls/certview/sharebadge?id=6864808A81DE022DF53EA87E0983FC68F6319CCFE20D292D7DAB1F0A158349C1" class="cert-lk" target="_blank">View ↗</a>
+      </div>
+      <div class="cert-item">
+        <div class="cert-nm">NPTEL – Java (Elite)</div>
+        <div class="cert-is">IIT Kharagpur · 70%</div>
+      </div>
+      <div class="sb-div"></div>
+      <div class="sec-title sb">Achievements</div>
+      <div class="ach">TCS NQT — 80.95 percentile</div>
+      <div class="ach">500+ LeetCode &amp; Code360 solutions</div>
+    </aside>
+    <main class="r-main">
+      <div>
+        <div class="sec-title">Highlights</div>
+        <div class="hgrid">
+          <div class="hl">~2 Years Enterprise Backend Experience</div>
+          <div class="hl">Offline AI RAG — Zero Cloud Dependency</div>
+          <div class="hl">Secure DMS — RBAC &amp; Audit Logging</div>
+          <div class="hl">Java 21 · Docker · AWS Lambda + S3</div>
+          <div class="hl">Oracle Certified Java SE Professional</div>
+          <div class="hl">500+ DSA · TCS NQT 80.95 Percentile</div>
+        </div>
+      </div>
+      <div>
+        <div class="sec-title">Professional Summary</div>
+        <div class="summary">Software Engineer with nearly 2 years of experience building enterprise-grade Java 21 backends, AI-powered document systems, and secure REST APIs. Proficient in Spring Boot, MySQL, JWT, Docker, AWS Lambda, and offline RAG pipelines — passionate about scalable architecture, production-grade security, and delivering real-world operational impact.</div>
+      </div>
+      <div>
+        <div class="sec-title">Work Experience</div>
+        <div class="r-entry">
+          <div class="eh">
+            <span class="jt">Associate Software Developer</span>
+            <span class="dt">July 2024 – Present</span>
+          </div>
+          <div class="co">Adroitec Engineering Solutions Pvt. Ltd. — Hyderabad, India</div>
+          <ul class="bl">
+            <li>Engineered Spring Boot (Java 21) DMS with Docker — full document lifecycle, RBAC, audit logging, versioning, and multi-stage approval workflows.</li>
+            <li>Deployed offline LLMs with RAG pipeline for querying internal technical PDFs — zero cloud dependency.</li>
+            <li>Built VB.NET WPF desktop app integrating Creo APIs for parameter updates, assembly management, and batch PDF export.</li>
+            <li>Developed Java 21 email-ingestion pipeline on AWS Lambda (S3-triggered) for semantic search and audit compliance.</li>
+          </ul>
+        </div>
+        <div class="r-entry">
+          <div class="eh">
+            <span class="jt">Web Developer</span>
+            <span class="dt">Sep 2023 – Jun 2024</span>
+          </div>
+          <div class="co">Webzyte — Hyderabad, India</div>
+          <ul class="bl">
+            <li>Built responsive web apps using PHP, MySQL, HTML5, and JavaScript for multiple client projects.</li>
+            <li>Integrated Google OAuth 2.0 and Microsoft OAuth for secure third-party authentication.</li>
+          </ul>
+        </div>
+      </div>
+      <div>
+        <div class="sec-title">Key Projects</div>
+        <div class="proj">
+          <div class="pt">Offline PDF Intelligence System (RAG + Local LLM)</div>
+          <div class="ptech">Python · LLM · RAG · PDF Parsing · Offline Inference</div>
+          <ul class="bl">
+            <li>Local LLMs with RAG — citation-backed answers from PDFs, fully offline &amp; air-gapped enterprise support.</li>
+            <li>PDF chunking, vector embedding, and semantic search pipeline.</li>
+          </ul>
+        </div>
+        <div class="proj">
+          <div class="pt">Enterprise DMS + Codes &amp; Standards Browser</div>
+          <div class="ptech">Java 21 · Spring Boot · MySQL · RBAC · JWT · Docker</div>
+          <ul class="bl">
+            <li>Full document lifecycle — versioning, RBAC, audit logging, full-text search &amp; role-based PDF access control.</li>
+          </ul>
+        </div>
+        <div class="proj">
+          <div class="pt">Email Intelligence Pipeline — AWS Lambda + OpenAI Vector Store</div>
+          <div class="ptech">Java 21 · AWS Lambda · S3 · OpenAI API · Vector Store</div>
+          <ul class="bl">
+            <li>Auto-ingests S3-triggered emails into OpenAI vector store for semantic inbox search and compliance.</li>
+          </ul>
+        </div>
+        <div class="proj">
+          <div class="pt">WPF Desktop App — Creo CAD Automation</div>
+          <div class="ptech">VB.NET · SQL Server · Creo API · WPF</div>
+          <ul class="bl">
+            <li>Automated Creo CAD tasks — parameter updates, UCS assembly, feature deletion, batch PDF export.</li>
+          </ul>
+        </div>
+      </div>
+    </main>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════
+     TEMPLATE 3 — SERIF
+══════════════════════════════════════ -->
+<div id="tpl-serif" class="tpl-content">
+  <header class="r-header">
+    <div class="r-name">Pavan Kumar Koda</div>
+    <div class="r-tagline">Software Engineer · Java Backend · Spring Boot · AI &amp; Enterprise Systems</div>
+    <div class="r-contact">
+      <div class="ci">Hyderabad, India</div>
+      <div class="ci"><a href="tel:9704147418">9704147418</a></div>
+      <div class="ci"><a href="mailto:Pavankumarkoda007@gmail.com">Pavankumarkoda007@gmail.com</a></div>
+      <div class="ci" style="border-right:none;display:flex;gap:5px;align-items:center;">
+        <a href="https://pavankumarkoda.github.io/portfolio/" target="_blank" class="cpill">Portfolio</a>
+        <a href="https://www.linkedin.com/in/pavankoda/" target="_blank" class="cpill">LinkedIn</a>
+        <a href="https://github.com/pavankumarkoda" target="_blank" class="cpill">GitHub</a>
+        <a href="https://leetcode.com/u/pavankoda/" target="_blank" class="cpill">LeetCode</a>
+      </div>
+    </div>
+  </header>
+  <div class="r-body">
+    <aside class="r-sidebar">
+      <div class="block">
+        <div class="sec-title sb">Skills</div>
+        <div class="sg"><div class="sg-label">Languages</div>
+          <span class="tag hi">Java 21</span><span class="tag hi">Python</span>
+          <span class="tag">JavaScript</span><span class="tag">C#</span></div>
+        <div class="sg"><div class="sg-label">Frameworks</div>
+          <span class="tag hi">Spring Boot</span><span class="tag">Spring MVC</span><span class="tag">ReactJS</span></div>
+        <div class="sg"><div class="sg-label">APIs &amp; Security</div>
+          <span class="tag hi">REST APIs</span><span class="tag hi">JWT</span>
+          <span class="tag">OAuth 2.0</span><span class="tag">RBAC</span></div>
+        <div class="sg"><div class="sg-label">Databases</div>
+          <span class="tag hi">MySQL</span><span class="tag">Oracle SQL</span><span class="tag">SQL Server</span></div>
+        <div class="sg"><div class="sg-label">Cloud &amp; Deploy</div>
+          <span class="tag hi">Docker</span><span class="tag">AWS Lambda</span>
+          <span class="tag">AWS S3</span><span class="tag">Linux</span><span class="tag">Git</span></div>
+        <div class="sg"><div class="sg-label">AI &amp; ML</div>
+          <span class="tag hi">RAG</span><span class="tag hi">LLM Offline</span>
+          <span class="tag">Vector Search</span><span class="tag">OpenCV</span></div>
+      </div>
+      <div class="block">
+        <div class="sec-title sb">Education</div>
+        <div class="edu-item">
+          <div class="edu-deg">B.Tech — Mechanical Engg.</div>
+          <div class="edu-sch">Malla Reddy Engineering College, JNTU Hyderabad</div>
+          <div class="edu-dt">2020 – 2023</div>
+        </div>
+        <div class="edu-item">
+          <div class="edu-deg">Diploma — Mechanical Engg.</div>
+          <div class="edu-sch">Govt. Polytechnic, SBTET</div>
+          <div class="edu-dt">2017 – 2020</div>
+        </div>
+        <div class="edu-item">
+          <div class="edu-deg">Full Stack Java Development</div>
+          <div class="edu-sch">QEdge Technologies, Hyderabad</div>
+          <div class="edu-dt">Sep 2023 – Mar 2024</div>
+        </div>
+      </div>
+      <div class="block">
+        <div class="sec-title sb">Certifications</div>
+        <div class="cert-item">
+          <div class="cert-nm">Oracle Certified Professional Java SE Developer</div>
+          <div class="cert-is">Oracle Corporation</div>
+          <a href="https://catalog-education.oracle.com/pls/certview/sharebadge?id=E93AF429AB7580F8A84FFCDAD3EF1A0EF489A41BCBC63E9BA6983E2D7CF2C762" class="cert-lk" target="_blank">View Certificate ↗</a>
+        </div>
+        <div class="cert-item">
+          <div class="cert-nm">Oracle Certified AI Foundations Associate</div>
+          <div class="cert-is">Oracle Corporation</div>
+          <a href="https://catalog-education.oracle.com/pls/certview/sharebadge?id=6864808A81DE022DF53EA87E0983FC68F6319CCFE20D292D7DAB1F0A158349C1" class="cert-lk" target="_blank">View Certificate ↗</a>
+        </div>
+        <div class="cert-item">
+          <div class="cert-nm">NPTEL – Programming in Java (Elite)</div>
+          <div class="cert-is">IIT Kharagpur · Score: 70%</div>
+        </div>
+      </div>
+      <div class="block">
+        <div class="sec-title sb">Achievements</div>
+        <div class="ach">TCS NQT — Score: 80.95 percentile</div>
+        <div class="ach">Solved <strong>500+ problems</strong> on LeetCode &amp; Code360</div>
+      </div>
+    </aside>
+    <main class="r-main">
+      <div>
+        <div class="sec-title">Technical Highlights</div>
+        <div class="hgrid">
+          <div class="hl">~2 Years Enterprise Backend Experience</div>
+          <div class="hl">Offline AI RAG Systems — Zero Cloud Dependency</div>
+          <div class="hl">Secure Document Lifecycle — RBAC, Audit Logging</div>
+          <div class="hl">Java 21 · Docker · AWS Lambda + S3 Deployment</div>
+          <div class="hl">Oracle Certified Professional Java SE Developer</div>
+        </div>
+      </div>
+      <div>
+        <div class="sec-title">Professional Summary</div>
+        <div class="summary">Software Engineer with nearly 2 years of experience building enterprise-grade Java 21 backends, AI-powered document systems, and secure REST APIs. Proficient in Spring Boot, MySQL, JWT, Docker, AWS Lambda, and offline RAG pipelines — passionate about scalable architecture, production-grade security, and delivering real-world operational impact.</div>
+      </div>
+      <div>
+        <div class="sec-title">Work Experience</div>
+        <div class="r-entry">
+          <div class="eh">
+            <span class="jt">Associate Software Developer</span>
+            <span class="dt">July 2024 – Present</span>
+          </div>
+          <div class="co">Adroitec Engineering Solutions Pvt. Ltd. — Hyderabad, India</div>
+          <ul class="bl">
+            <li>Engineered Spring Boot (Java 21) DMS containerized with Docker — full document lifecycle (Draft → Approved → Archived) with RBAC, audit logging, versioning, and multi-stage approval workflows.</li>
+            <li>Deployed offline LLMs with RAG pipeline for querying internal technical PDFs — citation-backed answers with zero cloud dependency.</li>
+            <li>Built VB.NET WPF desktop app integrating Creo APIs for parameter updates, assembly management, and batch DRW-to-PDF export.</li>
+            <li>Developed Java 21 email-ingestion pipeline on AWS Lambda (S3-triggered) for semantic search and audit compliance.</li>
+          </ul>
+        </div>
+        <div class="r-entry">
+          <div class="eh">
+            <span class="jt">Web Developer</span>
+            <span class="dt">Sep 2023 – Jun 2024</span>
+          </div>
+          <div class="co">Webzyte — Hyderabad, India</div>
+          <ul class="bl">
+            <li>Built responsive web apps using PHP, MySQL, HTML5, and JavaScript for multiple client projects.</li>
+            <li>Integrated Google OAuth 2.0 and Microsoft OAuth for secure third-party authentication.</li>
+          </ul>
+        </div>
+      </div>
+      <div>
+        <div class="sec-title">Key Projects</div>
+        <div class="proj">
+          <div class="pt">Offline PDF Intelligence System (RAG + Local LLM)</div>
+          <div class="ptech">Python · LLM · RAG · PDF Parsing · Offline Inference</div>
+          <ul class="bl">
+            <li>Local LLMs with RAG — citation-backed answers from PDFs, fully offline, air-gapped environments supported.</li>
+            <li>PDF chunking, vector embedding, and semantic search pipeline for citation-backed responses.</li>
+          </ul>
+        </div>
+        <div class="proj">
+          <div class="pt">Enterprise DMS + Codes &amp; Standards Browser</div>
+          <div class="ptech">Java 21 · Spring Boot · MySQL · RBAC · JWT · Docker · PDF Security</div>
+          <ul class="bl">
+            <li>Full document lifecycle — versioning, RBAC, audit logging, full-text search, role-based PDF access control for engineering compliance.</li>
+          </ul>
+        </div>
+        <div class="proj">
+          <div class="pt">Email Intelligence — AWS Lambda + OpenAI Vector Store</div>
+          <div class="ptech">Java 21 · AWS Lambda · S3 · OpenAI API · Vector Store</div>
+          <ul class="bl">
+            <li>Auto-ingests S3-triggered emails into OpenAI vector store for semantic inbox search and compliance workflows.</li>
+          </ul>
+        </div>
+        <div class="proj">
+          <div class="pt">WPF Desktop App — Creo CAD Automation</div>
+          <div class="ptech">VB.NET · SQL Server · Creo API · WPF</div>
+          <ul class="bl">
+            <li>Automated Creo CAD tasks — parameter updates, UCS assembly, feature deletion, batch PDF export.</li>
+          </ul>
+        </div>
+      </div>
+    </main>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════
+     TEMPLATE 4 — MONO
+══════════════════════════════════════ -->
+<div id="tpl-mono" class="tpl-content">
+  <header class="r-header">
+    <div class="hdr-top">
+      <div>
+        <div class="r-name">PAVAN KUMAR KODA</div>
+        <div class="r-tagline">// Software Engineer · Java Backend · Spring Boot · AI &amp; Enterprise Systems</div>
+      </div>
+      <div style="display:flex;gap:5px;align-items:center;flex-shrink:0;">
+        <a href="https://pavankumarkoda.github.io/portfolio/" target="_blank" class="cpill">Portfolio</a>
+        <a href="https://www.linkedin.com/in/pavankoda/" target="_blank" class="cpill">LinkedIn</a>
+        <a href="https://github.com/pavankumarkoda" target="_blank" class="cpill">GitHub</a>
+        <a href="https://leetcode.com/u/pavankoda/" target="_blank" class="cpill">LeetCode</a>
+      </div>
+    </div>
+    <div class="r-contact" style="margin-top:8px;">
+      <div class="ci">📍 Hyderabad, India</div>
+      <div class="ci"><a href="tel:9704147418">📞 9704147418</a></div>
+      <div class="ci"><a href="mailto:Pavankumarkoda007@gmail.com">✉ Pavankumarkoda007@gmail.com</a></div>
+    </div>
+  </header>
+  <div class="r-body">
+    <aside class="r-sidebar">
+      <div class="sec-title sb">Skills</div>
+      <div class="sg"><div class="sg-label">Languages</div>
+        <span class="tag hi">Java 21</span><span class="tag hi">Python</span>
+        <span class="tag">JavaScript</span><span class="tag">C#</span></div>
+      <div class="sg"><div class="sg-label">Frameworks</div>
+        <span class="tag hi">Spring Boot</span><span class="tag">Spring MVC</span><span class="tag">ReactJS</span></div>
+      <div class="sg"><div class="sg-label">APIs &amp; Security</div>
+        <span class="tag hi">REST APIs</span><span class="tag hi">JWT</span>
+        <span class="tag">OAuth 2.0</span><span class="tag">RBAC</span></div>
+      <div class="sg"><div class="sg-label">Databases</div>
+        <span class="tag hi">MySQL</span><span class="tag">Oracle SQL</span><span class="tag">SQL Server</span></div>
+      <div class="sg"><div class="sg-label">Cloud &amp; Deploy</div>
+        <span class="tag hi">Docker</span><span class="tag">AWS Lambda</span>
+        <span class="tag">AWS S3</span><span class="tag">Linux</span><span class="tag">Git</span></div>
+      <div class="sg"><div class="sg-label">AI &amp; ML</div>
+        <span class="tag hi">RAG</span><span class="tag hi">LLM Offline</span>
+        <span class="tag">Vector Search</span><span class="tag">OpenCV</span></div>
+      <div class="sb-div"></div>
+      <div class="sec-title sb">Education</div>
+      <div class="edu-item">
+        <div class="edu-deg">B.Tech — Mech. Engg.</div>
+        <div class="edu-sch">Malla Reddy, JNTU Hyd</div>
+        <div class="edu-dt">2020 – 2023</div>
+      </div>
+      <div class="edu-item">
+        <div class="edu-deg">Diploma — Mech. Engg.</div>
+        <div class="edu-sch">Govt. Polytechnic, SBTET</div>
+        <div class="edu-dt">2017 – 2020</div>
+      </div>
+      <div class="edu-item">
+        <div class="edu-deg">Full Stack Java Dev.</div>
+        <div class="edu-sch">QEdge Technologies</div>
+        <div class="edu-dt">Sep 2023 – Mar 2024</div>
+      </div>
+      <div class="sb-div"></div>
+      <div class="sec-title sb">Certifications</div>
+      <div class="cert-item">
+        <div class="cert-nm">Oracle Java SE Professional</div>
+        <div class="cert-is">Oracle Corporation</div>
+        <a href="https://catalog-education.oracle.com/pls/certview/sharebadge?id=E93AF429AB7580F8A84FFCDAD3EF1A0EF489A41BCBC63E9BA6983E2D7CF2C762" class="cert-lk" target="_blank">View ↗</a>
+      </div>
+      <div class="cert-item">
+        <div class="cert-nm">Oracle AI Foundations Associate</div>
+        <div class="cert-is">Oracle Corporation</div>
+        <a href="https://catalog-education.oracle.com/pls/certview/sharebadge?id=6864808A81DE022DF53EA87E0983FC68F6319CCFE20D292D7DAB1F0A158349C1" class="cert-lk" target="_blank">View ↗</a>
+      </div>
+      <div class="cert-item">
+        <div class="cert-nm">NPTEL – Java (Elite)</div>
+        <div class="cert-is">IIT Kharagpur · 70%</div>
+      </div>
+      <div class="sb-div"></div>
+      <div class="sec-title sb">Achievements</div>
+      <div class="ach">TCS NQT — 80.95 percentile</div>
+      <div class="ach">500+ LeetCode &amp; Code360</div>
+    </aside>
+    <main class="r-main">
+      <div>
+        <div class="sec-title">highlights</div>
+        <div class="hgrid">
+          <div class="hl">~2 Yrs Enterprise Backend</div>
+          <div class="hl">Offline AI RAG Pipeline</div>
+          <div class="hl">RBAC + JWT Secure DMS</div>
+          <div class="hl">Docker · AWS Lambda · S3</div>
+          <div class="hl">Oracle Java SE Certified</div>
+          <div class="hl">500+ DSA · TCS NQT 80.95%</div>
+        </div>
+      </div>
+      <div>
+        <div class="sec-title">summary</div>
+        <div class="summary">Software Engineer with ~2 years building enterprise Java 21 backends, AI-powered document systems, and secure REST APIs. Skilled in Spring Boot, MySQL, JWT, Docker, AWS Lambda, offline RAG pipelines — focused on scalable architecture and production-grade security.</div>
+      </div>
+      <div>
+        <div class="sec-title">experience</div>
+        <div class="r-entry">
+          <div class="eh">
+            <span class="jt">Associate Software Developer</span>
+            <span class="dt">Jul 2024 – Present</span>
+          </div>
+          <div class="co">Adroitec Engineering Solutions — Hyderabad</div>
+          <ul class="bl">
+            <li>Spring Boot (Java 21) DMS with Docker — RBAC, audit logging, versioning, multi-stage approval workflows.</li>
+            <li>Offline LLM + RAG pipeline for querying internal PDFs — zero cloud dependency.</li>
+            <li>VB.NET WPF app integrating Creo APIs — parameter updates, assembly management, batch PDF export.</li>
+            <li>Java 21 AWS Lambda pipeline — S3-triggered email ingestion into OpenAI vector store for compliance.</li>
+          </ul>
+        </div>
+        <div class="divider"></div>
+        <div class="r-entry">
+          <div class="eh">
+            <span class="jt">Web Developer</span>
+            <span class="dt">Sep 2023 – Jun 2024</span>
+          </div>
+          <div class="co">Webzyte — Hyderabad</div>
+          <ul class="bl">
+            <li>Responsive web apps with PHP, MySQL, HTML5, JavaScript for multiple client projects.</li>
+            <li>Integrated Google OAuth 2.0 and Microsoft OAuth for secure third-party authentication.</li>
+          </ul>
+        </div>
+      </div>
+      <div>
+        <div class="sec-title">projects</div>
+        <div class="proj">
+          <div class="pt">Offline PDF Intelligence System (RAG + Local LLM)</div>
+          <div class="ptech">Python · LLM · RAG · Vector Embeddings · Offline Inference</div>
+          <ul class="bl">
+            <li>Local LLMs with RAG — citation-backed answers from PDFs, fully offline &amp; air-gapped.</li>
+            <li>PDF chunking, vector embedding, semantic search pipeline.</li>
+          </ul>
+        </div>
+        <div class="proj">
+          <div class="pt">Enterprise DMS + Codes &amp; Standards Browser</div>
+          <div class="ptech">Java 21 · Spring Boot · MySQL · RBAC · JWT · Docker</div>
+          <ul class="bl">
+            <li>Full document lifecycle — versioning, RBAC, audit logging, full-text search, role-based PDF access.</li>
+          </ul>
+        </div>
+        <div class="proj">
+          <div class="pt">Email Intelligence — AWS Lambda + OpenAI Vector Store</div>
+          <div class="ptech">Java 21 · AWS Lambda · S3 · OpenAI · Vector Store</div>
+          <ul class="bl">
+            <li>Auto-ingests S3-triggered emails into vector store for semantic search and compliance.</li>
+          </ul>
+        </div>
+        <div class="proj">
+          <div class="pt">WPF Desktop App — Creo CAD Automation</div>
+          <div class="ptech">VB.NET · SQL Server · Creo API · WPF</div>
+          <ul class="bl">
+            <li>Automated Creo CAD tasks — parameter updates, assembly, feature deletion, batch PDF export.</li>
+          </ul>
+        </div>
+      </div>
+    </main>
+  </div>
+</div>
+
+</div><!-- /resume-frame -->
+</div><!-- /preview-wrap -->
+
+<script>
+const frame = document.getElementById('resume-frame');
+let currentTpl = 'nova';
+
+// Template switcher
+document.getElementById('tpl-picker').querySelectorAll('.tpl-btn').forEach(btn => {
